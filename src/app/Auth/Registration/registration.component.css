@@ -12,3 +12,15 @@
   display: flex;
   flex-direction: column;
 }
+
+:host ::ng-deep .mat-horizontal-content-container{
+  padding: 0;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container :first-child{
+  padding-left: 0;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container :last-child{
+  padding-right: 0;
+}
