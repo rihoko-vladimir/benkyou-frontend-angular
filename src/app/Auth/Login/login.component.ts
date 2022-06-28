@@ -2,9 +2,6 @@ import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
-//Password must contain one uppercase char, one digit and be at least 8 chars long
-const regExpr = `^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d).*$`;
-
 @Component({
   selector: "login",
   templateUrl: "login.component.html",
@@ -15,7 +12,7 @@ export class LoginComponent{
   loginControl = new FormControl("",
     [Validators.required, Validators.email])
   passwordControl = new FormControl("",
-    [Validators.required, Validators.pattern(regExpr)])
+    [Validators.required])
 
   isPasswordHidden = false
 
@@ -43,8 +40,6 @@ export class LoginComponent{
   }
 
   getPasswordErrorMessage() : string {
-    if (this.passwordControl.hasError(Validators.pattern.name)) return "Password must contain one uppercase character, one digit and be at least 8 characters long"
-
     if (this.passwordControl.hasError(Validators.required.name)) return "This field can not be empty"
 
     return "An Unknown error have occurred";

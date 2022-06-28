@@ -5,19 +5,23 @@
       <form [formGroup]="credentialsFormGroup" class="forms">
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Username</mat-label>
-          <input matInput placeholder="Your creative Username" formControlName="userControl">
+          <input matInput placeholder="Your creative Username" formControlName="userNameControl">
+          <mat-error *ngIf="credentialsFormGroup.controls.userNameControl.invalid">{{getUserNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Email</mat-label>
           <input matInput placeholder="youremail@mail.com" formControlName="emailControl">
+          <mat-error *ngIf="credentialsFormGroup.controls.emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">First Name</mat-label>
           <input matInput placeholder="John" formControlName="firstNameControl">
+          <mat-error *ngIf="credentialsFormGroup.controls.firstNameControl.invalid">{{getFirstNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Last Name</mat-label>
           <input matInput placeholder="Smith" formControlName="lastNameControl">
+          <mat-error *ngIf="credentialsFormGroup.controls.lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
         </mat-form-field>
       </form>
     </mat-step>
@@ -26,52 +30,20 @@
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Password</mat-label>
           <input matInput placeholder="Your very secure password" formControlName="passwordControl">
+          <mat-error *ngIf="passwordFormGroup.controls.passwordControl">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Password confirmation</mat-label>
           <input matInput placeholder="Your very secure password confirmation" formControlName="passwordConfirmationControl">
+          <mat-error *ngIf="passwordFormGroup.controls.passwordConfirmationControl">{{getPasswordConfirmationErrorMessage()}}</mat-error>
         </mat-form-field>
       </form>
     </mat-step>
     <mat-step label="Terms">
-      <form [formGroup]="credentialsFormGroup" class="forms">
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Username</mat-label>
-          <input matInput placeholder="Your creative Username" formControlName="userControl">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Email</mat-label>
-          <input matInput placeholder="youremail@mail.com" formControlName="emailControl">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">First Name</mat-label>
-          <input matInput placeholder="John" formControlName="firstNameControl">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Last Name</mat-label>
-          <input matInput placeholder="Smith" formControlName="lastNameControl">
-        </mat-form-field>
-      </form>
+
     </mat-step>
     <mat-step label="Confirmation">
-      <form [formGroup]="credentialsFormGroup" class="forms">
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Username</mat-label>
-          <input matInput placeholder="Your creative Username" formControlName="userControl">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Email</mat-label>
-          <input matInput placeholder="youremail@mail.com" formControlName="emailControl">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">First Name</mat-label>
-          <input matInput placeholder="John" formControlName="firstNameControl">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Last Name</mat-label>
-          <input matInput placeholder="Smith" formControlName="lastNameControl">
-        </mat-form-field>
-      </form>
+
     </mat-step>
   </mat-stepper>
   <div class="buttons">
