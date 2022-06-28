@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
 
 //Password must contain one uppercase char, one digit and be at least 8 chars long
 const regExpr = `^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d).*$`;
@@ -18,25 +19,34 @@ export class LoginComponent{
 
   isPasswordHidden = false
 
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
+
   onLoginClicked(){
-    console.log(`login clicked!, user typed: ${this.loginControl.value}, ${this.passwordControl.value}`)
-  }
-
-  onRegistrationClicked(){
-    console.log(`registration clicked!`)
-  }
-
-  getEmailErrorMessage() {
-    if (this.loginControl.hasError("email")){
-      return "Incorrect email provided"
+    if (this.loginControl.valid && this.passwordControl.valid) console.log(`login clicked!, user typed: ${this.loginControl.value}, ${this.passwordControl.value}`)
+    else {
+      this.loginControl.markAsTouched()
+      this.passwordControl.markAsTouched()
     }
-    return "This field is required to log in :P"
   }
 
-  getPasswordErrorMessage() {
-    if (this.passwordControl.hasError("pattern")){
-      return "Password must contain one uppercase character, one digit and be at least 8 characters long"
-    }
-    return "This field can not be empty"
+  async onRegistrationClicked(){
+    await this.router.navigate(["register"], {relativeTo: this.route})
+  }
+
+  getEmailErrorMessage() : string {
+    if (this.loginControl.hasError(Validators.email.name)) return "Incorrect email provided"
+
+    if (this.loginControl.hasError(Validators.required.name)) return "This field is required to log in :P"
+
+    return "An Unknown error have occurred";
+  }
+
+  getPasswordErrorMessage() : string {
+    if (this.passwordControl.hasError(Validators.pattern.name)) return "Password must contain one uppercase character, one digit and be at least 8 characters long"
+
+    if (this.passwordControl.hasError(Validators.required.name)) return "This field can not be empty"
+
+    return "An Unknown error have occurred";
   }
 }

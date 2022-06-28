@@ -1,0 +1,14 @@
+.buttons{
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between
+}
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.forms{
+  display: flex;
+  flex-direction: column;
+}
