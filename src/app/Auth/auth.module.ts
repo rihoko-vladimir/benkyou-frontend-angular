@@ -7,6 +7,7 @@ import {MaterialModule} from "../Modules/material.module";
 import {AppRoutingModule} from "../Modules/routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
+import {CodeInputModule} from "angular-code-input";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,14 @@ import {BrowserModule} from "@angular/platform-browser";
     LoginComponent,
     RegistrationComponent,
     PasswordResetComponent],
-  imports: [AppRoutingModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserModule]
+  imports: [
+    AppRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    CodeInputModule
+  ]
 })
 
 export class AuthModule {}

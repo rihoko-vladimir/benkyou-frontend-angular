@@ -3,10 +3,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatStepper} from "@angular/material/stepper";
 import {Router} from "@angular/router";
 import {PasswordConfirmationEqualityValidator} from "../PasswordReset/validators/password-confirmation-equality";
+import {CodeInputComponent} from "angular-code-input";
 
 
 //Password must contain one uppercase char, one digit and be at least 8 chars long
-const regExpr = `^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d).*$`;
+const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
   selector: "registration",
@@ -16,10 +17,17 @@ const regExpr = `^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d).*$`;
 })
 
 export class RegistrationComponent {
+  isUserAgreed : boolean
+  isCheckboxError : boolean
+  isButtonsHidden: boolean
   constructor(private router: Router) {
+    this.isUserAgreed = false
+    this.isCheckboxError = false
+    this.isButtonsHidden = false
   }
 
-  @ViewChild("stepper") stepper: MatStepper | any;
+  @ViewChild("stepper") stepper!: MatStepper;
+  @ViewChild("confirmationCode") confirmationCodeElement!: CodeInputComponent;
   credentialsFormGroup = new FormGroup({
     userNameControl: new FormControl("",
       [
@@ -71,6 +79,19 @@ export class RegistrationComponent {
         else
           this.passwordFormGroup.markAllAsTouched()
         break
+      }
+      case 2:{
+        if (this.isUserAgreed){
+          //TODO send registration post request and after response next step
+          this.hideButtons()
+          this.stepper.next()
+        }else{
+          this.isCheckboxError = true
+        }
+        break
+      }
+      case 3:{
+
       }
     }
   }
@@ -148,5 +169,20 @@ export class RegistrationComponent {
       return "Password confirmation must be the same as password"
 
     return "Unknown error occurred :("
+  }
+
+  onCheckboxClicked(){
+    this.isUserAgreed = !this.isUserAgreed
+    this.isCheckboxError = false
+  }
+
+  hideButtons(){
+    this.isButtonsHidden = true
+  }
+
+  onSendConfirmationCode(code: string){
+    console.log(code)
+    //if response is correct - redirect to the main page
+    this.confirmationCodeElement.reset()
   }
 }
