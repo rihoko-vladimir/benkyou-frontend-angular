@@ -1,0 +1,17 @@
+mat-sidenav-container{
+  height: 100%;
+}
+
+mat-sidenav{
+  width: 240px;
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.text-padding{
+  padding-left: 8px;
+}
+
+.no-margin{
+  margin: 0;
+}

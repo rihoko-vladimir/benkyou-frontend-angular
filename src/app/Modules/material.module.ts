@@ -7,6 +7,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [],
@@ -16,7 +21,12 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatButtonModule,
     MatIconModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule
   ],
   exports: [MatCardModule,
     MatFormFieldModule,
@@ -24,7 +34,12 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatButtonModule,
     MatIconModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:

@@ -4,6 +4,9 @@ import {MatStepper} from "@angular/material/stepper";
 import {Router} from "@angular/router";
 import {PasswordConfirmationEqualityValidator} from "../PasswordReset/validators/password-confirmation-equality";
 import {CodeInputComponent} from "angular-code-input";
+import {AuthService} from "../../Services/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {finalize} from "rxjs";
 
 
 //Password must contain one uppercase char, one digit and be at least 8 chars long
@@ -19,11 +22,14 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 export class RegistrationComponent {
   isUserAgreed : boolean
   isCheckboxError : boolean
-  isButtonsHidden: boolean
-  constructor(private router: Router) {
+  areButtonsHidden: boolean
+  isLoading: boolean = false
+  userId: string
+  constructor(private router: Router, private authService: AuthService, private snackbar: MatSnackBar) {
     this.isUserAgreed = false
     this.isCheckboxError = false
-    this.isButtonsHidden = false
+    this.areButtonsHidden = false
+    this.userId = ""
   }
 
   @ViewChild("stepper") stepper!: MatStepper;
@@ -82,18 +88,40 @@ export class RegistrationComponent {
       }
       case 2:{
         if (this.isUserAgreed){
-          //TODO send registration post request and after response next step
-          this.hideButtons()
-          this.stepper.next()
+          let observable = this.authService.register(
+            this.credentialsFormGroup.controls.userNameControl.value!,
+            this.credentialsFormGroup.controls.emailControl.value!,
+            this.credentialsFormGroup.controls.firstNameControl.value!,
+            this.credentialsFormGroup.controls.lastNameControl.value!,
+            this.passwordFormGroup.controls.passwordControl.value!)
+          this.isLoading = true
+          observable
+            .pipe(
+              finalize(()=>this.isLoading = false)
+            )
+            .subscribe(
+            userId => {
+              this.userId = userId
+              this.hideButtons()
+              this.stepper.next()
+            },
+            error => {
+              this.showErrorSnackbar(error.value)
+            })
         }else{
           this.isCheckboxError = true
         }
         break
       }
-      case 3:{
-
-      }
     }
+  }
+
+  private showErrorSnackbar(errorMessage: string) {
+    this.snackbar.open(errorMessage, undefined, {
+      verticalPosition: "bottom",
+      horizontalPosition: "start",
+      duration: 2000,
+    })
   }
 
   async onPreviousClicked() {
@@ -177,12 +205,20 @@ export class RegistrationComponent {
   }
 
   hideButtons(){
-    this.isButtonsHidden = true
+    this.areButtonsHidden = true
   }
 
   onSendConfirmationCode(code: string){
-    console.log(code)
-    //if response is correct - redirect to the main page
-    this.confirmationCodeElement.reset()
+    this.confirmationCodeElement.disabled = true
+
+    let observable = this.authService.confirmEmailAddress(this.userId, code)
+
+    observable
+      .subscribe(userId => {
+        this.userId = userId
+
+      }, error => {
+      this.showErrorSnackbar(error.value)
+    })
   }
 }

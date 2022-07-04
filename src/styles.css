@@ -7,3 +7,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   row-gap: 16px;
 }
 
+mat-list-item{
+  border-radius: 14px;
+}
+
+.mat-list-item-ripple{
+  border-radius: 14px;
+}
+

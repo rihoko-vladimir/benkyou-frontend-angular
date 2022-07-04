@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 
 @Component({
   selector : "auth-page-container",
@@ -6,9 +6,4 @@ import {Component, OnInit} from "@angular/core";
   styleUrls: ["auth-page-container.component.css"]
 })
 
-export class AuthPageContainerComponent implements OnInit{
-  ngOnInit(): void {
-    console.log("auth page inits")
-  }
-
-}
+export class AuthPageContainerComponent{}

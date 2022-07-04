@@ -6,24 +6,24 @@
       <form [formGroup]="credentialsFormGroup" class="forms">
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Username</mat-label>
-          <input matInput placeholder="Your creative Username" formControlName="userNameControl">
+          <input type="text" matInput placeholder="Your creative Username" formControlName="userNameControl">
           <mat-error
             *ngIf="credentialsFormGroup.controls.userNameControl.invalid">{{getUserNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Email</mat-label>
-          <input matInput placeholder="youremail@mail.com" formControlName="emailControl">
+          <input type="email" matInput placeholder="youremail@mail.com" formControlName="emailControl">
           <mat-error *ngIf="credentialsFormGroup.controls.emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">First Name</mat-label>
-          <input matInput placeholder="John" formControlName="firstNameControl">
+          <input type="text" matInput placeholder="John" formControlName="firstNameControl">
           <mat-error
             *ngIf="credentialsFormGroup.controls.firstNameControl.invalid">{{getFirstNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Last Name</mat-label>
-          <input matInput placeholder="Smith" formControlName="lastNameControl">
+          <input type="text" matInput placeholder="Smith" formControlName="lastNameControl">
           <mat-error
             *ngIf="credentialsFormGroup.controls.lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
         </mat-form-field>
@@ -55,6 +55,7 @@
               vel veritatis!</p>
           </div>
           <mat-checkbox
+            [disabled]="isLoading"
             [checked]="isUserAgreed"
             (change)="onCheckboxClicked()">
             I agree with terms of service
@@ -69,7 +70,8 @@
     </mat-step>
     <mat-step label="Confirmation" state="confirmation">
       <h3 class="mat-typography">Email confirmation</h3>
-      <p class="mat-typography">We've sent an email confirmation to {{credentialsFormGroup.controls.emailControl.value}}. The letter will include the
+      <p class="mat-typography">We've sent an email confirmation to {{credentialsFormGroup.controls.emailControl.value}}
+        . The letter will include the
         code, please, type it in the field below. If you don't see anything, please check your Spam
         folder.</p>
       <code-input
@@ -93,9 +95,26 @@
       <mat-icon>done</mat-icon>
     </ng-template>
   </mat-stepper>
-  <div class="buttons" [ngStyle]="isButtonsHidden? {visibility: 'hidden'} : {visibility: 'visible'}">
-    <button mat-stroked-button (click)="onPreviousClicked()">{{stepper.selectedIndex == 0 ? "Cancel" : "Back"}}</button>
-    <button mat-flat-button color="accent" (click)="onNextClicked()">{{stepper.selectedIndex == stepper.steps.length - 1 ? "Finish" : "Next"}}</button>
+  <div class="buttons" *ngIf="!areButtonsHidden">
+    <button [disabled]="isLoading"
+            mat-stroked-button
+            (click)="onPreviousClicked()">
+      {{stepper.selectedIndex == 0 ? "Cancel" : "Back"}}
+    </button>
+    <div class="spinnerAndButton">
+      <mat-progress-spinner
+        *ngIf="isLoading"
+        diameter="36"
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+      <button [disabled]="isLoading"
+              mat-flat-button
+              color="accent"
+              (click)="onNextClicked()">
+        {{stepper.selectedIndex == stepper.steps.length - 1 ? "Finish" : "Next"}}
+      </button>
+    </div>
   </div>
 </div>
 

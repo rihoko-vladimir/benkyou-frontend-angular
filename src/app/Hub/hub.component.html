@@ -1,0 +1,24 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" position="start" opened="true">
+    <h2 class="mat-subheader no-margin">Benkyou!</h2>
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon fontSet="material-icons-outlined">home</mat-icon>
+        <span class="mat-typography text-padding">Home</span>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon fontSet="material-icons-outlined">article</mat-icon>
+        <span class="mat-typography text-padding">My Sets</span>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon fontSet="material-icons-outlined">library_books</mat-icon>
+        <span class="mat-typography text-padding">All sets</span>
+      </mat-list-item>
+      <p class="mat-subheader">Account</p>
+      <account-info-list-item></account-info-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
