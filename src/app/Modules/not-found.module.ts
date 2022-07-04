@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {NotFoundComponent} from "../NotFound/not-found.component";
+import {NotFoundComponent} from "../Global/NotFound/not-found.component";
 
 @NgModule({
   declarations: [

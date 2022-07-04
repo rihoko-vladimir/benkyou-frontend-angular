@@ -1,0 +1,8 @@
+<mat-grid-list cols="3">
+  <mat-grid-tile
+    *ngFor="let set of sets"
+    colspan="1"
+    rowspan="1">
+  <set [set]="set"></set>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -12,6 +12,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ],
   exports: [MatCardModule,
     MatFormFieldModule,
@@ -39,7 +41,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:

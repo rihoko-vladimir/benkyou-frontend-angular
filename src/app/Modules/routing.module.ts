@@ -1,21 +1,21 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {AuthPageContainerComponent} from "../Auth/auth-page-container.component";
-import {LoginComponent} from "../Auth/Login/login.component";
-import {RegistrationComponent} from "../Auth/Registration/registration.component";
-import {PasswordResetComponent} from "../Auth/PasswordReset/password-reset.component";
-import {HubComponent} from "../Hub/hub.component";
-import {HomePageComponent} from "../Hub/Pages/Home/home-page.component";
-import {MySetsComponent} from "../Hub/Pages/MySets/my-sets.component";
-import {AllSetsComponent} from "../Hub/Pages/AllSets/all-sets.component";
-import {AccountComponent} from "../Hub/Pages/Account/account.component";
-import {NotFoundComponent} from "../NotFound/not-found.component";
+import {AuthPageContainerComponent} from "../Global/Auth/auth-page-container.component";
+import {LoginComponent} from "../Global/Auth/Login/login.component";
+import {RegistrationComponent} from "../Global/Auth/Registration/registration.component";
+import {PasswordResetComponent} from "../Global/Auth/PasswordReset/password-reset.component";
+import {HubComponent} from "../Global/Hub/hub.component";
+import {HomePageComponent} from "../Global/Hub/Pages/Home/home-page.component";
+import {MySetsComponent} from "../Global/Hub/Pages/MySets/my-sets.component";
+import {AllSetsComponent} from "../Global/Hub/Pages/AllSets/all-sets.component";
+import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
+import {NotFoundComponent} from "../Global/NotFound/not-found.component";
+import {AuthGuard} from "../Guards/auth.guard";
 
-const authRoutes : Routes = [
+const authRoutes: Routes = [
   {path: "", component: LoginComponent},
   {path: "register", component: RegistrationComponent},
-  {path: "forgot-password", component: PasswordResetComponent},
-  {path: "**", redirectTo:"../not-found"}
+  {path: "forgot-password", component: PasswordResetComponent}
 ]
 
 const hubRoutes: Routes = [
@@ -25,15 +25,18 @@ const hubRoutes: Routes = [
   {path: "account", component: AccountComponent}
 ]
 
-const routes : Routes = [
+const routes: Routes = [
   {path: "auth", component: AuthPageContainerComponent, children: authRoutes},
-  {path: "hub", component: HubComponent, children: hubRoutes},
-  {path: "not-found", component: NotFoundComponent}
+  {path: "hub", component: HubComponent, children: hubRoutes, canActivate: [AuthGuard]},
+  {path: "not-found", component: NotFoundComponent},
+  {path: "**", redirectTo: "not-found"}
 ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

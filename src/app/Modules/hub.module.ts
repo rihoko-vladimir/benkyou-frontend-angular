@@ -1,12 +1,14 @@
 import {NgModule} from "@angular/core";
-import {HubComponent} from "../Hub/hub.component";
+import {HubComponent} from "../Global/Hub/hub.component";
 import {AppRoutingModule} from "./routing.module";
 import {MaterialModule} from "./material.module";
-import {HomePageComponent} from "../Hub/Pages/Home/home-page.component";
-import {MySetsComponent} from "../Hub/Pages/MySets/my-sets.component";
-import {AllSetsComponent} from "../Hub/Pages/AllSets/all-sets.component";
-import {AccountComponent} from "../Hub/Pages/Account/account.component";
-import {AccountInfoListItemComponent} from "../Hub/Components/AccountInfoListItem/account-info-list-item.component";
+import {HomePageComponent} from "../Global/Hub/Pages/Home/home-page.component";
+import {MySetsComponent} from "../Global/Hub/Pages/MySets/my-sets.component";
+import {AllSetsComponent} from "../Global/Hub/Pages/AllSets/all-sets.component";
+import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
+import {AccountInfoListItemComponent} from "../Global/Hub/Components/AccountInfoListItem/account-info-list-item.component";
+import {SetGridComponent} from "../Global/Hub/Components/SetGrid/set-grid.component";
+import {SetComponent} from "../Global/Hub/Components/Set/set.component";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import {AccountInfoListItemComponent} from "../Hub/Components/AccountInfoListIte
     MySetsComponent,
     AllSetsComponent,
     AccountComponent,
-    AccountInfoListItemComponent
+    AccountInfoListItemComponent,
+    SetGridComponent,
+    SetComponent
   ],
   imports: [
     AppRoutingModule,

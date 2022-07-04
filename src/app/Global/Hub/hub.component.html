@@ -1,0 +1,25 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" position="start" opened="true">
+    <h4 class="mat-subheader no-margin">勉強!</h4>
+    <mat-nav-list>
+      <mat-list-item routerLink="/hub" [routerLinkActive]="['route-selected']" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon fontSet="material-icons-outlined">home</mat-icon>
+        <span class="mat-typography text-padding">Home</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/hub/my-sets" [routerLinkActive]="['route-selected']">
+        <mat-icon fontSet="material-icons-outlined">article</mat-icon>
+        <span class="mat-typography text-padding">My Sets</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/hub/all-sets" [routerLinkActive]="['route-selected']">
+        <mat-icon fontSet="material-icons-outlined">library_books</mat-icon>
+        <span class="mat-typography text-padding">All sets</span>
+      </mat-list-item>
+      <mat-divider style="margin-top: 32px"></mat-divider>
+      <p class="mat-subheader">Account</p>
+      <account-info-list-item></account-info-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="pageContainer">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

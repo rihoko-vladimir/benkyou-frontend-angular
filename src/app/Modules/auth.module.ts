@@ -1,8 +1,8 @@
 import {NgModule} from "@angular/core";
-import {AuthPageContainerComponent} from "../Auth/auth-page-container.component";
-import {LoginComponent} from "../Auth/Login/login.component";
-import {RegistrationComponent} from "../Auth/Registration/registration.component";
-import {PasswordResetComponent} from "../Auth/PasswordReset/password-reset.component";
+import {AuthPageContainerComponent} from "../Global/Auth/auth-page-container.component";
+import {LoginComponent} from "../Global/Auth/Login/login.component";
+import {RegistrationComponent} from "../Global/Auth/Registration/registration.component";
+import {PasswordResetComponent} from "../Global/Auth/PasswordReset/password-reset.component";
 import {MaterialModule} from "./material.module";
 import {AppRoutingModule} from "./routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
