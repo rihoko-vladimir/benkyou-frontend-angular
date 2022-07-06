@@ -1,0 +1,36 @@
+<div class="container">
+  <mat-form-field class="kanji" appearance="outline">
+    <mat-label>Kanji</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <div class="readingsContainer">
+    <mat-form-field class="readings" appearance="outline">
+      <mat-label>Kunyomi</mat-label>
+      <mat-chip-list #kunyomi>
+        <mat-chip *ngFor="let kunyomiString of kanji.kunyomi">
+          {{kunyomiString}}
+          <button matChipRemove (click)="removeKunyomi(kunyomiString)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+      <input [matChipInputFor]="kunyomi"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addKunyomi($event)">
+    </mat-form-field>
+    <mat-form-field class="readings" appearance="outline">
+      <mat-label>Onyomi</mat-label>
+      <mat-chip-list #onyomi>
+        <mat-chip *ngFor="let onyomiString of kanji.onyomi">
+          {{onyomiString}}
+          <button matChipRemove (click)="removeOnyomi(onyomiString)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+      <input [matChipInputFor]="onyomi"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addOnyomi($event)">
+    </mat-form-field>
+  </div>
+</div>

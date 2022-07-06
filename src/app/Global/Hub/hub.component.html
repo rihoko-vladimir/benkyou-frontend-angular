@@ -1,8 +1,9 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" position="start" opened="true">
+<mat-sidenav-container autosize>
+  <mat-sidenav mode="side" position="start" [opened]="true">
     <h4 class="mat-subheader no-margin">勉強!</h4>
     <mat-nav-list>
-      <mat-list-item routerLink="/hub" [routerLinkActive]="['route-selected']" [routerLinkActiveOptions]="{exact: true}">
+      <mat-list-item routerLink="/hub" [routerLinkActive]="['route-selected']"
+                     [routerLinkActiveOptions]="{exact: true}">
         <mat-icon fontSet="material-icons-outlined">home</mat-icon>
         <span class="mat-typography text-padding">Home</span>
       </mat-list-item>

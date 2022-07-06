@@ -9,6 +9,12 @@ import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
 import {AccountInfoListItemComponent} from "../Global/Hub/Components/AccountInfoListItem/account-info-list-item.component";
 import {SetGridComponent} from "../Global/Hub/Components/SetGrid/set-grid.component";
 import {SetComponent} from "../Global/Hub/Components/Set/set.component";
+import {CommonModule} from "@angular/common";
+import {KanjiListComponent} from "../Global/Hub/Components/KanjiList/kanji-list.component";
+import {KanjiComponent} from "../Global/Hub/Components/Kanji/kanji.component";
+import {SetDialogComponent} from "../Global/Hub/Components/SetDialog/set-dialog.component";
+import {EditKanjiListComponent} from "../Global/Hub/Components/SetDialog/EditKanjiList/edit-kanji-list.component";
+import {EditKanjiComponent} from "../Global/Hub/Components/SetDialog/EditKanji/edit-kanji.component";
 
 @NgModule({
   declarations: [
@@ -19,12 +25,18 @@ import {SetComponent} from "../Global/Hub/Components/Set/set.component";
     AccountComponent,
     AccountInfoListItemComponent,
     SetGridComponent,
-    SetComponent
+    SetComponent,
+    KanjiListComponent,
+    KanjiComponent,
+    SetDialogComponent,
+    EditKanjiListComponent,
+    EditKanjiComponent
   ],
-  imports: [
-    AppRoutingModule,
-    MaterialModule,
-  ]
+    imports: [
+        AppRoutingModule,
+        MaterialModule,
+        CommonModule
+    ]
 })
 
 export class HubModule {}

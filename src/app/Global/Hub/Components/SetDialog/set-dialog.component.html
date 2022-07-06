@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{mode == "create" ? "Create set" : "Edit set"}}</h2>
+<mat-dialog-content>
+  <edit-kanji-list [kanjiList]="set.kanjiList"></edit-kanji-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCloseClicked()">Back</button>
+  <button mat-flat-button color="accent" *ngIf="mode=='create'" (click)="onCreateClicked()">Create</button>
+  <button mat-flat-button color="accent" *ngIf="mode=='edit'" (click)="onEditClicked()">Edit</button>
+</mat-dialog-actions>

@@ -9,5 +9,6 @@ import {Router} from "@angular/router";
 
 export class HubComponent {
   constructor(private router: Router) {
+
   }
 }

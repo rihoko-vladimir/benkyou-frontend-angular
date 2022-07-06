@@ -13,6 +13,9 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [],
@@ -28,7 +31,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatChipsModule
   ],
   exports: [MatCardModule,
     MatFormFieldModule,
@@ -42,7 +48,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatChipsModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:

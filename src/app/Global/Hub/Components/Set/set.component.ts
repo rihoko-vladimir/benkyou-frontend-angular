@@ -2,11 +2,23 @@ import {Component, Input} from "@angular/core";
 import Set from "../../../../Models/Set"
 
 @Component({
-  selector:"set",
-  templateUrl:"set.component.html",
-  styleUrls:["set.component.css"]
+  selector: "set",
+  templateUrl: "set.component.html",
+  styleUrls: ["set.component.css"]
 })
 
-export class SetComponent{
+export class SetComponent {
+  isOpened: boolean
   @Input() set!: Set
+  constructor() {
+    this.isOpened = false
+  }
+
+  changeOpenedStatus(){
+    this.isOpened = !this.isOpened
+  }
+
+  onRemoveClicked(id: string) {
+    console.log("remove set " + id)
+  }
 }
