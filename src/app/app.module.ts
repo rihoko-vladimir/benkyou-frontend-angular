@@ -20,7 +20,7 @@ import {NotFoundModule} from "./Modules/not-found.module";
     HubModule,
     NotFoundModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

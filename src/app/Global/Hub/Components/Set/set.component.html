@@ -16,8 +16,8 @@
       <button mat-icon-button (click)="changeOpenedStatus()" [matTooltip]="!isOpened? 'Expand' : 'Collapse'" matTooltipPosition="below">
         <mat-icon>{{!isOpened ? "expand_more" : "expand_less"}}</mat-icon>
       </button>
-      <button mat-button>Edit</button>
-      <button mat-flat-button color="accent">Study!</button>
+      <button mat-button (click)="onEditClicked()">Edit</button>
+      <button mat-flat-button color="accent" (click)="onStudyClicked()">Study!</button>
     </mat-card-actions>
   </div>
 </mat-card>

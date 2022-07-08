@@ -20,9 +20,9 @@ import {AuthService} from "../Services/auth.service";
     AppRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule,
     BrowserModule,
-    CodeInputModule
+    CodeInputModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthService]
 })

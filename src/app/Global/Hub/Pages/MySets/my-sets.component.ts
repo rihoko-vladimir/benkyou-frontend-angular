@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import Set from "../../../../Models/Set"
 import Kanji from "../../../../Models/Kanji";
 import {MatDialog} from "@angular/material/dialog";
-import {OpenMode, SetDialogComponent} from "../../Components/SetDialog/set-dialog.component";
+import {DialogProperties, OpenMode, SetDialogComponent} from "../../Components/SetDialog/set-dialog.component";
 
 @Component({
   selector: "my-sets-page",
@@ -39,7 +39,7 @@ export class MySetsComponent {
             ["g","m"],
             ["f","h"])
         ]),
-      new Set("1",
+      new Set("2",
         "Test",
         "Test test test",
         "Vladimir",
@@ -49,7 +49,7 @@ export class MySetsComponent {
             ["g","m"],
             ["f","h"])
         ]),
-      new Set("1",
+      new Set("3",
         "Test",
         "Test test test",
         "Vladimir",
@@ -59,7 +59,7 @@ export class MySetsComponent {
             ["g","m"],
             ["f","h"])
         ]),
-      new Set("1",
+      new Set("4",
         "Test",
         "Test test test",
         "Vladimir",
@@ -69,7 +69,7 @@ export class MySetsComponent {
             ["g","m"],
             ["f","h"])
         ]),
-      new Set("1",
+      new Set("5",
         "Test",
         "Test test test",
         "Vladimir",
@@ -79,7 +79,7 @@ export class MySetsComponent {
             ["g","m"],
             ["f","h"])
         ]),
-      new Set("1",
+      new Set("6",
         "Test",
         "Test test test",
         "Vladimir",
@@ -93,8 +93,19 @@ export class MySetsComponent {
     ]
   }
   onCreateNewSetClicked() {
-    let dialogRef = this.dialog.open(SetDialogComponent).componentInstance
-    dialogRef.mode = OpenMode.create
-    dialogRef.set = new Set()
+    this.dialog.open(SetDialogComponent, {
+      data: new DialogProperties(OpenMode.create, new Set())
+    }).afterClosed().subscribe((set) => this.onSetCreated(set))
+  }
+
+  onSetCreated(set : Set | undefined){
+    if (set !== undefined){
+      //TODO SEND TO API
+      //TODO add response set to redux
+      set.id = Math.random().toString()
+      this.dummySets.push(set)
+    }else{
+      console.log("Set wasn't created")
+    }
   }
 }

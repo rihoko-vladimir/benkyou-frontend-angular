@@ -1,1 +1,13 @@
-<edit-kanji *ngFor="let kanji of kanjiList" [kanji]="kanji"></edit-kanji>
+<div class="kanjiList">
+  <edit-kanji *ngFor="let kanji of kanjiList"
+              [kanji]="kanji"
+              [isRemoveAvailable]="kanjiList.length>3"
+              [myIndex]="kanjiList.indexOf(kanji)"
+              (onRemove)="onRemoveKanji($event.valueOf())"
+              (kanjiChange)="onKanjiChanged($event)">
+  </edit-kanji>
+  <button mat-icon-button (click)="onAddNewKanjiClicked()">
+    <mat-icon>playlist_add</mat-icon>
+  </button>
+</div>
+

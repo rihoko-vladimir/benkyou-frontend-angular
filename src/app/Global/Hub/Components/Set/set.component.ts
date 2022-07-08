@@ -1,5 +1,7 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import Set from "../../../../Models/Set"
+import {MatDialog} from "@angular/material/dialog";
+import {DialogProperties, OpenMode, SetDialogComponent} from "../SetDialog/set-dialog.component";
 
 @Component({
   selector: "set",
@@ -10,7 +12,9 @@ import Set from "../../../../Models/Set"
 export class SetComponent {
   isOpened: boolean
   @Input() set!: Set
-  constructor() {
+  @Output() setChange = new EventEmitter<Set>();
+  @Output() remove = new EventEmitter<string>();
+  constructor(private dialog: MatDialog) {
     this.isOpened = false
   }
 
@@ -19,6 +23,25 @@ export class SetComponent {
   }
 
   onRemoveClicked(id: string) {
-    console.log("remove set " + id)
+    this.remove.emit(id)
+  }
+
+  onEditClicked() {
+    this.dialog.open(SetDialogComponent, {
+      data : new DialogProperties(OpenMode.edit, JSON.parse(JSON.stringify(this.set)))
+    }).afterClosed().subscribe((set) => this.onSetChanged(set))
+  }
+
+  onSetChanged(editedSet : Set | undefined){
+    if (editedSet === undefined){
+      console.log("set wasn't changed")
+    }else{
+      console.log(editedSet)
+      this.setChange.emit(editedSet)
+    }
+  }
+
+  onStudyClicked() {
+
   }
 }
