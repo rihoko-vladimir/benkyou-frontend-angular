@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import {Component, OnDestroy} from "@angular/core";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: "hub-component",
@@ -7,8 +7,19 @@ import {Router} from "@angular/router";
   templateUrl: "hub.component.html"
 })
 
-export class HubComponent {
+export class HubComponent implements OnDestroy{
+  isShown : boolean
+  subscription
   constructor(private router: Router) {
+    this.isShown = false
+    this.subscription = router.events.subscribe(value => {
+      if (value instanceof NavigationEnd){
+        this.isShown = value.url != "/hub/study";
+      }
+    })
+  }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

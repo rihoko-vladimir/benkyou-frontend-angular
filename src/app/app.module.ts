@@ -8,6 +8,8 @@ import {AuthModule} from "./Modules/auth.module";
 import {HttpClientModule} from "@angular/common/http";
 import {HubModule} from "./Modules/hub.module";
 import {NotFoundModule} from "./Modules/not-found.module";
+import { StoreModule } from '@ngrx/store';
+import {setStudyReducer} from "./Redux/Reducers/set-study.reducer";
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import {NotFoundModule} from "./Modules/not-found.module";
     NotFoundModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot({setStudy : setStudyReducer}),
   ],
   providers: [],
   bootstrap: [AppComponent]

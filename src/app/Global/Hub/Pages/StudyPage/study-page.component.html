@@ -1,0 +1,32 @@
+<div class="learnContainer">
+  <mat-card class="set">
+    <div class="content">
+      <div class="topPart">
+        <div class="kanjiContainer">
+          <p class="kanji">{{"龯"}}</p>
+        </div>
+        <div class="kunyomiOnyomiContainer">
+          <div class="titleAndReadingsContainer" style="width: 45%">
+            <p class="mat-typography">Kunyomi</p>
+            <div cdkDropList cdkDropListOrientation="horizontal" class="readingsContainer"
+                 #kunyomiReadings="cdkDropList"
+                 [cdkDropListData]="currentKanji.kunyomi" style="min-width: 100%">
+              <div cdkDrag *ngFor="let kunyomi of currentKanji.kunyomi" class="draggableReading">
+                {{kunyomi}}
+              </div>
+            </div>
+          </div>
+          <div class="titleAndReadingsContainer" style="width: 45%; align-items: end">
+            <p class="mat-typography">Onyomi</p>
+            <div cdkDropList cdkDropListOrientation="horizontal" class="readingsContainer" #onyomiReadings="cdkDropList"
+                 [cdkDropListData]="currentKanji.onyomi" style="min-width: 100%; justify-content: end">
+              <div cdkDrag *ngFor="let onyomi of currentKanji.onyomi" class="draggableReading">
+                {{onyomi}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

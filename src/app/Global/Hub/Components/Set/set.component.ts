@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 import Set from "../../../../Models/Set"
 import {MatDialog} from "@angular/material/dialog";
 import {DialogProperties, OpenMode, SetDialogComponent} from "../SetDialog/set-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "set",
@@ -14,7 +15,7 @@ export class SetComponent {
   @Input() set!: Set
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private router : Router) {
     this.isOpened = false
   }
 
@@ -41,7 +42,7 @@ export class SetComponent {
     }
   }
 
-  onStudyClicked() {
-
+   async onStudyClicked() {
+    await this.router.navigate(["hub", "study"])
   }
 }

@@ -5,7 +5,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -16,6 +16,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [],
@@ -34,7 +35,8 @@ import {MatChipsModule} from "@angular/material/chips";
     MatGridListModule,
     MatTooltipModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    DragDropModule
   ],
   exports: [MatCardModule,
     MatFormFieldModule,
@@ -51,12 +53,14 @@ import {MatChipsModule} from "@angular/material/chips";
     MatGridListModule,
     MatTooltipModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    DragDropModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:
-      { displayDefaultIndicatorType: false }
+      {displayDefaultIndicatorType: false}
   }]
 })
 
-export class MaterialModule {}
+export class MaterialModule {
+}

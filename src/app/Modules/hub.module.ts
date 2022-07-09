@@ -18,6 +18,7 @@ import {SetDialogComponent} from "../Global/Hub/Components/SetDialog/set-dialog.
 import {EditKanjiListComponent} from "../Global/Hub/Components/SetDialog/EditKanjiList/edit-kanji-list.component";
 import {EditKanjiComponent} from "../Global/Hub/Components/SetDialog/EditKanji/edit-kanji.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     KanjiComponent,
     SetDialogComponent,
     EditKanjiListComponent,
-    EditKanjiComponent
+    EditKanjiComponent,
+    StudyPageComponent,
   ],
   imports: [
     AppRoutingModule,

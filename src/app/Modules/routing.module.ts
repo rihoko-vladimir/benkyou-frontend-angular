@@ -11,6 +11,7 @@ import {AllSetsComponent} from "../Global/Hub/Pages/AllSets/all-sets.component";
 import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
 import {NotFoundComponent} from "../Global/NotFound/not-found.component";
 import {AuthGuard} from "../Guards/auth.guard";
+import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
 
 const authRoutes: Routes = [
   {path: "", component: LoginComponent},
@@ -22,7 +23,8 @@ const hubRoutes: Routes = [
   {path: "", component: HomePageComponent},
   {path: "my-sets", component: MySetsComponent},
   {path: "all-sets", component: AllSetsComponent},
-  {path: "account", component: AccountComponent}
+  {path: "account", component: AccountComponent},
+  {path: "study", component: StudyPageComponent}
 ]
 
 const routes: Routes = [
