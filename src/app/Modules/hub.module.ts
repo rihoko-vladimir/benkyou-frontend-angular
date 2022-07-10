@@ -19,6 +19,9 @@ import {EditKanjiListComponent} from "../Global/Hub/Components/SetDialog/EditKan
 import {EditKanjiComponent} from "../Global/Hub/Components/SetDialog/EditKanji/edit-kanji.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
+import {ResultsComponent} from "../Global/Hub/Components/ResultsComponent/results.component";
+import {ResultComponent} from "../Global/Hub/Components/Result/result.component";
+import {ResultReadingComponent} from "../Global/Hub/Components/ResultReading/result-reading.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.compo
     EditKanjiListComponent,
     EditKanjiComponent,
     StudyPageComponent,
+    ResultsComponent,
+    ResultComponent,
+    ResultReadingComponent
   ],
   imports: [
     AppRoutingModule,

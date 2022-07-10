@@ -3,6 +3,8 @@ import Set from "../../../../Models/Set"
 import {MatDialog} from "@angular/material/dialog";
 import {DialogProperties, OpenMode, SetDialogComponent} from "../SetDialog/set-dialog.component";
 import {Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {startStudying} from "../../../../Redux/Actions/set-study.actions";
 
 @Component({
   selector: "set",
@@ -15,7 +17,7 @@ export class SetComponent {
   @Input() set!: Set
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
-  constructor(private dialog: MatDialog, private router : Router) {
+  constructor(private dialog: MatDialog, private router : Router, private store : Store) {
     this.isOpened = false
   }
 
@@ -43,6 +45,7 @@ export class SetComponent {
   }
 
    async onStudyClicked() {
+    this.store.dispatch(startStudying({set : this.set}))
     await this.router.navigate(["hub", "study"])
   }
 }

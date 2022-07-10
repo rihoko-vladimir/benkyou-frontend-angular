@@ -1,0 +1,21 @@
+<div class="container" [ngClass]="{correct : isCorrect, incorrect: !isCorrect}">
+  <p class="kanji">{{answer.kanji.kanji}}</p>
+  <div class="readingsContainer">
+    <div class="readings">
+      <result-reading *ngFor="let correctReading of matchedKunyomi" type="correct"
+                      [reading]="correctReading"></result-reading>
+      <result-reading *ngFor="let missingReading of unmatchedKunyomi" type="required"
+                      [reading]="missingReading"></result-reading>
+      <result-reading *ngFor="let incorrectReading of incorrectKunyomi" type="incorrect"
+                      [reading]="incorrectReading"></result-reading>
+    </div>
+    <div class="readings">
+      <result-reading *ngFor="let correctReading of matchedOnyomi" type="correct"
+                      [reading]="correctReading"></result-reading>
+      <result-reading *ngFor="let missingReading of unmatchedOnyomi" type="required"
+                      [reading]="missingReading"></result-reading>
+      <result-reading *ngFor="let incorrectReading of incorrectOnyomi" type="incorrect"
+                      [reading]="incorrectReading"></result-reading>
+    </div>
+  </div>
+</div>

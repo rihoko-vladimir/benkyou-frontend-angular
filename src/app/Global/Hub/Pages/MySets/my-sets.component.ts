@@ -11,9 +11,9 @@ import {DialogProperties, OpenMode, SetDialogComponent} from "../../Components/S
 })
 
 export class MySetsComponent {
-  dummySets : Set[]
+  sets : Set[]
   constructor(private dialog: MatDialog) {
-    this.dummySets = [
+    this.sets = [
       new Set("1",
         "Test",
         "Test test test",
@@ -21,23 +21,23 @@ export class MySetsComponent {
         "1",
         [
           new Kanji("K",
-            ["g","m"],
-                    ["f","h"]),
+            ["a","b"],
+                    ["c","d"]),
           new Kanji("K",
-            ["g","m"],
-            ["f","h"]),
+            ["e","f"],
+            ["g","h"]),
           new Kanji("K",
-            ["g","m"],
-            ["f","h"]),
+            ["m","v"],
+            ["y","u"]),
           new Kanji("K",
-            ["g","m"],
-            ["f","h"]),
+            ["o","p"],
+            ["q","1"]),
           new Kanji("K",
-            ["g","m"],
-            ["f","h"]),
+            ["z","x"],
+            ["l","s"]),
           new Kanji("K",
-            ["g","m"],
-            ["f","h"])
+            [";","["],
+            ["m","6"])
         ]),
       new Set("2",
         "Test",
@@ -103,7 +103,7 @@ export class MySetsComponent {
       //TODO SEND TO API
       //TODO add response set to redux
       set.id = Math.random().toString()
-      this.dummySets.push(set)
+      this.sets.push(set)
     }else{
       console.log("Set wasn't created")
     }
