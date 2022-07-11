@@ -1,4 +1,7 @@
 <h1 class="mat-display-1" style="margin: 0">All Sets</h1>
 <div class="page-content">
-  <set-grid [sets]="currentSets"></set-grid>
+  <set-grid [sets]="currentSets" [mode]="'notOwner'"></set-grid>
 </div>
+<mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageIndex]="currentPage" [pageSize]="pageSize"
+               [length]="pagesCount">
+</mat-paginator>

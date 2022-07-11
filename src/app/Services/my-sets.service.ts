@@ -13,6 +13,8 @@ import Kanji from "../Models/Kanji";
 import {SetRequest} from "../Models/Requests/SetRequest";
 import {KanjiRequest} from "../Models/Requests/KanjiRequest";
 import {ReadingResponse} from "../Models/Responses/ReadingResponse";
+import * as jsonpatch from 'fast-json-patch';
+import {loadAllSetsFailure} from "../Redux/Actions/all-sets.actions";
 
 @Injectable()
 
@@ -88,11 +90,33 @@ export class MySetsService implements IMySetsService {
     })
   }
 
-  patchMySet(setId: string, newSet: Set): void {
+  patchMySet(setId: string, newSet: Set, originalSet: Set): void {
+    let sourceSet = originalSet
+    let observer = jsonpatch.observe<Set>(sourceSet)
+    sourceSet = newSet
+    let request = jsonpatch.generate(observer)
+    this.httpClient.patch<SetResponse>(`${this.appConfig.apiEndpoint}/sets/modify?setId=${setId}`, request, {withCredentials: true})
+      .pipe(
+        catchError(error => {
+          this.store.dispatch(loadAllSetsFailure({errorMessage: error}))
+          return EMPTY
+        })).subscribe(() => {
+      this.getMySets(1, 9)
+    })
   }
 
-  removeMySet(setId: string): void {
-
+  removeMySet(setId: string, pageNumber: number, pageSize: number): void {
+    this.httpClient.delete<void>(`${this.appConfig.apiEndpoint}/sets/remove?setId=${setId}`,
+      {
+        withCredentials: true
+      })
+      .pipe(
+        catchError(error => {
+          this.store.dispatch(loadMySetsFailure({errorMessage: error}))
+          return EMPTY
+        })).subscribe(() => {
+      this.getMySets(pageNumber, pageSize)
+    })
   }
 
 }

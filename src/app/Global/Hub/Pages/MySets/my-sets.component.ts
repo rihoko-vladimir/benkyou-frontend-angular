@@ -12,15 +12,19 @@ import {MySetsService} from "../../../../Services/my-sets.service";
   styleUrls: ["my-sets.component.css"]
 })
 
-export class MySetsComponent implements OnInit, OnDestroy{
+export class MySetsComponent implements OnInit, OnDestroy {
   sets: Set[] = []
-  currentPage : number = 1
-  pageSize : number = 9
-  pagesCount : number = 1
+  currentPage: number = 1
+  pageSize: number = 9
+  pagesCount: number = 1
   subscription
 
-  constructor(private dialog: MatDialog, private store: Store<AppState>, private mySetsService : MySetsService) {
+  constructor(private dialog: MatDialog, private store: Store<AppState>, private mySetsService: MySetsService) {
     this.subscription = store.select("mySets").subscribe(value => {
+      console.log(value)
+      this.currentPage = value.currentPage
+      this.pagesCount = value.pagesCount
+      this.pageSize = value.setsCount
       this.sets = value.sets
     })
   }
@@ -40,10 +44,14 @@ export class MySetsComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.mySetsService.getMySets(this.currentPage, this.pageSize)
+    this.mySetsService.getMySets(1, this.pageSize)
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
+  }
+
+  onSetRemoved(id: string) {
+    this.mySetsService.removeMySet(id, this.currentPage, this.pageSize)
   }
 }

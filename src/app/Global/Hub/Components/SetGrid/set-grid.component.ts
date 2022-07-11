@@ -8,7 +8,9 @@ import Set from "../../../../Models/Set"
 })
 export class SetGridComponent{
   @Input() sets!: Set[]
+  @Input() mode! : string
   @Output() setsChange = new EventEmitter<Set[]>()
+  @Output() setsRemove = new EventEmitter<string>()
 
   onSetChange(index : number, set : Set) {
     console.log(set)
@@ -19,9 +21,11 @@ export class SetGridComponent{
   }
 
   onSetRemove(id: string) {
-    console.log(id)
+    this.setsRemove.emit(id)
     let changedSets = [...this.sets]
     changedSets = changedSets.filter(value => value.id != id)
     this.setsChange.emit(changedSets)
   }
 }
+
+

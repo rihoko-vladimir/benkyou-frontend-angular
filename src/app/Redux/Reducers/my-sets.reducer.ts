@@ -3,8 +3,8 @@ import {createReducer, on} from "@ngrx/store";
 import {loadMySetsFailure, loadMySetsSuccess} from "../Actions/my-sets.actions";
 
 const initialState: ISetsState = {
-  currentPage: 0,
-  pagesCount: 0,
+  currentPage: 1,
+  pagesCount: 1,
   sets: [],
   setsCount: 9,
 }

@@ -1,0 +1,33 @@
+.accountInfoContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 24px;
+  border-radius: 12px;
+  border-color: transparent;
+  box-sizing: border-box;
+  border-style: solid;
+  padding: 32px;
+  justify-content: space-between;
+  box-shadow: none;
+}
+
+.topInfo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
+  margin-top: 48px;
+}
+
+.bottomStatistics {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.avatarClass {
+  width: 128px;
+  height: 128px;
+}

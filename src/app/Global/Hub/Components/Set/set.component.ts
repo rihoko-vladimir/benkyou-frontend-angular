@@ -5,6 +5,8 @@ import {DialogProperties, OpenMode, SetDialogComponent} from "../SetDialog/set-d
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {startStudying} from "../../../../Redux/Actions/set-study.actions";
+import AppState from "../../../../Redux/app.state";
+import {MySetsService} from "../../../../Services/my-sets.service";
 
 @Component({
   selector: "set",
@@ -15,9 +17,10 @@ import {startStudying} from "../../../../Redux/Actions/set-study.actions";
 export class SetComponent {
   isOpened: boolean
   @Input() set!: Set
+  @Input() mode! : string
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
-  constructor(private dialog: MatDialog, private router : Router, private store : Store) {
+  constructor(private dialog: MatDialog, private router : Router, private store : Store<AppState>, private mySetsService : MySetsService) {
     this.isOpened = false
   }
 
@@ -47,5 +50,9 @@ export class SetComponent {
    async onStudyClicked() {
     this.store.dispatch(startStudying({set : this.set}))
     await this.router.navigate(["hub", "study"])
+  }
+
+  onAddClicked() {
+    this.mySetsService.createSet(this.set)
   }
 }

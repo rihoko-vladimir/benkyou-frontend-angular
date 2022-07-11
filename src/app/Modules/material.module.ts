@@ -17,6 +17,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [],
@@ -36,7 +37,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatTooltipModule,
     MatDialogModule,
     MatChipsModule,
-    DragDropModule
+    DragDropModule,
+    MatPaginatorModule
   ],
   exports: [MatCardModule,
     MatFormFieldModule,
@@ -54,7 +56,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatTooltipModule,
     MatDialogModule,
     MatChipsModule,
-    DragDropModule
+    DragDropModule,
+    MatPaginatorModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:

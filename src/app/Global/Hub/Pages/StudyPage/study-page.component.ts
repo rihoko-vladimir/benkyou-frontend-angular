@@ -18,7 +18,6 @@ export class StudyPageComponent implements OnDestroy {
   currentKanji: Kanji = new Kanji()
   selectedKunyomiReadings: string[] = []
   selectedOnyomiReadings: string[] = []
-  isFinished: boolean = false
   length: number = 0
   currentIndex: number = 0
   answers: Answer[] = []
@@ -51,8 +50,7 @@ export class StudyPageComponent implements OnDestroy {
 
   onNextClicked() {
     let answer = new Answer(this.currentKanji, this.selectedKunyomiReadings, this.selectedOnyomiReadings)
-    this.isFinished = this.currentIndex == this.length
-    if (!this.isFinished) {
+    if (!(this.answers.length == this.length)) {
       this.store.dispatch(nextKanji({answer: answer}))
       this.selectedKunyomiReadings = []
       this.selectedOnyomiReadings = []

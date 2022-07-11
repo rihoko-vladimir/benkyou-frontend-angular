@@ -12,22 +12,26 @@ import {AllSetsService} from "../../../../Services/all-sets.service";
 
 export class AllSetsComponent implements OnDestroy, OnInit {
   currentSets: Set[] = []
-  setCount : number = 0
-  pagesCount : number = 1
-  currentPage : number = 1
+  setCount: number = 9
+  pagesCount: number = 1
+  currentPage: number = 1
+  pageSize: number = 9
   subscription
 
-  constructor(private store: Store<AppState>, private allSetsService : AllSetsService) {
-    this.subscription = store.select("allSets").subscribe(value =>{
+  constructor(private store: Store<AppState>, private allSetsService: AllSetsService) {
+    this.subscription = store.select("allSets").subscribe(value => {
       this.currentSets = value.sets
       this.setCount = value.setsCount
       this.currentPage = value.currentPage
       this.pagesCount = value.pagesCount
+      this.pageSize = value.setsCount
+      console.log(value)
     })
   }
 
   ngOnInit(): void {
-    this.allSetsService.getAllSets(this.currentPage, this.setCount)
+    console.log(this.currentPage)
+    this.allSetsService.getAllSets(1, this.setCount)
   }
 
   ngOnDestroy(): void {

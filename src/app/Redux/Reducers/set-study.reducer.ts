@@ -5,36 +5,36 @@ import Answer from "../../Models/Answer";
 
 export interface IStudyState {
   currentStep: number,
-  length : number,
-  currentKanji : Kanji,
-  currentRandomReadings : string[],
+  length: number,
+  currentKanji: Kanji,
+  currentRandomReadings: string[],
   kanjiList: Kanji[],
   answerList: Answer[]
 }
 
 export const initialState: IStudyState = {
   currentStep: 0,
-  length : 0,
-  currentKanji : new Kanji(),
-  currentRandomReadings : [],
+  length: 0,
+  currentKanji: new Kanji(),
+  currentRandomReadings: [],
   kanjiList: [],
   answerList: []
 }
 
 export const setStudyReducer = createReducer(
   initialState,
-  on(startStudying, (state, {set}) =>{
+  on(startStudying, (state, {set}) => {
     const randomizedList = set.kanjiList
-      .map(value => ({ value, sort: Math.random() }))
+      .map(value => ({value, sort: Math.random()}))
       .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value)
+      .map(({value}) => value)
 
     const randomReadings = getRandomizedReadings(randomizedList, 0)
 
     console.log(randomizedList)
 
     return {
-      kanjiList : randomizedList,
+      kanjiList: randomizedList,
       currentStep: 0,
       length: randomizedList.length,
       currentRandomReadings: randomReadings,
@@ -47,28 +47,34 @@ export const setStudyReducer = createReducer(
     newAnswerList.push(answer)
     console.log(newAnswerList)
     const nextStep = state.currentStep + 1
+    if (nextStep != state.length)
+      return {
+        ...state,
+        currentStep: nextStep,
+        answerList: newAnswerList,
+        currentRandomReadings: getRandomizedReadings(state.kanjiList, nextStep),
+        currentKanji: state.kanjiList[nextStep],
+      }
     return {
       ...state,
-      currentStep : nextStep,
       answerList: newAnswerList,
-      currentRandomReadings: getRandomizedReadings(state.kanjiList, nextStep),
-      currentKanji: state.kanjiList[nextStep],
+      currentStep: nextStep,
     }
   }),
   on(finishStudying, (_) => initialState))
 
 
-
-const getRandomizedReadings = (kanjiList : Kanji[], currentIndex : number) => {
+const getRandomizedReadings = (kanjiList: Kanji[], currentIndex: number) => {
+  console.log("my index is" + currentIndex)
   const correctReadings = [
     ...kanjiList[currentIndex].kunyomi,
     ...kanjiList[currentIndex].onyomi]
   const indexArray = kanjiList.map((value, index) => index)
   indexArray.splice(currentIndex, 1)
-  let incorrectReadings : string[]
-  let firstRandomKanjiIndex : number = Math.floor(Math.random() * indexArray.length)
+  let incorrectReadings: string[]
+  let firstRandomKanjiIndex: number = Math.floor(Math.random() * indexArray.length)
   indexArray.splice(firstRandomKanjiIndex, 1)
-  let secondRandomKanjiIndex : number = Math.floor(Math.random() * indexArray.length)
+  let secondRandomKanjiIndex: number = Math.floor(Math.random() * indexArray.length)
   incorrectReadings = [
     ...kanjiList[firstRandomKanjiIndex].kunyomi,
     ...kanjiList[firstRandomKanjiIndex].onyomi,
@@ -77,7 +83,7 @@ const getRandomizedReadings = (kanjiList : Kanji[], currentIndex : number) => {
   ]
 
   return [...correctReadings, ...incorrectReadings]
-    .map(value => ({ value, sort: Math.random() }))
+    .map(value => ({value, sort: Math.random()}))
     .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
+    .map(({value}) => value)
 }

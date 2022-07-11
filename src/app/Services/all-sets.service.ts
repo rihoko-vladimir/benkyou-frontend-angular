@@ -17,7 +17,7 @@ export class AllSetsService implements IAllSetsService {
   }
 
   getAllSets(pageNumber: number, pageSize: number, searchQuery?: string): void {
-    this.httpClient.get<PagedSetsResponse>(`${this.appConfig.apiEndpoint}/sets/all-sets`,
+    this.httpClient.get<PagedSetsResponse>(`${this.appConfig.apiEndpoint}/sets/all-sets?pageNumber=${pageNumber}&pageSize=${pageSize}`,
       {
         withCredentials: true
       }).pipe(

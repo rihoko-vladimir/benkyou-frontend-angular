@@ -24,6 +24,7 @@ import {ResultComponent} from "../Global/Hub/Components/Result/result.component"
 import {ResultReadingComponent} from "../Global/Hub/Components/ResultReading/result-reading.component";
 import {AllSetsService} from "../Services/all-sets.service";
 import {MySetsService} from "../Services/my-sets.service";
+import {AccountOverviewComponent} from "../Global/Hub/Components/AccountOverview/account-overview.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import {MySetsService} from "../Services/my-sets.service";
     StudyPageComponent,
     ResultsComponent,
     ResultComponent,
-    ResultReadingComponent
+    ResultReadingComponent,AccountOverviewComponent
   ],
   imports: [
     AppRoutingModule,

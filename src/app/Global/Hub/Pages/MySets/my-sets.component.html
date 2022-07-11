@@ -3,5 +3,8 @@
   <button mat-flat-button color="primary" (click)="onCreateNewSetClicked()">Create new set</button>
 </div>
 <div class="page-content">
-  <set-grid [(sets)]="sets"></set-grid>
+  <set-grid [(sets)]="sets" (setsRemove)="onSetRemoved($event)" [mode]="'owner'"></set-grid>
 </div>
+<mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageIndex]="currentPage" [pageSize]="pageSize"
+               [length]="pagesCount">
+</mat-paginator>

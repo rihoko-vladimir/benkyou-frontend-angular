@@ -10,7 +10,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput placeholder="Your very secure password" [formControl]="passwordControl"
-             [type]="isPasswordHidden ? 'password' : 'text'">
+             [type]="!isPasswordHidden ? 'password' : 'text'">
       <button mat-icon-button matSuffix (click)="isPasswordHidden=!isPasswordHidden">
         <mat-icon fontSet="material-icons-outlined">{{isPasswordHidden ? "visibility_off" : "visibility_on"}}</mat-icon>
       </button>

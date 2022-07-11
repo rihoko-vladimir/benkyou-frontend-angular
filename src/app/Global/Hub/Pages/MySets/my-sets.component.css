@@ -3,3 +3,8 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+mat-paginator{
+  border-radius: 12px;
+  margin-top: 24px;
+}
