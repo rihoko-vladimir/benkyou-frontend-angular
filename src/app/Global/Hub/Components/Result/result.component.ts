@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from "@angular/core";
-import Kanji from "../../../../Models/Kanji";
 import Answer from "../../../../Models/Answer";
 
 @Component({

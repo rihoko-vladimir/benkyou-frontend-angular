@@ -22,6 +22,8 @@ import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.compo
 import {ResultsComponent} from "../Global/Hub/Components/ResultsComponent/results.component";
 import {ResultComponent} from "../Global/Hub/Components/Result/result.component";
 import {ResultReadingComponent} from "../Global/Hub/Components/ResultReading/result-reading.component";
+import {AllSetsService} from "../Services/all-sets.service";
+import {MySetsService} from "../Services/my-sets.service";
 
 @NgModule({
   declarations: [
@@ -48,6 +50,10 @@ import {ResultReadingComponent} from "../Global/Hub/Components/ResultReading/res
     MaterialModule,
     CommonModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    AllSetsService,
+    MySetsService,
   ]
 })
 

@@ -2,7 +2,7 @@ import {Observable} from "rxjs";
 
 export interface IAuthService{
   login(login: string,
-        password: string) : Observable<void>
+        password: string) : void
 
   register(userName: string,
            email: string,

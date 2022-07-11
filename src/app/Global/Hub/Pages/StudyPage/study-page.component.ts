@@ -2,9 +2,8 @@ import {Component, OnDestroy} from "@angular/core";
 import {Store} from "@ngrx/store";
 import Kanji from "../../../../Models/Kanji";
 import {AppState} from "../../../../Redux/app.state";
-import {Observable} from "rxjs";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {finishStudying, nextKanji} from "../../../../Redux/Actions/set-study.actions";
+import {nextKanji} from "../../../../Redux/Actions/set-study.actions";
 import Answer from "../../../../Models/Answer";
 
 @Component({

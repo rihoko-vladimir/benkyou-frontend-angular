@@ -10,6 +10,9 @@ import {HubModule} from "./Modules/hub.module";
 import {NotFoundModule} from "./Modules/not-found.module";
 import { StoreModule } from '@ngrx/store';
 import {setStudyReducer} from "./Redux/Reducers/set-study.reducer";
+import {allSetsReducer} from "./Redux/Reducers/all-sets.reducer";
+import { EffectsModule } from '@ngrx/effects';
+import {mySetsReducer} from "./Redux/Reducers/my-sets.reducer";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import {setStudyReducer} from "./Redux/Reducers/set-study.reducer";
     NotFoundModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({setStudy : setStudyReducer}),
+    StoreModule.forRoot({setStudy : setStudyReducer, allSets : allSetsReducer, mySets : mySetsReducer}),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent]

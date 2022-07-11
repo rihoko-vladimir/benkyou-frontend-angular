@@ -6,5 +6,5 @@ import {IAppConfiguration} from "./IAppConfiguration";
 })
 
 export class AppConfiguration implements IAppConfiguration{
-  public apiEndpoint: string = "http://localhost:3080/api/v1";
+  public apiEndpoint: string = "http://localhost:3080";
 }
