@@ -1,5 +1,4 @@
 import Set from "../../Models/Set"
-import {SetRequest} from "../../Models/Requests/SetRequest";
 
 export interface IMySetsService{
   getMySets(pageNumber : number, pageSize : number) : void
@@ -8,5 +7,5 @@ export interface IMySetsService{
 
   patchMySet(setId : string, newSet : Set) : void
 
-  createSet(setRequest : SetRequest) : void
+  createSet(setRequest : Set) : void
 }

@@ -1,13 +1,16 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
-    <img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/benkyou-18d11.appspot.com/o/avatars%2F622d4bc7-c79a-43da-ac27-1e5345dc67e4?alt=media&token=2a896e1f-5afa-4062-a89b-6671fcd33a6a" alt="avatar"/>
-    <span class="mat-typography text-padding">Uladzimir Kazlouski</span>
+    <div class="avatar placeholderContainer" *ngIf="avatarUrl=='' || avatarUrl == null">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+    <img class="avatar" [src]="avatarUrl" alt="avatar" *ngIf="avatarUrl!='' && avatarUrl != null"/>
+    <span class="mat-typography text-padding">{{firstName + " " + lastName}}</span>
   </mat-expansion-panel-header>
   <mat-list-item routerLink="/hub/account" [routerLinkActive]="['route-selected']">
     <mat-icon fontSet="material-icons-outlined">settings</mat-icon>
     <span class="mat-typography text-padding">Account settings</span>
   </mat-list-item>
-  <mat-list-item>
+  <mat-list-item (click)="onLogoutClicked()">
     <mat-icon fontSet="material-icons-outlined">logout</mat-icon>
     <span class="mat-typography text-padding">Log out</span>
   </mat-list-item>

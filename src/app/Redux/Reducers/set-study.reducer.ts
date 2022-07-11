@@ -31,6 +31,8 @@ export const setStudyReducer = createReducer(
 
     const randomReadings = getRandomizedReadings(randomizedList, 0)
 
+    console.log(randomizedList)
+
     return {
       kanjiList : randomizedList,
       currentStep: 0,
@@ -43,6 +45,7 @@ export const setStudyReducer = createReducer(
   on(nextKanji, (state, {answer}) => {
     const newAnswerList = [...state.answerList]
     newAnswerList.push(answer)
+    console.log(newAnswerList)
     const nextStep = state.currentStep + 1
     return {
       ...state,

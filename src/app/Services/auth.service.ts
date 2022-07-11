@@ -4,7 +4,7 @@ import {catchError, EMPTY, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AppConfiguration} from "../Constants/AppConfiguration";
 import {Store} from "@ngrx/store";
-import {AppState} from "../Redux/app.state";
+import AppState from "../Redux/app.state";
 import {accountError, loginSuccess} from "../Redux/Actions/account.actions";
 import {UserResponse} from "../Models/Responses/UserResponse";
 
@@ -12,9 +12,9 @@ import {UserResponse} from "../Models/Responses/UserResponse";
   providedIn: "root",
   deps: [AppConfiguration]
 })
-export class AuthService implements IAuthService{
+export class AuthService implements IAuthService {
 
-  constructor(private httpClient: HttpClient, private appConfig: AppConfiguration, private store : Store<AppState>) {
+  constructor(private httpClient: HttpClient, private appConfig: AppConfiguration, private store: Store<AppState>) {
   }
 
   confirmEmailAddress(userId: string, confirmationCode: string): Observable<string> {
@@ -29,17 +29,17 @@ export class AuthService implements IAuthService{
 
   login(login: string, password: string): void {
     let credentials = {
-      email: login,
+      login: login,
       password: password
     }
 
     this.httpClient.post<void>(`${this.appConfig.apiEndpoint}/auth/login`,
       credentials, {
-      withCredentials: true
-    })
+        withCredentials: true
+      })
       .pipe(
         catchError(error => {
-          this.store.dispatch(accountError({errorMessage : error}))
+          this.store.dispatch(accountError({errorMessage: error}))
           return EMPTY
         })
       )
@@ -48,8 +48,32 @@ export class AuthService implements IAuthService{
       })
   }
 
-  getUserInfo() : void{
-    this.httpClient.get<UserResponse>(`${this.appConfig.apiEndpoint}/auth/login`)
+  getUserInfo(): void {
+    this.httpClient.get<UserResponse>(`${this.appConfig.apiEndpoint}/user/get-info`,
+      {
+        withCredentials: true
+      })
+      .pipe(
+        catchError(error => {
+          this.store.dispatch(accountError({errorMessage: error}))
+          return EMPTY
+        })
+      )
+      .subscribe((value) => {
+        this.store.dispatch(loginSuccess({
+          isTermsAccepted: true,
+          userName: value.userName,
+          firstName: value.firstName,
+          lastName: value.lastName,
+          userRole: value.userRole,
+          isAccountPublic: value.isAccountPublic,
+          birthDay: value.birthDay,
+          about: value.about,
+          avatarUrl: value.avatarUrl,
+          id: value.id
+        }))
+      })
+
   }
 
   register(userName: string, email: string, firstName: string, lastName: string, password: string): Observable<string> {

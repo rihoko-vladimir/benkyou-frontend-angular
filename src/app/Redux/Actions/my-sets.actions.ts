@@ -10,3 +10,8 @@ export const loadMySetsFailure = createAction(
   "[My Sets Page] Load My Sets Failure",
   props<{errorMessage : string}>()
 )
+
+export const createNewSetSuccess = createAction(
+  "[My Sets Page] Create My Sets Success",
+  props<{set : Set}>()
+)

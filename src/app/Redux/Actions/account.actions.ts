@@ -1,9 +1,9 @@
 import {createAction, props} from "@ngrx/store";
-import {AccountState} from "../Reducers/account.reducer";
+import {IAccountState} from "../Reducers/account.reducer";
 
 export const loginSuccess = createAction(
   "[Login page] Login Success",
-  props<AccountState>()
+  props<IAccountState>()
 )
 
 export const logout = createAction(
@@ -12,7 +12,7 @@ export const logout = createAction(
 
 export const changeUserInfoSuccess = createAction(
   "[Account page] Change user info success",
-  props<AccountState>()
+  props<IAccountState>()
 )
 
 export const changeUserAvatarSuccess = createAction(

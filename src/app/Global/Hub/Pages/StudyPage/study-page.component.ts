@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from "@angular/core";
 import {Store} from "@ngrx/store";
 import Kanji from "../../../../Models/Kanji";
-import {AppState} from "../../../../Redux/app.state";
+import AppState from "../../../../Redux/app.state";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {nextKanji} from "../../../../Redux/Actions/set-study.actions";
 import Answer from "../../../../Models/Answer";
@@ -18,6 +18,7 @@ export class StudyPageComponent implements OnDestroy {
   currentKanji: Kanji = new Kanji()
   selectedKunyomiReadings: string[] = []
   selectedOnyomiReadings: string[] = []
+  isFinished: boolean = false
   length: number = 0
   currentIndex: number = 0
   answers: Answer[] = []
@@ -50,9 +51,12 @@ export class StudyPageComponent implements OnDestroy {
 
   onNextClicked() {
     let answer = new Answer(this.currentKanji, this.selectedKunyomiReadings, this.selectedOnyomiReadings)
-    this.store.dispatch(nextKanji({answer: answer}))
-    this.selectedKunyomiReadings = []
-    this.selectedOnyomiReadings = []
+    this.isFinished = this.currentIndex == this.length
+    if (!this.isFinished) {
+      this.store.dispatch(nextKanji({answer: answer}))
+      this.selectedKunyomiReadings = []
+      this.selectedOnyomiReadings = []
+    }
     return
   }
 }

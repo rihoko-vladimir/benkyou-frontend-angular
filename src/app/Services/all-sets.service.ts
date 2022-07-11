@@ -7,7 +7,7 @@ import {AppConfiguration} from "../Constants/AppConfiguration";
 import {PagedSetsResponse} from "../Models/Responses/PagedSetsResponse";
 import Kanji from "../Models/Kanji";
 import {Store} from "@ngrx/store";
-import {AppState} from "../Redux/app.state";
+import AppState from "../Redux/app.state";
 import {loadAllSetsFailure, loadAllSetsSuccess} from "../Redux/Actions/all-sets.actions";
 
 @Injectable()
@@ -25,7 +25,7 @@ export class AllSetsService implements IAllSetsService {
           sets: pagedResponse.sets.map(setResponse =>
             new Set(setResponse.id, setResponse.name, setResponse.description, "", setResponse.authorId,
               setResponse.kanjiList.map(kanjiResponse =>
-                new Kanji(kanjiResponse.kanji,
+                new Kanji(kanjiResponse.kanjiChar,
                   kanjiResponse.kunyomiReadings.map(kunyomiResponse => kunyomiResponse.reading),
                   kanjiResponse.onyomiReadings.map(onyomiResponse => onyomiResponse.reading))))),
           pagesCount: pagedResponse.pagesCount,

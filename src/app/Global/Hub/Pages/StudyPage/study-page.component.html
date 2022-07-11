@@ -1,6 +1,6 @@
 <div class="learnContainer">
   <mat-card class="set">
-    <div class="content" *ngIf="currentIndex != length-1">
+    <div class="content" *ngIf="!isFinished">
       <div class="topPart">
         <div class="kanjiContainer">
           <p class="kanji">{{currentKanji.kanji}}</p>
@@ -45,6 +45,6 @@
         </div>
       </div>
     </div>
-    <results [results]="answers" *ngIf="currentIndex == length-1"></results>
+    <results [results]="answers" *ngIf="isFinished"></results>
   </mat-card>
 </div>

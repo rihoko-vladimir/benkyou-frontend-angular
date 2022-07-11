@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import Set from "../../../../Models/Set"
 import {Store} from "@ngrx/store";
-import {AppState} from "../../../../Redux/app.state";
+import AppState from "../../../../Redux/app.state";
 import {AllSetsService} from "../../../../Services/all-sets.service";
 
 @Component({

@@ -1,7 +1,7 @@
 import {ReadingResponse} from "./ReadingResponse";
 
 export interface KanjiResponse{
-  kanji : string,
+  kanjiChar : string,
   kunyomiReadings : ReadingResponse[],
   onyomiReadings : ReadingResponse[]
 }
