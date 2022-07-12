@@ -1,6 +1,14 @@
 <h1 class="mat-display-1" style="margin: 0">All Sets</h1>
 <div class="page-content">
-  <set-grid [sets]="currentSets" [mode]="'notOwner'"></set-grid>
+  <mat-form-field  appearance="outline">
+    <mat-label>Search query</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput type="text" [formControl]="searchControl">
+  </mat-form-field>
+  <set-grid *ngIf="!isLoading" [sets]="currentSets" [mode]="'notOwner'"></set-grid>
+  <div *ngIf="isLoading" class="loaderContainer">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
 </div>
 <mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageIndex]="currentPage" [pageSize]="pageSize"
                [length]="pagesCount">

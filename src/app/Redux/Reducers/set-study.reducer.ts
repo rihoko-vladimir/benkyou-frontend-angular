@@ -2,6 +2,7 @@ import {createReducer, on} from "@ngrx/store";
 import {finishStudying, nextKanji, startStudying} from "../Actions/set-study.actions";
 import Kanji from "../../Models/Kanji";
 import Answer from "../../Models/Answer";
+import {logout} from "../Actions/account.actions";
 
 export interface IStudyState {
   currentStep: number,
@@ -61,25 +62,26 @@ export const setStudyReducer = createReducer(
       currentStep: nextStep,
     }
   }),
-  on(finishStudying, (_) => initialState))
+  on(finishStudying, (_) => initialState),
+  on(logout, () => initialState))
 
 
 const getRandomizedReadings = (kanjiList: Kanji[], currentIndex: number) => {
-  console.log("my index is" + currentIndex)
+  const kanjiListCopy = [...kanjiList]
   const correctReadings = [
-    ...kanjiList[currentIndex].kunyomi,
-    ...kanjiList[currentIndex].onyomi]
-  const indexArray = kanjiList.map((value, index) => index)
-  indexArray.splice(currentIndex, 1)
+    ...kanjiListCopy[currentIndex].kunyomi,
+    ...kanjiListCopy[currentIndex].onyomi]
+  kanjiListCopy.splice(currentIndex, 1)
   let incorrectReadings: string[]
-  let firstRandomKanjiIndex: number = Math.floor(Math.random() * indexArray.length)
-  indexArray.splice(firstRandomKanjiIndex, 1)
-  let secondRandomKanjiIndex: number = Math.floor(Math.random() * indexArray.length)
+  let firstRandomKanjiIndex: number = Math.floor(Math.random() * kanjiListCopy.length)
+  let firstRandomKanji = kanjiListCopy.splice(firstRandomKanjiIndex, 1)[0]
+  let secondRandomKanjiIndex: number = Math.floor(Math.random() * kanjiListCopy.length)
+  let secondRandomKanji = kanjiListCopy.splice(secondRandomKanjiIndex, 1)[0]
   incorrectReadings = [
-    ...kanjiList[firstRandomKanjiIndex].kunyomi,
-    ...kanjiList[firstRandomKanjiIndex].onyomi,
-    ...kanjiList[secondRandomKanjiIndex].kunyomi,
-    ...kanjiList[secondRandomKanjiIndex].onyomi
+    ...firstRandomKanji.kunyomi,
+    ...firstRandomKanji.onyomi,
+    ...secondRandomKanji.kunyomi,
+    ...secondRandomKanji.onyomi
   ]
 
   return [...correctReadings, ...incorrectReadings]

@@ -18,14 +18,15 @@ export class MySetsComponent implements OnInit, OnDestroy {
   pageSize: number = 9
   pagesCount: number = 1
   subscription
+  isLoading: boolean = false
 
   constructor(private dialog: MatDialog, private store: Store<AppState>, private mySetsService: MySetsService) {
     this.subscription = store.select("mySets").subscribe(value => {
-      console.log(value)
       this.currentPage = value.currentPage
       this.pagesCount = value.pagesCount
       this.pageSize = value.setsCount
       this.sets = value.sets
+      this.isLoading = false
     })
   }
 
@@ -44,6 +45,7 @@ export class MySetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isLoading = true
     this.mySetsService.getMySets(1, this.pageSize)
   }
 
@@ -53,5 +55,9 @@ export class MySetsComponent implements OnInit, OnDestroy {
 
   onSetRemoved(id: string) {
     this.mySetsService.removeMySet(id, this.currentPage, this.pageSize)
+  }
+
+  onSetChanged(changesObj: { set: Set, originalSet: Set }) {
+    this.mySetsService.patchMySet(changesObj.set.id, changesObj.set, changesObj.originalSet)
   }
 }

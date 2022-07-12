@@ -1,6 +1,10 @@
 <mat-card class="accountInfoContainer">
   <h3 style="margin: 0; padding: 0">Summary</h3>
   <div class="topInfo">
+    <img class="avatarClass" [src]="avatarUrl" *ngIf="avatarUrl!='' && avatarUrl != null">
+    <div class="avatarClass placeholderContainer" *ngIf="avatarUrl=='' || avatarUrl == null">
+      <mat-icon>account_circle</mat-icon>
+    </div>
     <p class="mat-typography">{{firstName + " " + lastName}}</p>
   </div>
   <div class="bottomStatistics">

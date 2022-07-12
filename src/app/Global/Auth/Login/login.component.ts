@@ -19,6 +19,7 @@ export class LoginComponent implements OnDestroy {
   subscription
 
   isPasswordHidden = false
+  isLoading: boolean = false
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private store: Store<AppState>) {
     this.subscription = store.select("account").subscribe(value => {
@@ -31,6 +32,7 @@ export class LoginComponent implements OnDestroy {
 
   onLoginClicked() {
     if (this.loginControl.valid && this.passwordControl.valid) {
+      this.isLoading = true
       this.authService.login(this.loginControl.value!, this.passwordControl.value!)
     } else {
       this.loginControl.markAsTouched()

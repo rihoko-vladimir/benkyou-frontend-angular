@@ -1,6 +1,7 @@
 import {ISetsState} from "./all-sets.reducer";
 import {createReducer, on} from "@ngrx/store";
 import {loadMySetsFailure, loadMySetsSuccess} from "../Actions/my-sets.actions";
+import {logout} from "../Actions/account.actions";
 
 const initialState: ISetsState = {
   currentPage: 1,
@@ -21,5 +22,6 @@ export const mySetsReducer = createReducer(
   on(loadMySetsFailure, (state, {errorMessage}) => ({
     ...state,
     errorMessage: errorMessage
-  }))
+  })),
+  on(logout, () => initialState)
 )

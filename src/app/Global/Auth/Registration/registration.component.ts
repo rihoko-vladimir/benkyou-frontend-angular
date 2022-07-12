@@ -216,7 +216,7 @@ export class RegistrationComponent {
     observable
       .subscribe(userId => {
         this.userId = userId
-
+        this.router.navigate(["auth"])
       }, error => {
       this.showErrorSnackbar(error.value)
     })

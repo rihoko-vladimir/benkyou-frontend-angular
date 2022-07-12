@@ -25,6 +25,9 @@ import {ResultReadingComponent} from "../Global/Hub/Components/ResultReading/res
 import {AllSetsService} from "../Services/all-sets.service";
 import {MySetsService} from "../Services/my-sets.service";
 import {AccountOverviewComponent} from "../Global/Hub/Components/AccountOverview/account-overview.component";
+import {
+  RemoveConfirmationDialogComponent
+} from "../Global/Hub/Components/RemoveConfirmationDialog/remove-confirmation-dialog.component";
 
 @NgModule({
   declarations: [
@@ -39,12 +42,14 @@ import {AccountOverviewComponent} from "../Global/Hub/Components/AccountOverview
     KanjiListComponent,
     KanjiComponent,
     SetDialogComponent,
+    RemoveConfirmationDialogComponent,
     EditKanjiListComponent,
     EditKanjiComponent,
     StudyPageComponent,
     ResultsComponent,
     ResultComponent,
-    ResultReadingComponent,AccountOverviewComponent
+    ResultReadingComponent,
+    AccountOverviewComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -55,7 +60,7 @@ import {AccountOverviewComponent} from "../Global/Hub/Components/AccountOverview
   providers: [
     AllSetsService,
     MySetsService,
-  ]
+  ],
 })
 
 export class HubModule {

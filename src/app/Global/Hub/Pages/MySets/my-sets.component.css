@@ -8,3 +8,11 @@ mat-paginator{
   border-radius: 12px;
   margin-top: 24px;
 }
+
+.loaderContainer{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

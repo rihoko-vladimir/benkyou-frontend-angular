@@ -5,6 +5,14 @@
   column-gap: 16px;
 }
 
+.page-content{
+  height: 96%;
+}
+
+:host{
+  height: 100%;
+}
+
 .dividedTextFields {
   display: flex;
   flex-direction: row;

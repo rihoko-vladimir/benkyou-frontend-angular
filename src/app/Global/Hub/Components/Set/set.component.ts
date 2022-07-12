@@ -7,6 +7,7 @@ import {Store} from "@ngrx/store";
 import {startStudying} from "../../../../Redux/Actions/set-study.actions";
 import AppState from "../../../../Redux/app.state";
 import {MySetsService} from "../../../../Services/my-sets.service";
+import {RemoveConfirmationDialogComponent} from "../RemoveConfirmationDialog/remove-confirmation-dialog.component";
 
 @Component({
   selector: "set",
@@ -17,38 +18,44 @@ import {MySetsService} from "../../../../Services/my-sets.service";
 export class SetComponent {
   isOpened: boolean
   @Input() set!: Set
-  @Input() mode! : string
+  @Input() mode!: string
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
-  constructor(private dialog: MatDialog, private router : Router, private store : Store<AppState>, private mySetsService : MySetsService) {
+
+  constructor(private dialog: MatDialog, private router: Router, private store: Store<AppState>, private mySetsService: MySetsService) {
     this.isOpened = false
   }
 
-  changeOpenedStatus(){
+  changeOpenedStatus() {
     this.isOpened = !this.isOpened
   }
 
   onRemoveClicked(id: string) {
-    this.remove.emit(id)
+    this.dialog.open(RemoveConfirmationDialogComponent)
+      .afterClosed().subscribe((isUserAgreed) => {
+      if (isUserAgreed) {
+        this.remove.emit(id)
+      }
+    })
   }
 
   onEditClicked() {
     this.dialog.open(SetDialogComponent, {
-      data : new DialogProperties(OpenMode.edit, JSON.parse(JSON.stringify(this.set)))
+      data: new DialogProperties(OpenMode.edit, JSON.parse(JSON.stringify(this.set)))
     }).afterClosed().subscribe((set) => this.onSetChanged(set))
   }
 
-  onSetChanged(editedSet : Set | undefined){
-    if (editedSet === undefined){
+  onSetChanged(editedSet: Set | undefined) {
+    if (editedSet === undefined) {
       console.log("set wasn't changed")
-    }else{
+    } else {
       console.log(editedSet)
       this.setChange.emit(editedSet)
     }
   }
 
-   async onStudyClicked() {
-    this.store.dispatch(startStudying({set : this.set}))
+  async onStudyClicked() {
+    this.store.dispatch(startStudying({set: this.set}))
     await this.router.navigate(["hub", "study"])
   }
 

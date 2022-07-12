@@ -12,11 +12,13 @@ export class AccountOverviewComponent implements OnDestroy {
   subscription
   firstName: string = ""
   lastName: string = ""
+  avatarUrl : string = ""
 
   constructor(private store: Store<AppState>) {
     this.subscription = store.select("account").subscribe(value => {
       this.firstName = value.firstName
       this.lastName = value.lastName
+      this.avatarUrl = value.avatarUrl
     })
   }
 

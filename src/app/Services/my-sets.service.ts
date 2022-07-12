@@ -9,12 +9,12 @@ import {SetResponse} from "../Models/Responses/SetResponse";
 import {PagedSetsResponse} from "../Models/Responses/PagedSetsResponse";
 import {catchError, EMPTY, map} from "rxjs";
 import {loadMySetsFailure, loadMySetsSuccess} from "../Redux/Actions/my-sets.actions";
-import Kanji from "../Models/Kanji";
 import {SetRequest} from "../Models/Requests/SetRequest";
 import {KanjiRequest} from "../Models/Requests/KanjiRequest";
 import {ReadingResponse} from "../Models/Responses/ReadingResponse";
 import * as jsonpatch from 'fast-json-patch';
 import {loadAllSetsFailure} from "../Redux/Actions/all-sets.actions";
+import {mapSetResponseToSet, mapSetToSetRequest} from "./Helpers/converters";
 
 @Injectable()
 
@@ -45,12 +45,7 @@ export class MySetsService implements IMySetsService {
       withCredentials: true
     })
       .pipe(
-        map((setResponse =>
-          new Set(setResponse.id, setResponse.name, setResponse.description, "", setResponse.authorId,
-            setResponse.kanjiList.map(kanjiResponse =>
-              new Kanji(kanjiResponse.kanjiChar,
-                kanjiResponse.kunyomiReadings.map(kunyomiResponse => kunyomiResponse.reading),
-                kanjiResponse.onyomiReadings.map(onyomiResponse => onyomiResponse.reading)))))),
+        map(mapSetResponseToSet),
         catchError(error => {
           this.store.dispatch(loadMySetsFailure({errorMessage: error}))
           return EMPTY
@@ -68,12 +63,7 @@ export class MySetsService implements IMySetsService {
       })
       .pipe(
         map((pagedResponse) => ({
-            sets: pagedResponse.sets.map(setResponse =>
-              new Set(setResponse.id, setResponse.name, setResponse.description, "", setResponse.authorId,
-                setResponse.kanjiList.map(kanjiResponse =>
-                  new Kanji(kanjiResponse.kanjiChar,
-                    kanjiResponse.kunyomiReadings.map(kunyomiResponse => kunyomiResponse.reading),
-                    kanjiResponse.onyomiReadings.map(onyomiResponse => onyomiResponse.reading))))),
+            sets: pagedResponse.sets.map(mapSetResponseToSet),
             pagesCount: pagedResponse.pagesCount,
             currentPage: pagedResponse.currentPage
           }),
@@ -91,9 +81,9 @@ export class MySetsService implements IMySetsService {
   }
 
   patchMySet(setId: string, newSet: Set, originalSet: Set): void {
-    let sourceSet = originalSet
+    let sourceSet = mapSetToSetRequest({...originalSet})
     let observer = jsonpatch.observe<Set>(sourceSet)
-    sourceSet = newSet
+    Object.assign(sourceSet, mapSetToSetRequest(newSet))
     let request = jsonpatch.generate(observer)
     this.httpClient.patch<SetResponse>(`${this.appConfig.apiEndpoint}/sets/modify?setId=${setId}`, request, {withCredentials: true})
       .pipe(

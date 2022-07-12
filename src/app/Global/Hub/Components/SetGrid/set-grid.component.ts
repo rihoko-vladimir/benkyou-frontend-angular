@@ -11,11 +11,14 @@ export class SetGridComponent{
   @Input() mode! : string
   @Output() setsChange = new EventEmitter<Set[]>()
   @Output() setsRemove = new EventEmitter<string>()
+  @Output() setChange = new EventEmitter<{set : Set, originalSet : Set}>()
 
   onSetChange(index : number, set : Set) {
     console.log(set)
     console.log(index)
     let changedSets = [...this.sets]
+    const originalSet = changedSets[index]
+    this.setChange.emit({set, originalSet})
     changedSets[index] = set
     this.setsChange.emit(changedSets)
   }

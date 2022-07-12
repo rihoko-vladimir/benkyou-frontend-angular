@@ -4,12 +4,19 @@
   flex-direction: column;
   column-gap: 24px;
   border-radius: 12px;
+  height: 100%;
   border-color: transparent;
   box-sizing: border-box;
   border-style: solid;
   padding: 32px;
-  justify-content: space-between;
+  justify-content: start;
   box-shadow: none;
+}
+
+.placeholderContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .topInfo {
@@ -30,4 +37,6 @@
 .avatarClass {
   width: 128px;
   height: 128px;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 50%;
 }

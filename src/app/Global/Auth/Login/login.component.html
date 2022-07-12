@@ -4,13 +4,13 @@
   <div class="fields">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput placeholder="youremail@mail.com" [formControl]="loginControl">
+      <input matInput placeholder="youremail@mail.com" [formControl]="loginControl" [disabled]="isLoading">
       <mat-error *ngIf="loginControl.invalid">{{getEmailErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput placeholder="Your very secure password" [formControl]="passwordControl"
-             [type]="!isPasswordHidden ? 'password' : 'text'">
+             [type]="!isPasswordHidden ? 'password' : 'text'" [disabled]="isLoading">
       <button mat-icon-button matSuffix (click)="isPasswordHidden=!isPasswordHidden">
         <mat-icon fontSet="material-icons-outlined">{{isPasswordHidden ? "visibility_off" : "visibility_on"}}</mat-icon>
       </button>
@@ -19,8 +19,8 @@
     <a routerLink="/auth/forgot-password">I forgot my password</a>
   </div>
   <div class="buttons">
-    <button mat-flat-button color="primary" (click)="onLoginClicked()">Login</button>
+    <button mat-flat-button color="primary" (click)="onLoginClicked()" [disabled]="isLoading">Login</button>
     <p class="mat-typography">Don't have an account yet?</p>
-    <button mat-flat-button color="accent" (click)="onRegistrationClicked()">Sign up</button>
+    <button mat-flat-button color="accent" (click)="onRegistrationClicked()" [disabled]="isLoading">Sign up</button>
   </div>
 </div>

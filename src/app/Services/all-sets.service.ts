@@ -1,14 +1,13 @@
 import {Injectable} from "@angular/core";
 import {IAllSetsService} from "./Interfaces/all-sers.service";
 import {catchError, EMPTY, map} from "rxjs";
-import Set from "../Models/Set"
 import {HttpClient} from "@angular/common/http";
 import {AppConfiguration} from "../Constants/AppConfiguration";
 import {PagedSetsResponse} from "../Models/Responses/PagedSetsResponse";
-import Kanji from "../Models/Kanji";
 import {Store} from "@ngrx/store";
 import AppState from "../Redux/app.state";
 import {loadAllSetsFailure, loadAllSetsSuccess} from "../Redux/Actions/all-sets.actions";
+import {mapSetResponseToSet} from "./Helpers/converters";
 
 @Injectable()
 
@@ -22,12 +21,7 @@ export class AllSetsService implements IAllSetsService {
         withCredentials: true
       }).pipe(
       map(pagedResponse => ({
-          sets: pagedResponse.sets.map(setResponse =>
-            new Set(setResponse.id, setResponse.name, setResponse.description, "", setResponse.authorId,
-              setResponse.kanjiList.map(kanjiResponse =>
-                new Kanji(kanjiResponse.kanjiChar,
-                  kanjiResponse.kunyomiReadings.map(kunyomiResponse => kunyomiResponse.reading),
-                  kanjiResponse.onyomiReadings.map(onyomiResponse => onyomiResponse.reading))))),
+          sets: pagedResponse.sets.map(mapSetResponseToSet),
           pagesCount: pagedResponse.pagesCount,
           currentPage: pagedResponse.currentPage
         }),

@@ -1,6 +1,7 @@
 import Set from "../../Models/Set"
 import {createReducer, on} from "@ngrx/store";
 import {loadAllSetsFailure, loadAllSetsSuccess} from "../Actions/all-sets.actions";
+import {logout} from "../Actions/account.actions";
 
 export interface ISetsState {
   sets: Set[],
@@ -29,5 +30,6 @@ export const allSetsReducer = createReducer(
   on(loadAllSetsFailure, (state, {errorMessage}) => ({
     ...state,
     errorMessage : errorMessage
-  }))
+  })),
+  on(logout, () => initialState)
 )
