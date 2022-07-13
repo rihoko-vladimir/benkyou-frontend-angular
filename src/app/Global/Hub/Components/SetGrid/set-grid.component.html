@@ -1,6 +1,6 @@
 <div class="cardsContainer">
   <set *ngFor="let set of sets; let i = index" [set]="set" (setChange)="onSetChange(i, $event)"
-       (remove)="onSetRemove($event)" [mode]="mode"></set>
+       (remove)="onSetRemove($event)" [mode]="mode" @enterRemoveAnim></set>
 </div>
 
 

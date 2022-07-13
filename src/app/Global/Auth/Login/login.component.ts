@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../Services/auth.service";
 import {Store} from "@ngrx/store";
 import AppState from "../../../Redux/app.state";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: "login",
@@ -17,14 +18,22 @@ export class LoginComponent implements OnDestroy {
   passwordControl = new FormControl("",
     [Validators.required])
   subscription
-
   isPasswordHidden = false
   isLoading: boolean = false
+  isSuccess: boolean = false
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private store: Store<AppState>) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private store: Store<AppState>, private snackbar: MatSnackBar) {
     this.subscription = store.select("account").subscribe(value => {
-        if (value.id != "") {
-          router.navigate(["hub"])
+        if (!value.error.isError && value.id != "") {
+          this.isSuccess = true
+          this.isLoading = false
+          setTimeout(() => {
+            router.navigate(["hub"])
+            this.isSuccess = false
+          }, 500)
+        } else if (value.error.isError) {
+          this.showLoginError(value.error.errorMessage)
+          this.isLoading = false
         }
       }
     )
@@ -60,5 +69,14 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
+    console.log("i'm destroyed")
+  }
+
+  showLoginError(errorMessage: string) {
+    this.snackbar.open(errorMessage, undefined, {
+      horizontalPosition: "start",
+      verticalPosition: "bottom",
+      duration: 3000
+    })
   }
 }

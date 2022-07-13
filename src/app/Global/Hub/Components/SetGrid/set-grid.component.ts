@@ -1,10 +1,23 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import Set from "../../../../Models/Set"
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: "set-grid",
   templateUrl: "set-grid.component.html",
-  styleUrls: ["set-grid.component.css"]
+  styleUrls: ["set-grid.component.css"],
+  animations: [
+    trigger("enterRemoveAnim", [
+      transition(':leave', [
+        style({
+          transform : "scale(1)"
+        }),
+        animate('100ms', style({
+          transform : "scale(0)"
+        }))
+      ])
+    ])
+  ]
 })
 export class SetGridComponent{
   @Input() sets!: Set[]
@@ -14,8 +27,6 @@ export class SetGridComponent{
   @Output() setChange = new EventEmitter<{set : Set, originalSet : Set}>()
 
   onSetChange(index : number, set : Set) {
-    console.log(set)
-    console.log(index)
     let changedSets = [...this.sets]
     const originalSet = changedSets[index]
     this.setChange.emit({set, originalSet})

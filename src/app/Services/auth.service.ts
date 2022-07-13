@@ -39,7 +39,8 @@ export class AuthService implements IAuthService {
       })
       .pipe(
         catchError(error => {
-          this.store.dispatch(accountError({errorMessage: error}))
+          console.log(error)
+          this.store.dispatch(accountError({errorMessage: error.error}))
           return EMPTY
         })
       )
@@ -55,7 +56,7 @@ export class AuthService implements IAuthService {
       })
       .pipe(
         catchError(error => {
-          this.store.dispatch(accountError({errorMessage: error}))
+          this.store.dispatch(accountError({errorMessage: error.error}))
           return EMPTY
         })
       )
@@ -70,7 +71,8 @@ export class AuthService implements IAuthService {
           birthDay: value.birthDay,
           about: value.about,
           avatarUrl: value.avatarUrl,
-          id: value.id
+          id: value.id,
+          error: {isError: false, errorMessage: ""}
         }))
       })
 

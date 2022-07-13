@@ -1,5 +1,5 @@
 import {createReducer, on} from "@ngrx/store";
-import {loginSuccess, logout} from "../Actions/account.actions";
+import {accountError, loginSuccess, logout} from "../Actions/account.actions";
 
 export interface IAccountState {
   id: string,
@@ -11,7 +11,8 @@ export interface IAccountState {
   avatarUrl: string,
   isTermsAccepted: boolean,
   isAccountPublic: boolean,
-  about: string
+  about: string,
+  error: { isError: boolean, errorMessage: string }
 }
 
 const initialState: IAccountState = {
@@ -24,7 +25,8 @@ const initialState: IAccountState = {
   userRole: "user",
   lastName: "",
   userName: "",
-  isTermsAccepted: true
+  isTermsAccepted: true,
+  error: {isError: false, errorMessage: ""}
 }
 
 export const accountReducer = createReducer(
@@ -39,7 +41,12 @@ export const accountReducer = createReducer(
     isTermsAccepted: account.isTermsAccepted,
     userRole: account.userRole,
     userName: account.userName,
-    id: account.id
+    id: account.id,
+    error: {isError: false, errorMessage: ""}
+  })),
+  on(accountError, (state, {errorMessage}) => ({
+    ...initialState,
+    error: {isError: true, errorMessage: errorMessage}
   })),
   on(logout, () => initialState)
 )

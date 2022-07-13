@@ -3,7 +3,7 @@
   <div class="topInfo">
     <img class="avatarClass" [src]="avatarUrl" *ngIf="avatarUrl!='' && avatarUrl != null">
     <div class="avatarClass placeholderContainer" *ngIf="avatarUrl=='' || avatarUrl == null">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon style="width: 50px; height: 50px; font-size: 50px">account_circle</mat-icon>
     </div>
     <p class="mat-typography">{{firstName + " " + lastName}}</p>
   </div>

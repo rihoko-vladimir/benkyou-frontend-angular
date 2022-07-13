@@ -34,12 +34,12 @@ export class EditKanjiComponent implements OnInit {
     ])
 
     this.kunyomiControl = new FormControl("", [
-      Validators.pattern(`[ぁ-ん]`),
+      Validators.pattern(`[ぁ-ん]+`),
       Validators.maxLength(10)
     ])
 
     this.onyomiControl = new FormControl("", [
-      Validators.pattern(`[ァ-ン]`),
+      Validators.pattern(`[ァ-ン]+`),
       Validators.maxLength(10)
     ])
   }

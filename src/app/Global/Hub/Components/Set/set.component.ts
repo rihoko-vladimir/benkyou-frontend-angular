@@ -12,11 +12,11 @@ import {RemoveConfirmationDialogComponent} from "../RemoveConfirmationDialog/rem
 @Component({
   selector: "set",
   templateUrl: "set.component.html",
-  styleUrls: ["set.component.css"]
+  styleUrls: ["set.component.css"],
 })
 
 export class SetComponent {
-  isOpened: boolean
+  isOpened: boolean = false
   @Input() set!: Set
   @Input() mode!: string
   @Output() setChange = new EventEmitter<Set>();

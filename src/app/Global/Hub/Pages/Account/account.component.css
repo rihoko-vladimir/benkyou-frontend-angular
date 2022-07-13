@@ -1,49 +1,11 @@
-.nameAndSurname {
-  display: flex;
-  flex-direction: row;
-  margin-top: 32px;
-  column-gap: 16px;
-}
-
-.page-content{
+.page-content {
   height: 96%;
-}
-
-:host{
-  height: 100%;
-}
-
-.dividedTextFields {
   display: flex;
   flex-direction: row;
-  column-gap: 16px;
-}
-
-.accountMainContainer {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  margin-top: 45px;
   column-gap: 12px;
 }
 
-.mainAccountContainer {
-  background-color: rgba(0, 0, 0, 0.04);
-  border-color: #81898a;
-  border-style: solid;
-  border-width: 1px;
-  flex: 1;
-  border-radius: 16px;
-  padding: 32px;
+:host {
+  height: 100%;
 }
 
-.buttons {
-  display: flex;
-  flex-direction: row;
-  align-self: end;
-  column-gap: 12px
-}
-
-.tabs {
-  margin-top: 12px
-}

@@ -31,6 +31,7 @@ const routes: Routes = [
   {path: "auth", component: AuthPageContainerComponent, children: authRoutes},
   {path: "hub", component: HubComponent, children: hubRoutes, canActivate: [AuthGuard]},
   {path: "not-found", component: NotFoundComponent},
+  {path: "", redirectTo: "hub", pathMatch: "full"},
   {path: "**", redirectTo: "not-found"}
 ]
 

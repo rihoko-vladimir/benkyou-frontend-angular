@@ -9,6 +9,7 @@
   <div *ngIf="isLoading" class="loaderContainer">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
+  <p *ngIf="currentSets.length==0 && !isLoading">Whooaaa, so empty here...</p>
 </div>
 <mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageIndex]="currentPage" [pageSize]="pageSize"
                [length]="pagesCount">

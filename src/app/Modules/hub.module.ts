@@ -28,6 +28,9 @@ import {AccountOverviewComponent} from "../Global/Hub/Components/AccountOverview
 import {
   RemoveConfirmationDialogComponent
 } from "../Global/Hub/Components/RemoveConfirmationDialog/remove-confirmation-dialog.component";
+import {AccountInformationComponent} from "../Global/Hub/Components/AccountInformation/account-information.component";
+import {GeneralTabComponent} from "../Global/Hub/Components/Tabs/GeneralTab/general-tab.component";
+import {PersonalTabComponent} from "../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component";
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import {
     ResultComponent,
     ResultReadingComponent,
     AccountOverviewComponent,
+    AccountInformationComponent,
+    GeneralTabComponent,
+    PersonalTabComponent
   ],
   imports: [
     AppRoutingModule,
