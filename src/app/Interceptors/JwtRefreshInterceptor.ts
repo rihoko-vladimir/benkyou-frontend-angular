@@ -12,12 +12,13 @@ import {AppConfiguration} from "../Constants/AppConfiguration";
 import AppState from "../Redux/app.state";
 import {Store} from "@ngrx/store";
 import {logout} from "../Redux/Actions/account.actions";
+import {Router} from "@angular/router";
 
 @Injectable()
 
 
 export class JwtRefreshInterceptor implements HttpInterceptor{
-  constructor(private httpClient : HttpClient, private appConfig: AppConfiguration, private store : Store<AppState>) {
+  constructor(private httpClient : HttpClient, private appConfig: AppConfiguration, private store : Store<AppState>, private router : Router) {
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -30,6 +31,7 @@ export class JwtRefreshInterceptor implements HttpInterceptor{
                 mergeMap(() => next.handle(req)),
                 catchError(() => {
                   this.store.dispatch(logout())
+                  this.router.navigate(["auth"])
                   return EMPTY
                 })
               )

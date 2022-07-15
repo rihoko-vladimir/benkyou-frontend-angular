@@ -3,6 +3,6 @@ export interface Account{
   lastName : string,
   userName : string,
   birthDay : string,
-  isAccountPublic : string,
+  isAccountPublic : boolean,
   about : string
 }

@@ -7,5 +7,9 @@ import {Component} from "@angular/core";
 })
 
 export class AccountComponent {
+  currentTab : number = 0
 
+  onTabChanged(index: number) {
+    this.currentTab = index
+  }
 }

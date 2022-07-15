@@ -1,6 +1,6 @@
 <mat-card class="accountInfoContainer">
   <h3 style="margin: 0; padding: 0">Information</h3>
-  <mat-tab-group mat-align-tabs="center">
+  <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChanged($event)">
     <mat-tab label="General">
       <general-tab></general-tab>
     </mat-tab>

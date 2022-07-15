@@ -18,9 +18,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [],
@@ -43,7 +43,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     DragDropModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDatepickerModule
   ],
   exports: [MatCardModule,
     MatFormFieldModule,
@@ -64,7 +65,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     DragDropModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDatepickerModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:

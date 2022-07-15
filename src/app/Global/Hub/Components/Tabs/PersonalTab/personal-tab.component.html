@@ -1,1 +1,30 @@
-<p>Personal!!!</p>
+<form [formGroup]="personalFormGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstNameControl">
+    <mat-error>{{getFirstNameError()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastNameControl">
+    <mat-error>{{getLastNameError()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="userNameControl">
+    <mat-error>{{getUserNameError()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Birthday</mat-label>
+    <input matInput [matDatepicker]="birthdayPicker!" [min]="minimalDate" formControlName="birthdayControl">
+    <mat-hint>MM/DD/YYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+    <mat-datepicker #birthdayPicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>About</mat-label>
+    <textarea matInput formControlName="aboutControl" style="max-height: 60px"></textarea>
+    <mat-error>{{getAboutError()}}</mat-error>
+  </mat-form-field>
+</form>
+<button mat-flat-button color="accent" class="saveButton" [disabled]="personalFormGroup.invalid || !isTouched" (click)="onAccountSaveClicked()">Save</button>

@@ -31,6 +31,7 @@ import {
 import {AccountInformationComponent} from "../Global/Hub/Components/AccountInformation/account-information.component";
 import {GeneralTabComponent} from "../Global/Hub/Components/Tabs/GeneralTab/general-tab.component";
 import {PersonalTabComponent} from "../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component";
+import {AccountService} from "../Services/account.service";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {PersonalTabComponent} from "../Global/Hub/Components/Tabs/PersonalTab/pe
   providers: [
     AllSetsService,
     MySetsService,
+    AccountService
   ],
 })
 

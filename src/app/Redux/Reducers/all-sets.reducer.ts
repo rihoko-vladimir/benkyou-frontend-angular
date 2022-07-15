@@ -16,6 +16,7 @@ const initialState: ISetsState = {
   pagesCount: 1,
   sets: [],
   setsCount: 9,
+  errorMessage : undefined
 }
 
 export const allSetsReducer = createReducer(

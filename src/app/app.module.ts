@@ -18,6 +18,7 @@ import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {hydrationMetaReducer} from "./Redux/Reducers/hydration.reducer";
 import {JwtRefreshInterceptor} from "./Interceptors/JwtRefreshInterceptor";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {JwtRefreshInterceptor} from "./Interceptors/JwtRefreshInterceptor";
     NotFoundModule,
     AppRoutingModule,
     HttpClientModule,
+    MatNativeDateModule,
     StoreModule.forRoot({
       setStudy: setStudyReducer,
       allSets: allSetsReducer,
