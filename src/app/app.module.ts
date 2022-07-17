@@ -19,6 +19,8 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {hydrationMetaReducer} from "./Redux/Reducers/hydration.reducer";
 import {JwtRefreshInterceptor} from "./Interceptors/JwtRefreshInterceptor";
 import {MatNativeDateModule} from "@angular/material/core";
+import {TimeoutInterceptor} from "./Interceptors/TimeoutInterceptor";
+import {snackbarReducer} from "./Redux/Reducers/snackbar.reducer";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {MatNativeDateModule} from "@angular/material/core";
       setStudy: setStudyReducer,
       allSets: allSetsReducer,
       mySets: mySetsReducer,
-      account: accountReducer
+      account: accountReducer,
+      snackbar : snackbarReducer
     }, {metaReducers: [hydrationMetaReducer]}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
@@ -46,7 +49,12 @@ import {MatNativeDateModule} from "@angular/material/core";
     provide: HTTP_INTERCEPTORS,
     useClass: JwtRefreshInterceptor,
     multi: true
-  }],
+  },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimeoutInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

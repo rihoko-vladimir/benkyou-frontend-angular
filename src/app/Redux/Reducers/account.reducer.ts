@@ -1,5 +1,5 @@
 import {createReducer, on} from "@ngrx/store";
-import {accountError, loginSuccess, logout} from "../Actions/account.actions";
+import {accountError, getAccountInfoSuccess, loginSuccess, logout} from "../Actions/account.actions";
 
 export interface IAccountState {
   id: string,
@@ -44,8 +44,21 @@ export const accountReducer = createReducer(
     id: account.id,
     error: {isError: false, errorMessage: ""}
   })),
+  on(getAccountInfoSuccess, (store, account) => ({
+    about: account.about,
+    avatarUrl: account.avatarUrl,
+    birthDay: account.birthDay,
+    firstName: account.firstName,
+    lastName: account.lastName,
+    isAccountPublic: account.isAccountPublic,
+    isTermsAccepted: account.isTermsAccepted,
+    userRole: account.userRole,
+    userName: account.userName,
+    id: account.id,
+    error: {isError: false, errorMessage: ""}
+  })),
   on(accountError, (state, {errorMessage}) => ({
-    ...initialState,
+    ...state,
     error: {isError: true, errorMessage: errorMessage}
   })),
   on(logout, () => initialState)

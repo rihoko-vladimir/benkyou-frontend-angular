@@ -8,4 +8,6 @@ export interface IMySetsService {
   patchMySet(setId: string, newSet: Set, originalSet : Set): void
 
   createSet(setRequest: Set): void
+
+  addSet(set : Set) : void
 }

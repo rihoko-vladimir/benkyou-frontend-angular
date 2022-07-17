@@ -6,9 +6,10 @@ import {HttpClient} from "@angular/common/http";
 import {AppConfiguration} from "../Constants/AppConfiguration";
 import * as jsonpatch from 'fast-json-patch';
 import {catchError, EMPTY} from "rxjs";
-import {accountError, loginSuccess} from "../Redux/Actions/account.actions";
+import {accountError, getAccountInfoSuccess, loginSuccess} from "../Redux/Actions/account.actions";
 import {UserResponse} from "../Models/Responses/UserResponse";
 import {Injectable} from "@angular/core";
+import {visibilityChangeSuccess} from "../Redux/Actions/snackbar.actions";
 
 @Injectable()
 export class AccountService implements IAccountService {
@@ -36,11 +37,14 @@ export class AccountService implements IAccountService {
     })
       .pipe(
         catchError(error => {
-          this.store.dispatch(accountError({errorMessage: error.error}))
+          this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
           return EMPTY
         })
       )
       .subscribe((userInfo: UserResponse) => {
+        if (sourceUserData.isAccountPublic != userInfo.isAccountPublic){
+          this.store.dispatch(visibilityChangeSuccess())
+        }
         this.store.dispatch(loginSuccess({
           id: userInfo.id,
           firstName: userInfo.firstName,
@@ -65,9 +69,9 @@ export class AccountService implements IAccountService {
     })
       .pipe(
         catchError(error => {
-          this.store.dispatch(accountError({errorMessage: error.error}))
+          this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
           return EMPTY
-        })
+        }),
       )
       .subscribe((userInfo: UserResponse) => {
         this.store.dispatch(loginSuccess({
@@ -81,6 +85,34 @@ export class AccountService implements IAccountService {
           about: userInfo.about,
           isTermsAccepted: userInfo.isTermsAccepted,
           birthDay: userInfo.birthDay,
+          error: {isError: false, errorMessage: ""}
+        }))
+      })
+  }
+
+  getAccountInfo(): void {
+    this.httpClient.get<UserResponse>(`${this.appConfig.apiEndpoint}/user/get-info`,
+      {
+        withCredentials: true
+      })
+      .pipe(
+        catchError(error => {
+          this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
+          return EMPTY
+        })
+      )
+      .subscribe((value) => {
+        this.store.dispatch(getAccountInfoSuccess({
+          isTermsAccepted: true,
+          userName: value.userName,
+          firstName: value.firstName,
+          lastName: value.lastName,
+          userRole: value.userRole,
+          isAccountPublic: value.isAccountPublic,
+          birthDay: value.birthDay,
+          about: value.about,
+          avatarUrl: value.avatarUrl,
+          id: value.id,
           error: {isError: false, errorMessage: ""}
         }))
       })

@@ -32,6 +32,7 @@ import {AccountInformationComponent} from "../Global/Hub/Components/AccountInfor
 import {GeneralTabComponent} from "../Global/Hub/Components/Tabs/GeneralTab/general-tab.component";
 import {PersonalTabComponent} from "../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component";
 import {AccountService} from "../Services/account.service";
+import {ErrorComponent} from "../Global/Hub/Components/ErrorComponent/error.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {AccountService} from "../Services/account.service";
     AccountOverviewComponent,
     AccountInformationComponent,
     GeneralTabComponent,
-    PersonalTabComponent
+    PersonalTabComponent,
+    ErrorComponent
   ],
   imports: [
     AppRoutingModule,

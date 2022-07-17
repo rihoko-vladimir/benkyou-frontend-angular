@@ -14,3 +14,7 @@ mat-paginator {
 mat-form-field{
   width: 100%;
 }
+
+:host{
+  min-height: 100%;
+}

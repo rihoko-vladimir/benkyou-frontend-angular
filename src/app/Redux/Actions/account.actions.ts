@@ -6,18 +6,17 @@ export const loginSuccess = createAction(
   props<IAccountState>()
 )
 
+export const getAccountInfoSuccess = createAction(
+  "[Account Page/Login Page] Get Account Info Success",
+  props<IAccountState>()
+)
+
 export const logout = createAction(
   "[Account page] Log out"
 )
 
-export const changeUserInfoSuccess = createAction(
-  "[Account page] Change user info success",
-  props<IAccountState>()
-)
-
-export const changeUserAvatarSuccess = createAction(
-  "[Account page] Change user avatar success",
-  props<{avatarUrl : string}>()
+export const dismissError = createAction(
+  "[Account page] Dismiss error"
 )
 
 export const accountError = createAction(

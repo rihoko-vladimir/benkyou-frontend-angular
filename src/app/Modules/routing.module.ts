@@ -28,11 +28,11 @@ const authRoutes: Routes = [
 ]
 
 const hubRoutes: Routes = [
-  {path: "", component: HomePageComponent},
-  {path: "my-sets", component: MySetsComponent},
-  {path: "all-sets", component: AllSetsComponent},
-  {path: "account", component: AccountComponent},
-  {path: "study", component: StudyPageComponent}
+  {path: "", component: HomePageComponent, data : {animation : "Home"}},
+  {path: "my-sets", component: MySetsComponent, data : {animation : "MySets"}},
+  {path: "all-sets", component: AllSetsComponent, data : {animation : "AllSets"}},
+  {path: "account", component: AccountComponent, data : {animation : "Account"}},
+  {path: "study", component: StudyPageComponent, data : {animation : "Study"}}
 ]
 
 const routes: Routes = [
