@@ -1,7 +1,6 @@
 import {AbstractControl, ValidatorFn} from "@angular/forms";
 
 export function PasswordConfirmationEqualityValidator(passwordFieldName: string, passwordConfirmationFieldName: string) : ValidatorFn{
-  // @ts-ignore
   return (controls : AbstractControl) => {
     const passwordControl = controls.get(passwordFieldName)!;
     const passwordConfirmationControl = controls.get(passwordConfirmationFieldName)!

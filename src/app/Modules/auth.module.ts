@@ -9,13 +9,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {CodeInputModule} from "angular-code-input";
 import {AuthService} from "../Services/auth.service";
+import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.component";
 
 @NgModule({
   declarations: [
     AuthPageContainerComponent,
     LoginComponent,
     RegistrationComponent,
-    PasswordResetComponent],
+    PasswordResetComponent,
+    NewPasswordComponent],
   imports: [
     AppRoutingModule,
     MaterialModule,

@@ -12,11 +12,19 @@ import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
 import {NotFoundComponent} from "../Global/NotFound/not-found.component";
 import {AuthGuard} from "../Guards/auth.guard";
 import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
+import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.component";
+import {SetPasswordGuard} from "../Guards/set-password.guard";
 
 const authRoutes: Routes = [
   {path: "", component: LoginComponent},
   {path: "register", component: RegistrationComponent},
-  {path: "forgot-password", component: PasswordResetComponent}
+  {
+    path: "forgot-password/new-password",
+    component: NewPasswordComponent,
+    pathMatch: "full",
+    canActivate: [SetPasswordGuard]
+  },
+  {path: "forgot-password", component: PasswordResetComponent},
 ]
 
 const hubRoutes: Routes = [
@@ -38,7 +46,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard, SetPasswordGuard]
 })
 
 export class AppRoutingModule {
