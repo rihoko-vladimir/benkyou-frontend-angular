@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.kanji {
+  width: 15%;
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.kanji>*{
+  width: 100%;
+}
+
+.inputSizeFix{
+  width: 100%;
+}
+
+.readingsContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.readings {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+  flex: 1;
+}
+
+.readings>*{
+  width: 100%;
+}
+
+:host::ng-deep .mat-form-field-wrapper{
+  padding: 0;
+}

@@ -1,0 +1,9 @@
+<h1 class="mat-display-1" style="margin: 0">Account</h1>
+<div class="page-content">
+    <account-overview [currentTab]="currentTab" *ngIf="!isError && !isLoading"></account-overview>
+    <account-information (tabIndexChange)="onTabChanged($event)" *ngIf="!isError && !isLoading"></account-information>
+  <div *ngIf="isLoading && !isError" class="loaderContainer">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <error *ngIf="isError" componentName="Account" (onRetry)="onRetryClicked()"></error>
+</div>

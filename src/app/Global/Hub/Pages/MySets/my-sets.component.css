@@ -1,0 +1,22 @@
+.top-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+mat-paginator{
+  border-radius: 12px;
+  margin-top: 24px;
+}
+
+.loaderContainer{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host{
+  min-height: 100%;
+}

@@ -1,0 +1,15 @@
+.kanji-list{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 315px;
+  overflow-y: auto;
+}
+
+:host::ng-deep .mat-expansion-panel-body{
+  padding: 0;
+}
+
+mat-expansion-panel{
+  box-shadow: none!important;
+}

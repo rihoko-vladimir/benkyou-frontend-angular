@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{mode == "create" ? "Create set" : "Edit set"}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="setFormGroup" class="cardNameAndDescription">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="nameControl" (keyup)="onFieldChange()">
+      <mat-error>{{getNameErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="descriptionControl" (keyup)="onFieldChange()">
+      <mat-error>{{getDescriptionErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </form>
+  <mat-divider></mat-divider>
+  <edit-kanji-list [kanjiList]="set.kanjiList" (kanjiListChange)="onKanjiListChange($event)"></edit-kanji-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCloseClicked()">Back</button>
+  <button mat-flat-button color="accent" *ngIf="mode=='create'" (click)="onFinishClicked()"
+          [disabled]="!isFinishAvailable">Create
+  </button>
+  <button mat-flat-button color="accent" *ngIf="mode=='edit'" (click)="onFinishClicked()"
+          [disabled]="!isFinishAvailable">Edit
+  </button>
+</mat-dialog-actions>

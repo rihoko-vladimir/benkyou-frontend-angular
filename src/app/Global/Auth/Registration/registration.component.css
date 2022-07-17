@@ -1,0 +1,69 @@
+.buttons{
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between
+}
+
+.registration{
+  max-width: 650px;
+}
+
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.forms{
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep .mat-horizontal-content-container{
+  padding: 0;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container :first-child{
+  padding-left: 0;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container :last-child{
+  padding-right: 0;
+}
+
+:host ::ng-deep mat-step-header{
+  pointer-events: none;
+}
+
+.checkboxAndAgreement{
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin-top: 24px;
+  align-items: start;
+  padding: 12px;
+}
+
+
+.agreement{
+  overflow-y: scroll;
+  max-width: 600px;
+  height: 350px;
+  text-align: justify;
+  overflow-x: auto;
+  background-color: rgba(0,0,0,0.04)
+}
+
+code-input{
+  color: white;
+  padding-top: 32px;
+  max-width: 450px;
+  --item-spacing: 4px;
+  --item-height: 3em;
+  --item-width: 1em;
+}
+
+.spinnerAndButton{
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+}
