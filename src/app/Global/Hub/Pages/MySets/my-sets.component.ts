@@ -1,0 +1,63 @@
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import Set from "../../../../Models/Set"
+import {MatDialog} from "@angular/material/dialog";
+import {DialogProperties, OpenMode, SetDialogComponent} from "../../Components/SetDialog/set-dialog.component";
+import {Store} from "@ngrx/store";
+import AppState from "../../../../Redux/app.state";
+import {MySetsService} from "../../../../Services/my-sets.service";
+
+@Component({
+  selector: "my-sets-page",
+  templateUrl: "my-sets.component.html",
+  styleUrls: ["my-sets.component.css"]
+})
+
+export class MySetsComponent implements OnInit, OnDestroy {
+  sets: Set[] = []
+  currentPage: number = 1
+  pageSize: number = 9
+  pagesCount: number = 1
+  subscription
+  isLoading: boolean = false
+
+  constructor(private dialog: MatDialog, private store: Store<AppState>, private mySetsService: MySetsService) {
+    this.subscription = store.select("mySets").subscribe(value => {
+      this.currentPage = value.currentPage
+      this.pagesCount = value.pagesCount
+      this.pageSize = value.setsCount
+      this.sets = value.sets
+      this.isLoading = false
+    })
+  }
+
+  onCreateNewSetClicked() {
+    this.dialog.open(SetDialogComponent, {
+      data: new DialogProperties(OpenMode.create, new Set())
+    }).afterClosed().subscribe((set) => this.onSetCreated(set))
+  }
+
+  onSetCreated(set: Set | undefined) {
+    if (set !== undefined) {
+      this.mySetsService.createSet(set!)
+    } else {
+      console.log("Set wasn't created")
+    }
+  }
+
+  ngOnInit(): void {
+    this.isLoading = true
+    this.mySetsService.getMySets(1, this.pageSize)
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
+  onSetRemoved(id: string) {
+    this.mySetsService.removeMySet(id, this.currentPage, this.pageSize)
+  }
+
+  onSetChanged(changesObj: { set: Set, originalSet: Set }) {
+    this.mySetsService.patchMySet(changesObj.set.id, changesObj.set, changesObj.originalSet)
+  }
+}

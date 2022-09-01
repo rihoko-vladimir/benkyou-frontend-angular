@@ -1,0 +1,56 @@
+.accountInfoContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 24px;
+  border-radius: 12px;
+  height: 100%;
+  border-color: transparent;
+  box-sizing: border-box;
+  border-style: solid;
+  padding: 32px;
+  justify-content: start;
+  box-shadow: none;
+}
+
+.placeholderContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topInfo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
+  margin-top: 48px;
+}
+
+.bottomStatistics {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.avatarClass {
+  width: 128px;
+  height: 128px;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 50%;
+}
+
+.changeAvatar{
+  position: absolute;
+  bottom: 4%;
+  right: 4%;
+}
+
+.discardConfirm{
+  bottom: 2%;
+  right: 2%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+}

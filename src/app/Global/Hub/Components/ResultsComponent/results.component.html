@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="titleAndResults">
+    <h4 class="mat-display-1" style="margin-bottom: 0">Results</h4>
+    <div class="resultsContainer">
+      <result *ngFor="let result of results" [answer]="result"></result>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-flat-button (click)="onFinishClicked()" color="accent">Finish</button>
+  </div>
+</div>

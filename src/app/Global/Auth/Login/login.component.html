@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="textAndLoader">
+    <div>
+      <h1 class="mat-typography">Hey there!</h1>
+      <h3 class="mat-typography">We need you to log in before using 勉強！</h3>
+    </div>
+    <mat-progress-spinner mode="indeterminate" diameter="40" *ngIf="isLoading"></mat-progress-spinner>
+    <mat-icon style="color:forestgreen; font-size: 40px; width: 40px; height: 40px" *ngIf="isSuccess">done</mat-icon>
+  </div>
+  <div class="fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="youremail@mail.com" [formControl]="loginControl" [disabled]="isLoading || isSuccess">
+      <mat-error *ngIf="loginControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Your very secure password" [formControl]="passwordControl"
+             [type]="!isPasswordHidden ? 'password' : 'text'" [disabled]="isLoading || isSuccess">
+      <button mat-icon-button matSuffix (click)="isPasswordHidden=!isPasswordHidden">
+        <mat-icon fontSet="material-icons-outlined">{{isPasswordHidden ? "visibility_off" : "visibility_on"}}</mat-icon>
+      </button>
+      <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <a routerLink="/auth/forgot-password">I forgot my password</a>
+  </div>
+  <div class="buttons">
+    <button mat-flat-button color="primary" (click)="onLoginClicked()" [disabled]="isLoading || isSuccess">Login</button>
+    <p class="mat-typography">Don't have an account yet?</p>
+    <button mat-flat-button color="accent" (click)="onRegistrationClicked()" [disabled]="isLoading || isSuccess">Sign up</button>
+  </div>
+</div>

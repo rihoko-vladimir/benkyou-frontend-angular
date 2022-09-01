@@ -1,0 +1,8 @@
+<p mat-dialog-title>Remove set</p>
+<mat-dialog-content>
+  <p class="mat-typography">Do you really want to remove this set? This action can not be undone</p>
+</mat-dialog-content>
+<mat-dialog-actions [align]="'end'">
+  <button mat-button (click)="onCancelClicked()">No</button>
+  <button mat-flat-button color="accent" (click)="onConfirmClicked()">Yes</button>
+</mat-dialog-actions>

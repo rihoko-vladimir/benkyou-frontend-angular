@@ -1,0 +1,50 @@
+<div class="learnContainer">
+  <mat-card class="set">
+    <div class="content" *ngIf="!(this.answers.length == this.length)">
+      <div class="topPart">
+        <div class="kanjiContainer">
+          <p class="kanji">{{currentKanji.kanji}}</p>
+        </div>
+        <div class="kunyomiOnyomiContainer">
+          <div class="titleAndReadingsContainer" style="width: 45%">
+            <p class="mat-typography">Kunyomi</p>
+            <div cdkDropList cdkDropListOrientation="horizontal" class="readingsContainer"
+                 #kunyomiReadings="cdkDropList"
+                 [cdkDropListData]="selectedKunyomiReadings" style="min-width: 100%"
+                 [cdkDropListConnectedTo]="[allReadings, onyomiReadings]"
+                 (cdkDropListDropped)="drop($event)">
+              <div cdkDrag *ngFor="let kunyomi of selectedKunyomiReadings" class="draggableReading">
+                {{kunyomi}}
+              </div>
+            </div>
+          </div>
+          <div class="titleAndReadingsContainer" style="width: 45%; align-items: end">
+            <p class="mat-typography">Onyomi</p>
+            <div cdkDropList cdkDropListOrientation="horizontal" class="readingsContainer" #onyomiReadings="cdkDropList"
+                 [cdkDropListData]="selectedOnyomiReadings" style="min-width: 100%; justify-content: end"
+                 [cdkDropListConnectedTo]="[kunyomiReadings, allReadings]"
+                 (cdkDropListDropped)="drop($event)">
+              <div cdkDrag *ngFor="let onyomi of selectedOnyomiReadings" class="draggableReading">
+                {{onyomi}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottomPart">
+        <div cdkDropList cdkDropListOrientation="horizontal" class="readingsContainer" #allReadings="cdkDropList"
+             [cdkDropListData]="currentAllReadings" style="min-width: 100%"
+             [cdkDropListConnectedTo]="[kunyomiReadings, onyomiReadings]"
+             (cdkDropListDropped)="drop($event)">
+          <div cdkDrag *ngFor="let reading of currentAllReadings" class="draggableReading">
+            {{reading}}
+          </div>
+        </div>
+        <div class="buttonEnd">
+          <button mat-flat-button color="accent" (click)="onNextClicked()">Next</button>
+        </div>
+      </div>
+    </div>
+    <results [results]="answers" *ngIf="this.answers.length == this.length"></results>
+  </mat-card>
+</div>

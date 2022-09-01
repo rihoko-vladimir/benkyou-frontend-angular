@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 79vh;
+  overflow-y: hidden;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.resultsContainer {
+  margin-top: 24px;
+  max-height: 88%;
+  overflow-y: auto;
+  overflow-x: clip;
+}
+
+.titleAndResults {
+  flex-direction: column;
+  max-height: 85%;
+}
+
+.buttons{
+  display:flex;
+  flex-direction:row;
+  justify-content:end;
+  align-items: end;
+}

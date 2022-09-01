@@ -1,0 +1,40 @@
+mat-expansion-panel-header{
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+mat-expansion-panel{
+  box-shadow: none!important;
+  border-radius: 14px;
+}
+
+:host::ng-deep .mat-expansion-panel-body{
+  padding: 8px;
+}
+
+:host ::ng-deep .mat-content{
+  align-items: center;
+}
+
+.avatar{
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+  background-color: rgba(0,0,0,0.04);
+}
+
+.placeholderContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host::ng-deep .mat-expanded{
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.text-padding{
+  padding-left: 8px;
+}

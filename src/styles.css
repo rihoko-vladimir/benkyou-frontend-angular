@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-horizontal-stepper-wrapper {
+  row-gap: 16px;
+}
+
+mat-list-item {
+  border-radius: 14px;
+  user-select: none;
+}
+
+button{
+  border-radius: 22px!important;
+}
+
+mat-list-item:not(:first-child){
+  margin-top: 8px;
+}
+
+.route-selected {
+  background: rgba(255, 255, 255, .04);
+}
+
+.mat-list-item-ripple {
+  border-radius: 14px;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:visited{
+  color: blueviolet;
+}
+
+.page-content{
+  margin-top: 24px;
+}
+
+.mat-dialog-container{
+  border-radius: 12px!important;
+}
+

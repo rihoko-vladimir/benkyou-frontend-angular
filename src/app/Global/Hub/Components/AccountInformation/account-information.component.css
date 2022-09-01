@@ -1,0 +1,16 @@
+.accountInfoContainer {
+  flex: 1;
+  border-radius: 16px;
+  padding: 32px;
+  height: 100%;
+  box-shadow: none;
+}
+:host{
+  width: 100%;
+  height: 89.5%;
+  box-sizing: border-box;
+}
+
+.tabs {
+  margin-top: 12px
+}
