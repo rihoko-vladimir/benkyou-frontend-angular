@@ -1,14 +1,18 @@
 <div class="top-section">
   <h1 class="mat-display-1" style="margin: 0">My Sets</h1>
-  <button mat-flat-button color="primary" (click)="onCreateNewSetClicked()" [disabled]="isLoading">Create new set</button>
+  <button mat-flat-button color="primary" (click)="onCreateNewSetClicked()" [disabled]="isLoading || isError">Create new
+    set
+  </button>
 </div>
 <div class="page-content">
-  <set-grid *ngIf="!isLoading" [(sets)]="sets" (setChange)="onSetChanged($event)"  (setsRemove)="onSetRemoved($event)" [mode]="'owner'"></set-grid>
-  <div *ngIf="isLoading" class="loaderContainer">
+  <set-grid *ngIf="!isLoading && !isError" [(sets)]="sets" (setChange)="onSetChanged($event)"
+            (setsRemove)="onSetRemoved($event)" [mode]="'owner'"></set-grid>
+  <div *ngIf="isLoading && !isError" class="loaderContainer">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
-  <p *ngIf="sets.length==0 && !isLoading">Whooaaa, so empty here...</p>
+  <p *ngIf="sets.length==0 && !isLoading && !isError">Whooaaa, so empty here...</p>
+  <error componentName="My Sets" (onRetry)="onRetryClicked()" *ngIf="isError"></error>
+  <mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageSize]="pageSize" [pageIndex]="currentPage"
+                 [length]="pagesCount * pageSize" (page)="onPageChanged($event)">
+  </mat-paginator>
 </div>
-<mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageIndex]="currentPage" [pageSize]="pageSize"
-               [length]="pagesCount">
-</mat-paginator>

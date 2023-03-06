@@ -8,7 +8,7 @@ export interface ISetsState {
   currentPage: number,
   pagesCount: number,
   setsCount: number,
-  errorMessage? :string
+  errorMessage? :string,
 }
 
 const initialState: ISetsState = {
@@ -16,7 +16,7 @@ const initialState: ISetsState = {
   pagesCount: 1,
   sets: [],
   setsCount: 9,
-  errorMessage : undefined
+  errorMessage : undefined,
 }
 
 export const allSetsReducer = createReducer(

@@ -43,7 +43,9 @@ a:visited{
 }
 
 .page-content{
-  margin-top: 24px;
+  padding-top: 24px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .mat-dialog-container{

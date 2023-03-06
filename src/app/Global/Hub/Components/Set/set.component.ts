@@ -60,6 +60,6 @@ export class SetComponent {
   }
 
   onAddClicked() {
-    this.mySetsService.createSet(this.set)
+    this.mySetsService.addSet(this.set)
   }
 }

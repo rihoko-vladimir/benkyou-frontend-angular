@@ -36,13 +36,13 @@ export class JwtRefreshInterceptor implements HttpInterceptor{
                 })
               )
           }
+          console.log(error)
           return throwError(error)
         })
       )
   }
 
   refreshTokens(){
-    console.log("refreshing")
     return this.httpClient.post<any>(`${this.appConfig.apiEndpoint}/auth/refresh`, {}, {
       withCredentials: true
     })

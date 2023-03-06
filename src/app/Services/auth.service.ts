@@ -40,7 +40,7 @@ export class AuthService implements IAuthService {
       .pipe(
         catchError(error => {
           console.log(error)
-          this.store.dispatch(accountError({errorMessage: error.error}))
+          this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
           return EMPTY
         })
       )
@@ -56,7 +56,7 @@ export class AuthService implements IAuthService {
       })
       .pipe(
         catchError(error => {
-          this.store.dispatch(accountError({errorMessage: error.error}))
+          this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
           return EMPTY
         })
       )

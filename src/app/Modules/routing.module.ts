@@ -12,19 +12,27 @@ import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
 import {NotFoundComponent} from "../Global/NotFound/not-found.component";
 import {AuthGuard} from "../Guards/auth.guard";
 import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
+import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.component";
+import {SetPasswordGuard} from "../Guards/set-password.guard";
 
 const authRoutes: Routes = [
   {path: "", component: LoginComponent},
   {path: "register", component: RegistrationComponent},
-  {path: "forgot-password", component: PasswordResetComponent}
+  {
+    path: "forgot-password/new-password",
+    component: NewPasswordComponent,
+    pathMatch: "full",
+    canActivate: [SetPasswordGuard]
+  },
+  {path: "forgot-password", component: PasswordResetComponent},
 ]
 
 const hubRoutes: Routes = [
-  {path: "", component: HomePageComponent},
-  {path: "my-sets", component: MySetsComponent},
-  {path: "all-sets", component: AllSetsComponent},
-  {path: "account", component: AccountComponent},
-  {path: "study", component: StudyPageComponent}
+  {path: "", component: HomePageComponent, data : {animation : "Home"}},
+  {path: "my-sets", component: MySetsComponent, data : {animation : "MySets"}},
+  {path: "all-sets", component: AllSetsComponent, data : {animation : "AllSets"}},
+  {path: "account", component: AccountComponent, data : {animation : "Account"}},
+  {path: "study", component: StudyPageComponent, data : {animation : "Study"}}
 ]
 
 const routes: Routes = [
@@ -38,7 +46,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard, SetPasswordGuard]
 })
 
 export class AppRoutingModule {

@@ -16,19 +16,19 @@ export class AllSetsService implements IAllSetsService {
   }
 
   getAllSets(pageNumber: number, pageSize: number, searchQuery?: string): void {
-    this.httpClient.get<PagedSetsResponse>(`${this.appConfig.apiEndpoint}/sets/all-sets?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+    this.httpClient.get<PagedSetsResponse>(`${this.appConfig.apiEndpoint}/sets/all-sets?pageNumber=${pageNumber}&pageSize=${pageSize}&searchQuery=${searchQuery !== undefined ? searchQuery : ''}`,
       {
         withCredentials: true
       }).pipe(
       map(pagedResponse => ({
-          sets: pagedResponse.sets.map(mapSetResponseToSet),
-          pagesCount: pagedResponse.pagesCount,
-          currentPage: pagedResponse.currentPage
-        }),
-        catchError((error) => {
-          this.store.dispatch(loadAllSetsFailure({errorMessage: error}))
-          return EMPTY
-        }))
+        sets: pagedResponse.sets.map(mapSetResponseToSet),
+        pagesCount: pagedResponse.pagesCount,
+        currentPage: pagedResponse.currentPage
+      })),
+      catchError((error) => {
+        this.store.dispatch(loadAllSetsFailure({errorMessage: error.error ?? "Service unavailable"}))
+        return EMPTY
+      })
     ).subscribe(response => {
       this.store.dispatch(loadAllSetsSuccess({
         sets: response.sets,

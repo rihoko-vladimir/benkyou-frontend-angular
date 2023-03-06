@@ -16,3 +16,7 @@ mat-paginator{
   align-items: center;
   justify-content: center;
 }
+
+:host{
+  min-height: 100%;
+}
