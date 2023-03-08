@@ -16,29 +16,56 @@ import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.comp
 import {SetPasswordGuard} from "../Guards/set-password.guard";
 
 const authRoutes: Routes = [
-  {path: "", component: LoginComponent},
-  {path: "register", component: RegistrationComponent},
+  {
+    path: "", component: LoginComponent, data: {
+      animation: "auth"
+    }
+  },
+  {
+    path: "register", component: RegistrationComponent, data: {
+      animation: "register"
+    }
+  },
   {
     path: "forgot-password/new-password",
     component: NewPasswordComponent,
     pathMatch: "full",
-    canActivate: [SetPasswordGuard]
+    canActivate: [SetPasswordGuard],
+    data: {
+      animation: "reset-password"
+    },
   },
-  {path: "forgot-password", component: PasswordResetComponent},
+  {
+    path: "forgot-password", component: PasswordResetComponent, data: {
+      animation: "forgot-password"
+    }
+  },
 ]
 
 const hubRoutes: Routes = [
-  {path: "", component: HomePageComponent, data : {animation : "Home"}},
-  {path: "my-sets", component: MySetsComponent, data : {animation : "MySets"}},
-  {path: "all-sets", component: AllSetsComponent, data : {animation : "AllSets"}},
-  {path: "account", component: AccountComponent, data : {animation : "Account"}},
-  {path: "study", component: StudyPageComponent, data : {animation : "Study"}}
+  {path: "", component: HomePageComponent, data: {animation: "Home"}},
+  {path: "my-sets", component: MySetsComponent, data: {animation: "MySets"}},
+  {path: "all-sets", component: AllSetsComponent, data: {animation: "AllSets"}},
+  {path: "account", component: AccountComponent, data: {animation: "Account"}},
+  {path: "study", component: StudyPageComponent, data: {animation: "Study"}}
 ]
 
 const routes: Routes = [
-  {path: "auth", component: AuthPageContainerComponent, children: authRoutes},
-  {path: "hub", component: HubComponent, children: hubRoutes, canActivate: [AuthGuard]},
-  {path: "not-found", component: NotFoundComponent},
+  {
+    path: "auth", component: AuthPageContainerComponent, children: authRoutes, data: {
+      animation: 'auth'
+    }
+  },
+  {
+    path: "hub", component: HubComponent, children: hubRoutes, canActivate: [AuthGuard], data: {
+      animation: 'hub'
+    }
+  },
+  {
+    path: "not-found", component: NotFoundComponent, data: {
+      animation: 'not-found'
+    }
+  },
   {path: "", redirectTo: "hub", pathMatch: "full"},
   {path: "**", redirectTo: "not-found"}
 ]
