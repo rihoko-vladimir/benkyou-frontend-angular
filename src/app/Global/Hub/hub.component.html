@@ -20,7 +20,9 @@
       <account-info-list-item></account-info-list-item>
     </mat-nav-list>
   </mat-sidenav>
+  <span [@routeAnimations]="getHubRoutingAnimations()">
   <div class="pageContainer">
     <router-outlet></router-outlet>
   </div>
+  </span>
 </mat-sidenav-container>
