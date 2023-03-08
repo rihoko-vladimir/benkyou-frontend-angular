@@ -1,27 +1,55 @@
-# BenkyouFrontendAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+# Benkyou! Frontend(Angular edition)
 
-## Development server
+Benkyou! helps you create kanji sets and learn new kanji with readings by matching correct ones
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Run Locally
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Clone the project
 
-## Build
+```bash
+  git clone https://github.com/rihoko-vladimir/benkyou-frontend-angular
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Go to the project directory
 
-## Running unit tests
+```bash
+  cd benkyou-frontend-angular
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Install node dependencies
 
-## Running end-to-end tests
+```bash
+  npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Start the project:
 
-## Further help
+```bash
+  ng serve --prod
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Screenshots
+
+![Home](https://i.imgur.com/vhIAUVh.png)
+
+![My Sets](https://i.imgur.com/6RofOKc.png)
+
+![Edit set](https://i.imgur.com/2y9Fe4W.png)
+
+![Study process](https://i.imgur.com/pv6GK0l.png)
+
+
+
+
+## Tech Stack
+
+**Client:** Angular, Angular Material, rxJS, ngRx
+
+
+## Authors
+
+- [@rihoko-vladimir](https://github.com/rihoko-vladimir)
+
