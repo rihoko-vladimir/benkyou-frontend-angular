@@ -1,0 +1,15 @@
+.draggableReading {
+  padding: 8px 16px 8px 16px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  user-select: none;
+  display: inline-flex;
+}
+
+.mat-badge-content{
+  font-family: 'Material Icons', serif;
+  pointer-events: inherit;
+  cursor: pointer;
+  user-select: none;
+}

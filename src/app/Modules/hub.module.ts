@@ -33,6 +33,9 @@ import {GeneralTabComponent} from "../Global/Hub/Components/Tabs/GeneralTab/gene
 import {PersonalTabComponent} from "../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component";
 import {AccountService} from "../Services/account.service";
 import {ErrorComponent} from "../Global/Hub/Components/ErrorComponent/error.component";
+import {TestComponent} from "../Global/Hub/Components/TestComponent/test.component";
+import {SpeechableReadingComponent} from "../Global/Hub/Components/SpeechableReading/speechable-reading.component";
+import {ReadingsContainerComponent} from "../Global/Hub/Components/ReadingsContainer/readings-container.component";
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import {ErrorComponent} from "../Global/Hub/Components/ErrorComponent/error.comp
     AccountInformationComponent,
     GeneralTabComponent,
     PersonalTabComponent,
-    ErrorComponent
+    ErrorComponent,
+    SpeechableReadingComponent,
+    ReadingsContainerComponent,
+    TestComponent
   ],
   imports: [
     AppRoutingModule,
@@ -71,6 +77,9 @@ import {ErrorComponent} from "../Global/Hub/Components/ErrorComponent/error.comp
     MySetsService,
     AccountService
   ],
+  exports: [
+    ResultReadingComponent
+  ]
 })
 
 export class HubModule {

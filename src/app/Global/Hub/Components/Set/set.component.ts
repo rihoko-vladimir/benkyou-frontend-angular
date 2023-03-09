@@ -17,12 +17,14 @@ import {RemoveConfirmationDialogComponent} from "../RemoveConfirmationDialog/rem
 
 export class SetComponent {
   isOpened: boolean = false
+  private ttsAgent: SpeechSynthesisUtterance;
   @Input() set!: Set
   @Input() mode!: string
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
 
   constructor(private dialog: MatDialog, private router: Router, private store: Store<AppState>, private mySetsService: MySetsService) {
+    this.ttsAgent = new SpeechSynthesisUtterance();
     this.isOpened = false
   }
 

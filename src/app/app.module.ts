@@ -40,7 +40,7 @@ import {snackbarReducer} from "./Redux/Reducers/snackbar.reducer";
       allSets: allSetsReducer,
       mySets: mySetsReducer,
       account: accountReducer,
-      snackbar : snackbarReducer
+      snackbar: snackbarReducer
     }, {metaReducers: [hydrationMetaReducer]}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),

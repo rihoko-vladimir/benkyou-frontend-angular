@@ -1,0 +1,11 @@
+.draggableReading {
+  padding: 8px 16px 8px 16px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  user-select: none;
+  display: flex;
+  column-gap: 16px;
+  row-gap: 12px;
+  flex-wrap: wrap;
+}

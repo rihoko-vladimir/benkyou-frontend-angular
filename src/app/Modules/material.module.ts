@@ -21,6 +21,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [],
@@ -66,7 +67,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatPaginatorModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatBadgeModule
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue:

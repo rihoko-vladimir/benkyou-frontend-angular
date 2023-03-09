@@ -34,10 +34,7 @@ export class SetDialogComponent {
   }
 
   onFieldChange() {
-    if (this.setFormGroup.valid && this.isListCorrect(this.set.kanjiList))
-      this.isFinishAvailable = true
-    else
-      this.isFinishAvailable = false
+    this.isFinishAvailable = this.setFormGroup.valid && this.isListCorrect(this.set.kanjiList);
   }
 
   onCloseClicked() {
