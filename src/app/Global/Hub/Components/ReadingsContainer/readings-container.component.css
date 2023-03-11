@@ -1,0 +1,11 @@
+.readingsWrapper {
+  padding: 8px 12px 8px 12px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  user-select: none;
+  display: flex;
+  column-gap: 16px;
+  row-gap: 12px;
+  flex-wrap: wrap;
+}

@@ -14,6 +14,7 @@ import {AuthGuard} from "../Guards/auth.guard";
 import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
 import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.component";
 import {SetPasswordGuard} from "../Guards/set-password.guard";
+import {TestComponent} from "../Global/Hub/Components/TestComponent/test.component";
 
 const authRoutes: Routes = [
   {
@@ -47,7 +48,10 @@ const hubRoutes: Routes = [
   {path: "my-sets", component: MySetsComponent, data: {animation: "MySets"}},
   {path: "all-sets", component: AllSetsComponent, data: {animation: "AllSets"}},
   {path: "account", component: AccountComponent, data: {animation: "Account"}},
-  {path: "study", component: StudyPageComponent, data: {animation: "Study"}}
+  {path: "study", component: StudyPageComponent, data: {animation: "Study"}},
+  {
+    path: "test-component", component: TestComponent
+  },
 ]
 
 const routes: Routes = [

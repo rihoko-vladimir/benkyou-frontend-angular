@@ -8,6 +8,5 @@ import Kanji from "../../../../Models/Kanji";
 })
 
 export class KanjiListComponent{
-  @Input() isOpened : boolean = false
   @Input() kanjiList! : Kanji[]
 }

@@ -1,0 +1,13 @@
+.outerContainer{
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+}
+
+.readingsContainer{
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+  justify-content: space-around;
+}

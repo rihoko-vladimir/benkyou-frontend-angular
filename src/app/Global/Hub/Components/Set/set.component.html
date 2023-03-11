@@ -4,17 +4,15 @@
       <mat-card-title>{{set.name}}</mat-card-title>
       <mat-card-subtitle>{{set.description}}</mat-card-subtitle>
     </div>
-    <button *ngIf="mode=='owner'" mat-icon-button matTooltip="Remove set" matTooltipPosition="above" (click)="onRemoveClicked(set.id)">
+    <button *ngIf="mode=='owner'" mat-icon-button matTooltip="Remove set" matTooltipPosition="above"
+            (click)="onRemoveClicked(set.id)">
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div class="spaceBetween">
-    <mat-card-content>
-      <kanji-list [kanjiList]="set.kanjiList" [isOpened]="isOpened"></kanji-list>
-    </mat-card-content>
+  <div>
     <mat-card-actions class="buttonsRight">
-      <button mat-icon-button (click)="changeOpenedStatus()" [matTooltip]="!isOpened? 'Expand' : 'Collapse'" matTooltipPosition="below">
-        <mat-icon>{{!isOpened ? "expand_more" : "expand_less"}}</mat-icon>
+      <button mat-button (click)="openPreview()" [matTooltip]="'Preview'" matTooltipPosition="below">
+        Preview
       </button>
       <button *ngIf="mode=='owner'" mat-button (click)="onEditClicked()">Edit</button>
       <button *ngIf="mode=='owner'" mat-flat-button color="accent" (click)="onStudyClicked()">Study!</button>
