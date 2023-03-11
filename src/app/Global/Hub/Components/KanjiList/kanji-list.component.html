@@ -1,3 +1,3 @@
-<mat-expansion-panel class="kanji-list" [expanded]="isOpened">
-  <kanji *ngFor="let kanji of kanjiList" [kanji]="kanji"></kanji>
-</mat-expansion-panel>
+<div class="container">
+  <kanji-preview *ngFor="let kanji of kanjiList" [kanji]="kanji"></kanji-preview>
+</div>

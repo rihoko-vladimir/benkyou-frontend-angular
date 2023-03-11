@@ -12,8 +12,7 @@ export class SpeechableReadingComponent {
   private tts = new SpeechSynthesisUtterance();
 
   constructor() {
-    this.tts.rate = 0.8
-    this.tts.pitch = 1
+    this.tts.rate = 0.88
     this.tts.lang = "ja-JA"
   }
 

@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core";
+import Kanji from "../../../../Models/Kanji";
 
 @Component({
   selector: "test-component",
@@ -7,5 +8,6 @@ import {Component, Input} from "@angular/core";
 })
 
 export class TestComponent {
-  @Input("readings") readings: string[] = ["死", "b", "c", "a", "b", "c", "a", "b", "c", "漢字", "b", "c", "母", "b", "c", "a", "b", "c", "a", "b", "c", "a", "b", "c", "a", "b", "c"]
+  @Input("kanji") kanji: Kanji = new Kanji("本", [',', ','], [',', ','])
+
 }

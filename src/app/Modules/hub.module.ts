@@ -36,6 +36,11 @@ import {ErrorComponent} from "../Global/Hub/Components/ErrorComponent/error.comp
 import {TestComponent} from "../Global/Hub/Components/TestComponent/test.component";
 import {SpeechableReadingComponent} from "../Global/Hub/Components/SpeechableReading/speechable-reading.component";
 import {ReadingsContainerComponent} from "../Global/Hub/Components/ReadingsContainer/readings-container.component";
+import {
+  KanjiSvgDrawingPreviewComponent
+} from "../Global/Hub/Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component";
+import {KanjiPreviewComponent} from "../Global/Hub/Components/KanjiPreview/kanji-preview.component";
+import {SetPreviewDialogComponent} from "../Global/Hub/Components/SetPreview/set-preview-dialog.component";
 
 @NgModule({
   declarations: [
@@ -64,6 +69,9 @@ import {ReadingsContainerComponent} from "../Global/Hub/Components/ReadingsConta
     ErrorComponent,
     SpeechableReadingComponent,
     ReadingsContainerComponent,
+    KanjiSvgDrawingPreviewComponent,
+    KanjiPreviewComponent,
+    SetPreviewDialogComponent,
     TestComponent
   ],
   imports: [

@@ -8,6 +8,7 @@ import {startStudying} from "../../../../Redux/Actions/set-study.actions";
 import AppState from "../../../../Redux/app.state";
 import {MySetsService} from "../../../../Services/my-sets.service";
 import {RemoveConfirmationDialogComponent} from "../RemoveConfirmationDialog/remove-confirmation-dialog.component";
+import {DialogData, SetPreviewDialogComponent} from "../SetPreview/set-preview-dialog.component";
 
 @Component({
   selector: "set",
@@ -16,20 +17,12 @@ import {RemoveConfirmationDialogComponent} from "../RemoveConfirmationDialog/rem
 })
 
 export class SetComponent {
-  isOpened: boolean = false
-  private ttsAgent: SpeechSynthesisUtterance;
   @Input() set!: Set
   @Input() mode!: string
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
 
   constructor(private dialog: MatDialog, private router: Router, private store: Store<AppState>, private mySetsService: MySetsService) {
-    this.ttsAgent = new SpeechSynthesisUtterance();
-    this.isOpened = false
-  }
-
-  changeOpenedStatus() {
-    this.isOpened = !this.isOpened
   }
 
   onRemoveClicked(id: string) {
@@ -63,5 +56,12 @@ export class SetComponent {
 
   onAddClicked() {
     this.mySetsService.addSet(this.set)
+  }
+
+  openPreview() {
+    this.dialog.open(SetPreviewDialogComponent, {
+      data: new DialogData(JSON.parse(JSON.stringify(this.set.kanjiList))),
+      width: "40vw"
+    })
   }
 }
