@@ -1,29 +1,29 @@
 <h1 class="mat-typography">Registration</h1>
 <div class="registrationForm">
-  <mat-stepper [linear]="true" #stepper class="registration">
+  <mat-stepper #stepper [linear]="true" class="registration">
     <mat-step label="User information" state="creds">
 
       <form [formGroup]="credentialsFormGroup" class="forms">
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Username</mat-label>
-          <input type="text" matInput placeholder="Your creative Username" formControlName="userNameControl">
+          <input formControlName="userNameControl" matInput placeholder="Your creative Username" type="text">
           <mat-error
             *ngIf="credentialsFormGroup.controls.userNameControl.invalid">{{getUserNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Email</mat-label>
-          <input type="email" matInput placeholder="youremail@mail.com" formControlName="emailControl">
+          <input formControlName="emailControl" matInput placeholder="youremail@mail.com" type="email">
           <mat-error *ngIf="credentialsFormGroup.controls.emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">First Name</mat-label>
-          <input type="text" matInput placeholder="John" formControlName="firstNameControl">
+          <input formControlName="firstNameControl" matInput placeholder="John" type="text">
           <mat-error
             *ngIf="credentialsFormGroup.controls.firstNameControl.invalid">{{getFirstNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Last Name</mat-label>
-          <input type="text" matInput placeholder="Smith" formControlName="lastNameControl">
+          <input formControlName="lastNameControl" matInput placeholder="Smith" type="text">
           <mat-error
             *ngIf="credentialsFormGroup.controls.lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
         </mat-form-field>
@@ -34,13 +34,13 @@
       <form [formGroup]="passwordFormGroup" class="forms">
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Password</mat-label>
-          <input type="password" matInput placeholder="Your very secure password" formControlName="passwordControl">
+          <input formControlName="passwordControl" matInput placeholder="Your very secure password" type="password">
           <mat-error *ngIf="passwordFormGroup.controls.passwordControl">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Password confirmation</mat-label>
-          <input type="password" matInput placeholder="Your very secure password confirmation"
-                 formControlName="passwordConfirmationControl">
+          <input formControlName="passwordConfirmationControl" matInput placeholder="Your very secure password confirmation"
+                 type="password">
           <mat-error
             *ngIf="passwordFormGroup.controls.passwordConfirmationControl">{{getPasswordConfirmationErrorMessage()}}</mat-error>
         </mat-form-field>
@@ -55,14 +55,14 @@
               vel veritatis!</p>
           </div>
           <mat-checkbox
-            [disabled]="isLoading"
+            (change)="onCheckboxClicked()"
             [checked]="isUserAgreed"
-            (change)="onCheckboxClicked()">
+            [disabled]="isLoading">
             I agree with terms of service
           </mat-checkbox>
-          <p style="color: #f44336" [ngClass]="isCheckboxError?
+          <p [ngClass]="isCheckboxError?
           {visibility: 'visible'} :
-          {visibility: 'gone'}">
+          {visibility: 'gone'}" style="color: #f44336">
             You need to agree with terms of service
           </p>
         </div>
@@ -74,13 +74,15 @@
         . The letter will include the
         code, please, type it in the field below. If you don't see anything, please check your Spam
         folder.</p>
-      <code-input
-        #confirmationCode
-        [isCodeHidden]="false"
-        [codeLength]="6"
-        (codeCompleted)="onSendConfirmationCode($event)"
-        [isCharsCode]="false"
-      ></code-input>
+      <div class="centered">
+        <code-input
+          #confirmationCode
+          (codeCompleted)="onSendConfirmationCode($event)"
+          [codeLength]="6"
+          [isCharsCode]="false"
+          [isCodeHidden]="false"
+        ></code-input>
+      </div>
     </mat-step>
     <ng-template matStepperIcon="creds">
       <mat-icon>person</mat-icon>
@@ -95,23 +97,23 @@
       <mat-icon>done</mat-icon>
     </ng-template>
   </mat-stepper>
-  <div class="buttons" *ngIf="!areButtonsHidden">
-    <button [disabled]="isLoading"
-            mat-stroked-button
-            (click)="onPreviousClicked()">
+  <div *ngIf="!areButtonsHidden" class="buttons">
+    <button (click)="onPreviousClicked()"
+            [disabled]="isLoading"
+            mat-stroked-button>
       {{stepper.selectedIndex == 0 ? "Cancel" : "Back"}}
     </button>
     <div class="spinnerAndButton">
       <mat-progress-spinner
         *ngIf="isLoading"
-        diameter="36"
         color="primary"
+        diameter="36"
         mode="indeterminate">
       </mat-progress-spinner>
-      <button [disabled]="isLoading"
-              mat-flat-button
+      <button (click)="onNextClicked()"
+              [disabled]="isLoading"
               color="accent"
-              (click)="onNextClicked()">
+              mat-flat-button>
         {{stepper.selectedIndex == stepper.steps.length - 1 ? "Finish" : "Next"}}
       </button>
     </div>

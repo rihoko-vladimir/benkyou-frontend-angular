@@ -20,18 +20,11 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 })
 
 export class RegistrationComponent {
-  isUserAgreed : boolean
-  isCheckboxError : boolean
+  isUserAgreed: boolean
+  isCheckboxError: boolean
   areButtonsHidden: boolean
   isLoading: boolean = false
   userId: string
-  constructor(private router: Router, private authService: AuthService, private snackbar: MatSnackBar) {
-    this.isUserAgreed = false
-    this.isCheckboxError = false
-    this.areButtonsHidden = false
-    this.userId = ""
-  }
-
   @ViewChild("stepper") stepper!: MatStepper;
   @ViewChild("confirmationCode") confirmationCodeElement!: CodeInputComponent;
   credentialsFormGroup = new FormGroup({
@@ -70,24 +63,31 @@ export class RegistrationComponent {
   }, [PasswordConfirmationEqualityValidator("passwordControl", "passwordConfirmationControl")])
   formGroups = [this.credentialsFormGroup, this.passwordFormGroup]
 
+  constructor(private router: Router, private authService: AuthService, private snackbar: MatSnackBar) {
+    this.isUserAgreed = false
+    this.isCheckboxError = false
+    this.areButtonsHidden = false
+    this.userId = ""
+  }
+
   onNextClicked() {
-    switch(this.stepper.selectedIndex){
-      case 0:{
+    switch (this.stepper.selectedIndex) {
+      case 0: {
         if (this.credentialsFormGroup.valid)
           this.stepper.next()
         else
           this.credentialsFormGroup.markAllAsTouched()
         break
-    }
-      case 1:{
+      }
+      case 1: {
         if (this.passwordFormGroup.valid)
           this.stepper.next()
         else
           this.passwordFormGroup.markAllAsTouched()
         break
       }
-      case 2:{
-        if (this.isUserAgreed){
+      case 2: {
+        if (this.isUserAgreed) {
           let observable = this.authService.register(
             this.credentialsFormGroup.controls.userNameControl.value!,
             this.credentialsFormGroup.controls.emailControl.value!,
@@ -97,31 +97,23 @@ export class RegistrationComponent {
           this.isLoading = true
           observable
             .pipe(
-              finalize(()=>this.isLoading = false)
+              finalize(() => this.isLoading = false)
             )
             .subscribe(
-            userId => {
-              this.userId = userId
-              this.hideButtons()
-              this.stepper.next()
-            },
-            error => {
-              this.showErrorSnackbar(error.value)
-            })
-        }else{
+              userId => {
+                this.userId = userId
+                this.hideButtons()
+                this.stepper.next()
+              },
+              error => {
+                this.showErrorSnackbar(error.value)
+              })
+        } else {
           this.isCheckboxError = true
         }
         break
       }
     }
-  }
-
-  private showErrorSnackbar(errorMessage: string) {
-    this.snackbar.open(errorMessage, undefined, {
-      verticalPosition: "bottom",
-      horizontalPosition: "start",
-      duration: 2000,
-    })
   }
 
   async onPreviousClicked() {
@@ -132,7 +124,7 @@ export class RegistrationComponent {
     this.stepper.previous()
   }
 
-  getUserNameErrorMessage(){
+  getUserNameErrorMessage() {
     if (this.credentialsFormGroup.controls.userNameControl
       .hasError(Validators.required.name))
       return "This field is required"
@@ -145,7 +137,7 @@ export class RegistrationComponent {
     return "Unknown error occurred :("
   }
 
-  getEmailErrorMessage(){
+  getEmailErrorMessage() {
     if (this.credentialsFormGroup.controls.emailControl
       .hasError(Validators.required.name))
       return "This field is required"
@@ -155,7 +147,7 @@ export class RegistrationComponent {
     return "Unknown error occurred :("
   }
 
-  getFirstNameErrorMessage(){
+  getFirstNameErrorMessage() {
     if (this.credentialsFormGroup.controls.firstNameControl
       .hasError(Validators.required.name))
       return "This field is required"
@@ -166,7 +158,7 @@ export class RegistrationComponent {
     return "Unknown error occurred :("
   }
 
-  getLastNameErrorMessage(){
+  getLastNameErrorMessage() {
     if (this.credentialsFormGroup.controls.lastNameControl
       .hasError(Validators.required.name))
       return "This field is required"
@@ -177,7 +169,7 @@ export class RegistrationComponent {
     return "Unknown error occurred :("
   }
 
-  getPasswordErrorMessage(){
+  getPasswordErrorMessage() {
     if (this.passwordFormGroup.controls.passwordControl
       .hasError(Validators.required.name))
       return "This field is required"
@@ -188,7 +180,7 @@ export class RegistrationComponent {
     return "Unknown error occurred :("
   }
 
-  getPasswordConfirmationErrorMessage(){
+  getPasswordConfirmationErrorMessage() {
     if (this.passwordFormGroup.controls.passwordConfirmationControl
       .hasError(Validators.required.name))
       return "This field is required"
@@ -199,16 +191,16 @@ export class RegistrationComponent {
     return "Unknown error occurred :("
   }
 
-  onCheckboxClicked(){
+  onCheckboxClicked() {
     this.isUserAgreed = !this.isUserAgreed
     this.isCheckboxError = false
   }
 
-  hideButtons(){
+  hideButtons() {
     this.areButtonsHidden = true
   }
 
-  onSendConfirmationCode(code: string){
+  onSendConfirmationCode(code: string) {
     this.confirmationCodeElement.disabled = true
 
     let observable = this.authService.confirmEmailAddress(this.userId, code)
@@ -218,7 +210,15 @@ export class RegistrationComponent {
         this.userId = userId
         this.router.navigate(["auth"])
       }, error => {
-      this.showErrorSnackbar(error.value)
+        this.showErrorSnackbar(error.value)
+      })
+  }
+
+  private showErrorSnackbar(errorMessage: string) {
+    this.snackbar.open(errorMessage, undefined, {
+      verticalPosition: "bottom",
+      horizontalPosition: "start",
+      duration: 2000,
     })
   }
 }

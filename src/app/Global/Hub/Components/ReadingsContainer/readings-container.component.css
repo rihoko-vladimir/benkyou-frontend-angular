@@ -8,4 +8,5 @@
   column-gap: 16px;
   row-gap: 12px;
   flex-wrap: wrap;
+  min-height: 52px;
 }
