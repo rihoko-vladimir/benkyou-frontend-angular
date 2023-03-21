@@ -57,7 +57,7 @@ code-input{
   color: white;
   padding-top: 32px;
   max-width: 450px;
-  --item-spacing: 4px;
+  --item-spacing: 24px;
   --item-height: 3em;
   --item-width: 1em;
 }
@@ -66,4 +66,10 @@ code-input{
   display: flex;
   flex-direction: row;
   column-gap: 12px;
+}
+
+.centered{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

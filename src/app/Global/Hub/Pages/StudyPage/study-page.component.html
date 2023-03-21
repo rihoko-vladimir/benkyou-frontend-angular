@@ -2,9 +2,10 @@
   <mat-card class="set">
     <div class="content" *ngIf="!(this.answers.length == this.length)">
       <div class="topPart">
-        <div class="kanjiContainer">
+        <!--<div class="kanjiContainer">
           <p class="kanji">{{currentKanji.kanji}}</p>
-        </div>
+        </div>-->
+        <kanji-svg-drawing-preview [kanji]="currentKanji.kanji" [width]="'242px'" [height]="'242px'"></kanji-svg-drawing-preview>
         <div class="kunyomiOnyomiContainer">
           <div class="titleAndReadingsContainer" style="width: 45%">
             <p class="mat-typography">Kunyomi</p>
