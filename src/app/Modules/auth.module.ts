@@ -10,6 +10,14 @@ import {BrowserModule} from "@angular/platform-browser";
 import {CodeInputModule} from "angular-code-input";
 import {AuthService} from "../Services/auth.service";
 import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.component";
+import {TermsStepComponent} from "../Global/Auth/Registration/Steps/Terms/terms-step.component";
+import {
+  UserInformationStepComponent
+} from "../Global/Auth/Registration/Steps/UserInformation/user-information-step.component";
+import {PasswordStepComponent} from "../Global/Auth/Registration/Steps/Password/password-step.component";
+import {
+  EmailConfirmationStepComponent
+} from "../Global/Auth/Registration/Steps/EmailConfirmation/email-confirmation-step.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +25,11 @@ import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.comp
     LoginComponent,
     RegistrationComponent,
     PasswordResetComponent,
-    NewPasswordComponent],
+    NewPasswordComponent,
+    PasswordStepComponent,
+    EmailConfirmationStepComponent,
+    TermsStepComponent,
+    UserInformationStepComponent],
   imports: [
     AppRoutingModule,
     MaterialModule,
@@ -29,4 +41,5 @@ import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.comp
   providers: [AuthService]
 })
 
-export class AuthModule {}
+export class AuthModule {
+}

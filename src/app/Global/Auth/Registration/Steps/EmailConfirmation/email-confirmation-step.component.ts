@@ -1,24 +1,34 @@
-import {Component, Input, ViewChild} from "@angular/core";
+import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {CodeInputComponent} from "angular-code-input";
-import {AuthService} from "../../../../Services/auth.service";
+import {AuthService} from "../../../../../Services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: "test-component",
-  templateUrl: "test.component.html",
-  styleUrls: ["test.component.css"]
+  templateUrl: "email-confirmation-step.component.html",
+  styleUrls: ["email-confirmation-step.component.css"],
+  selector: "email-confirmation-step"
 })
 
-export class TestComponent {
+export class EmailConfirmationStepComponent implements OnInit {
   @ViewChild("confirmationCode") confirmationCodeElement!: CodeInputComponent;
   @Input("email") email: string
   @Input("userId") userId: string
   fieldState: FieldState
+  protected readonly FieldState = FieldState;
 
   constructor(private authService: AuthService, private router: Router) {
     this.userId = ""
     this.email = ""
     this.fieldState = FieldState.Default
+  }
+
+  ngOnInit(): void {
+    const historyId = history.state['userId']
+
+    if (historyId)
+      this.userId = historyId;
+
+    console.log(historyId)
   }
 
   onSendConfirmationCode(code: string) {
@@ -43,8 +53,6 @@ export class TestComponent {
   fieldFocused() {
     this.fieldState = FieldState.Default
   }
-
-  protected readonly FieldState = FieldState;
 }
 
 enum FieldState {

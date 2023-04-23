@@ -1,0 +1,23 @@
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxAndAgreement{
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin-top: 24px;
+  align-items: start;
+  padding: 12px;
+}
+
+
+.agreement{
+  overflow-y: scroll;
+  max-width: 600px;
+  height: 350px;
+  text-align: justify;
+  overflow-x: auto;
+  background-color: rgba(0,0,0,0.04)
+}

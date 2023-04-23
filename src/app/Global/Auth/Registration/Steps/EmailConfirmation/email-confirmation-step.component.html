@@ -5,12 +5,12 @@
   folder.</p>
 <div class="centered">
   <code-input #confirmationCode
-    (codeCompleted)="onSendConfirmationCode($event)"
-    (focus)="fieldFocused()"
-    [codeLength]="6"
-    [isCharsCode]="false"
-    [isCodeHidden]="false"
-    [ngClass]="{
+              (codeCompleted)="onSendConfirmationCode($event)"
+              [codeLength]="6"
+              [disabled]="false"
+              [isCharsCode]="false"
+              [isCodeHidden]="false"
+              [ngClass]="{
   invalid:fieldState===FieldState.Error
 }"></code-input>
 </div>

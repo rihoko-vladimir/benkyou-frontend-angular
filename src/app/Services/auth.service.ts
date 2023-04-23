@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import {IAuthService} from "./Interfaces/auth.service";
 import {catchError, EMPTY, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {AppConfiguration} from "../Constants/AppConfiguration";
 import {Store} from "@ngrx/store";
 import AppState from "../Redux/app.state";
-import {accountError, loginSuccess} from "../Redux/Actions/account.actions";
+import {accountError, confirmationRequired, loginSuccess} from "../Redux/Actions/account.actions";
 import {UserResponse} from "../Models/Responses/UserResponse";
+import {EmailNotConfirmedResponse} from "../Models/Responses/EmailNotConfirmedResponse";
 
 @Injectable({
   providedIn: "root",
@@ -38,9 +39,13 @@ export class AuthService implements IAuthService {
         withCredentials: true
       })
       .pipe(
-        catchError(error => {
-          console.log(error)
-          this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
+        catchError((error : HttpErrorResponse) => {
+          if (error.status === 403){
+            const errorBody = error.error as EmailNotConfirmedResponse
+            this.store.dispatch(confirmationRequired({userId: errorBody.id}))
+          }else {
+            this.store.dispatch(accountError({errorMessage: error.error ?? "Service unavailable"}))
+          }
           return EMPTY
         })
       )

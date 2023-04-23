@@ -1,0 +1,20 @@
+<div class="registrationForm">
+  <div class="checkboxAndAgreement">
+    <div class="agreement">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut corporis debitis dignissimos harum in
+        itaque iure molestias numquam quae qui, quos reiciendis unde. Inventore ipsum necessitatibus recusandae ut
+        vel veritatis!</p>
+    </div>
+    <mat-checkbox
+      (change)="onCheckboxClicked()"
+      [checked]="isUserAgreed"
+      [disabled]="isLoading">
+      I agree with terms of service
+    </mat-checkbox>
+    <p [ngClass]="isCheckboxError?
+          {visibility: 'visible'} :
+          {visibility: 'gone'}" style="color: #f44336">
+      You need to agree with terms of service
+    </p>
+  </div>
+</div>

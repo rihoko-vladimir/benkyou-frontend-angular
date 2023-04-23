@@ -21,5 +21,10 @@ export const dismissError = createAction(
 
 export const accountError = createAction(
   "[Login page] Account error",
-  props<{errorMessage : string}>()
+  props<{ errorMessage: string }>()
+)
+
+export const confirmationRequired = createAction(
+  "[Login Page] Email Confirmation Required",
+  props<{ userId: string }>()
 )
