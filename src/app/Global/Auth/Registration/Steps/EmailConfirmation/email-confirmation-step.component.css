@@ -4,13 +4,13 @@
   justify-content: center;
 }
 
-#confirmationCode.invalid {
-  outline-color: red;
+.invalid {
   /* also need animation and -moz-animation */
-  -webkit-animation: shake .5s linear;
+  animation: shake .5s linear;
+  border-color: red;
 }
 /* also need keyframes and -moz-keyframes */
-@-webkit-keyframes shake {
+@keyframes shake {
   8%, 41% {
     transform: translateX(-10px);
   }
@@ -27,6 +27,15 @@
     transform: translateX(0);
   }
 }
+
+.success{
+
+}
+
+.default{
+
+}
+
 
 code-input{
   color: white;

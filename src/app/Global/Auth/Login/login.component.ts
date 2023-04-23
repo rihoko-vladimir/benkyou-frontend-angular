@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {AuthService} from "../../../Services/auth.service";
 import {Store} from "@ngrx/store";
 import AppState from "../../../Redux/app.state";
@@ -42,8 +42,8 @@ export class LoginComponent implements OnDestroy {
 
     this.actionSubscription = actions.pipe(
       ofType("[Login Page] Email Confirmation Required")
-    ).subscribe(() => {
-      this.router.navigate(["register"], {relativeTo: this.route})
+    ).subscribe((props: { userId: string }) => {
+      this.router.navigate(["confirm-email"], {relativeTo: this.route, state: props})
     })
   }
 

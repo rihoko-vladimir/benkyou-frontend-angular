@@ -15,6 +15,9 @@ import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.compo
 import {NewPasswordComponent} from "../Global/Auth/NewPassword/new-password.component";
 import {SetPasswordGuard} from "../Guards/set-password.guard";
 import {TestComponent} from "../Global/Hub/Components/TestComponent/test.component";
+import {
+  EmailConfirmationStepComponent
+} from "../Global/Auth/Registration/Steps/EmailConfirmation/email-confirmation-step.component";
 
 const authRoutes: Routes = [
   {
@@ -25,6 +28,11 @@ const authRoutes: Routes = [
   {
     path: "register", component: RegistrationComponent, data: {
       animation: "register"
+    }
+  },
+  {
+    path: "confirm-email", component: EmailConfirmationStepComponent, data: {
+      animation: "confirm-email"
     }
   },
   {

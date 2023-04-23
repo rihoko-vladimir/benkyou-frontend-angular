@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from "@angular/core";
+import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {CodeInputComponent} from "angular-code-input";
 import {AuthService} from "../../../../../Services/auth.service";
 import {Router} from "@angular/router";
@@ -9,14 +9,26 @@ import {Router} from "@angular/router";
   selector: "email-confirmation-step"
 })
 
-export class EmailConfirmationStepComponent {
+export class EmailConfirmationStepComponent implements OnInit {
   @ViewChild("confirmationCode") confirmationCodeElement!: CodeInputComponent;
   @Input("email") email: string
   @Input("userId") userId: string
+  fieldState: FieldState
+  protected readonly FieldState = FieldState;
 
   constructor(private authService: AuthService, private router: Router) {
     this.userId = ""
     this.email = ""
+    this.fieldState = FieldState.Default
+  }
+
+  ngOnInit(): void {
+    const historyId = history.state['userId']
+
+    if (historyId)
+      this.userId = historyId;
+
+    console.log(historyId)
   }
 
   onSendConfirmationCode(code: string) {
@@ -25,8 +37,26 @@ export class EmailConfirmationStepComponent {
     let observable = this.authService.confirmEmailAddress(this.userId, code)
 
     observable
-      .subscribe(() => {
-        this.router.navigate(["auth"])
+      .subscribe({
+        next: userId => {
+          this.userId = userId
+          this.fieldState = FieldState.Success
+          this.router.navigate(["auth"])
+        },
+        error: () => {
+          this.fieldState = FieldState.Error
+          console.log("error!!")
+        }
       })
   }
+
+  fieldFocused() {
+    this.fieldState = FieldState.Default
+  }
+}
+
+enum FieldState {
+  Success,
+  Error,
+  Default
 }

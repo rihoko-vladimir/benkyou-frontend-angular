@@ -4,11 +4,13 @@
   code, please, type it in the field below. If you don't see anything, please check your Spam
   folder.</p>
 <div class="centered">
-  <code-input
-    #confirmationCode
-    (codeCompleted)="onSendConfirmationCode($event)"
-    [codeLength]="6"
-    [isCharsCode]="false"
-    [isCodeHidden]="false"
-  ></code-input>
+  <code-input #confirmationCode
+              (codeCompleted)="onSendConfirmationCode($event)"
+              [codeLength]="6"
+              [disabled]="false"
+              [isCharsCode]="false"
+              [isCodeHidden]="false"
+              [ngClass]="{
+  invalid:fieldState===FieldState.Error
+}"></code-input>
 </div>
