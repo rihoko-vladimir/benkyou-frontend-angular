@@ -1,53 +1,47 @@
-.background{
-  position : absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(https://images7.alphacoders.com/888/thumb-1920-888540.jpg);
-  animation-name: brightness_anim;
-  animation-duration: 3s;
-  animation-fill-mode: forwards;
-  animation-delay: 1s;
-  animation-timing-function:ease-in-out;
-  z-index: 0;
-  filter: brightness(0.9);
-}
-
-.background-blur{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(16px);
-  z-index: 1;
-}
-
-@keyframes brightness_anim {
-  from {
-    filter: brightness(0.9);
-  }
-  to {
-    filter: brightness(0.4);
-  }
-}
-
-.container {
-  width: 100%;
-  height: 100%;
+.centered{
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  z-index: 3;
+}
+
+.invalid {
+  /* also need animation and -moz-animation */
+  animation: shake .5s linear;
+  border-color: red;
+}
+/* also need keyframes and -moz-keyframes */
+@keyframes shake {
+  8%, 41% {
+    transform: translateX(-10px);
+  }
+  25%, 58% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  92% {
+    transform: translateX(5px);
+  }
+  0%, 100% {
+    transform: translateX(0);
+  }
+}
+
+.success{
+
+}
+
+.default{
+
 }
 
 
-.set {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  z-index: 4;
-  border-radius: 12px;
-  padding: 32px;
+code-input{
+  color: black;
+  padding-top: 32px;
+  max-width: 450px;
+  --item-spacing: 24px;
+  --item-height: 3em;
+  --item-width: 1em;
 }

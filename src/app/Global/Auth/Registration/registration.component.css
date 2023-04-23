@@ -29,15 +29,6 @@
   pointer-events: none;
 }
 
-code-input{
-  color: white;
-  padding-top: 32px;
-  max-width: 450px;
-  --item-spacing: 24px;
-  --item-height: 3em;
-  --item-width: 1em;
-}
-
 .spinnerAndButton{
   display: flex;
   flex-direction: row;

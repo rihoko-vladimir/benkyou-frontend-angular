@@ -27,3 +27,12 @@
     transform: translateX(0);
   }
 }
+
+code-input{
+  color: white;
+  padding-top: 32px;
+  max-width: 450px;
+  --item-spacing: 24px;
+  --item-height: 3em;
+  --item-width: 1em;
+}

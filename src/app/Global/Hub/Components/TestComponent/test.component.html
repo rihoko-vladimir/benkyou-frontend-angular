@@ -1,5 +1,16 @@
-<div class="container">
-  <div class="background">
-    <div class="background-blur"></div>
-  </div>
+<h3 class="mat-typography">Email confirmation</h3>
+<p class="mat-typography">We've sent an email confirmation to {{email}}
+  . The letter will include the
+  code, please, type it in the field below. If you don't see anything, please check your Spam
+  folder.</p>
+<div class="centered">
+  <code-input #confirmationCode
+    (codeCompleted)="onSendConfirmationCode($event)"
+    (focus)="fieldFocused()"
+    [codeLength]="6"
+    [isCharsCode]="false"
+    [isCodeHidden]="false"
+    [ngClass]="{
+  invalid:fieldState===FieldState.Error
+}"></code-input>
 </div>

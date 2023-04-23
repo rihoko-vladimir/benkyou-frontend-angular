@@ -25,8 +25,7 @@ export class EmailConfirmationStepComponent {
     let observable = this.authService.confirmEmailAddress(this.userId, code)
 
     observable
-      .subscribe(userId => {
-        this.userId = userId
+      .subscribe(() => {
         this.router.navigate(["auth"])
       })
   }

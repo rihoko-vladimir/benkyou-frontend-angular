@@ -41,6 +41,7 @@ import {
 } from "../Global/Hub/Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component";
 import {KanjiPreviewComponent} from "../Global/Hub/Components/KanjiPreview/kanji-preview.component";
 import {SetPreviewDialogComponent} from "../Global/Hub/Components/SetPreview/set-preview-dialog.component";
+import {CodeInputModule} from "angular-code-input";
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import {SetPreviewDialogComponent} from "../Global/Hub/Components/SetPreview/set
     MaterialModule,
     CommonModule,
     ReactiveFormsModule,
+    CodeInputModule,
   ],
   providers: [
     AllSetsService,
