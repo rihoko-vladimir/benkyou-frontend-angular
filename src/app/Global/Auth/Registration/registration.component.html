@@ -2,87 +2,18 @@
 <div class="registrationForm">
   <mat-stepper #stepper [linear]="true" class="registration">
     <mat-step label="User information" state="creds">
-
-      <form [formGroup]="credentialsFormGroup" class="forms">
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Username</mat-label>
-          <input formControlName="userNameControl" matInput placeholder="Your creative Username" type="text">
-          <mat-error
-            *ngIf="credentialsFormGroup.controls.userNameControl.invalid">{{getUserNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Email</mat-label>
-          <input formControlName="emailControl" matInput placeholder="youremail@mail.com" type="email">
-          <mat-error *ngIf="credentialsFormGroup.controls.emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">First Name</mat-label>
-          <input formControlName="firstNameControl" matInput placeholder="John" type="text">
-          <mat-error
-            *ngIf="credentialsFormGroup.controls.firstNameControl.invalid">{{getFirstNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Last Name</mat-label>
-          <input formControlName="lastNameControl" matInput placeholder="Smith" type="text">
-          <mat-error
-            *ngIf="credentialsFormGroup.controls.lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </form>
+      <user-information-step #userInformationStepComponent></user-information-step>
     </mat-step>
     <mat-step label="Password" state="password">
-
-      <form [formGroup]="passwordFormGroup" class="forms">
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Password</mat-label>
-          <input formControlName="passwordControl" matInput placeholder="Your very secure password" type="password">
-          <mat-error *ngIf="passwordFormGroup.controls.passwordControl">{{getPasswordErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label class="header-margin">Password confirmation</mat-label>
-          <input formControlName="passwordConfirmationControl" matInput placeholder="Your very secure password confirmation"
-                 type="password">
-          <mat-error
-            *ngIf="passwordFormGroup.controls.passwordConfirmationControl">{{getPasswordConfirmationErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </form>
+      <password-step #passwordStepComponent></password-step>
     </mat-step>
     <mat-step label="Terms" state="terms">
-      <div class="registrationForm">
-        <div class="checkboxAndAgreement">
-          <div class="agreement">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut corporis debitis dignissimos harum in
-              itaque iure molestias numquam quae qui, quos reiciendis unde. Inventore ipsum necessitatibus recusandae ut
-              vel veritatis!</p>
-          </div>
-          <mat-checkbox
-            (change)="onCheckboxClicked()"
-            [checked]="isUserAgreed"
-            [disabled]="isLoading">
-            I agree with terms of service
-          </mat-checkbox>
-          <p [ngClass]="isCheckboxError?
-          {visibility: 'visible'} :
-          {visibility: 'gone'}" style="color: #f44336">
-            You need to agree with terms of service
-          </p>
-        </div>
-      </div>
+      <terms-step #termsStepComponent [isLoading]="isLoading"></terms-step>
     </mat-step>
     <mat-step label="Confirmation" state="confirmation">
-      <h3 class="mat-typography">Email confirmation</h3>
-      <p class="mat-typography">We've sent an email confirmation to {{credentialsFormGroup.controls.emailControl.value}}
-        . The letter will include the
-        code, please, type it in the field below. If you don't see anything, please check your Spam
-        folder.</p>
-      <div class="centered">
-        <code-input
-          #confirmationCode
-          (codeCompleted)="onSendConfirmationCode($event)"
-          [codeLength]="6"
-          [isCharsCode]="false"
-          [isCodeHidden]="false"
-        ></code-input>
-      </div>
+      <email-confirmation-step #emailConfirmationStepComponent
+                               [email]="userInformationStepComponent.credentialsFormGroup.controls.emailControl.value!"
+                               [userId]="userId"></email-confirmation-step>
     </mat-step>
     <ng-template matStepperIcon="creds">
       <mat-icon>person</mat-icon>

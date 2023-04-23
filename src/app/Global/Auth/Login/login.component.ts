@@ -5,6 +5,7 @@ import {AuthService} from "../../../Services/auth.service";
 import {Store} from "@ngrx/store";
 import AppState from "../../../Redux/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Actions, ofType} from "@ngrx/effects";
 
 @Component({
   selector: "login",
@@ -18,11 +19,12 @@ export class LoginComponent implements OnDestroy {
   passwordControl = new FormControl("",
     [Validators.required])
   subscription
+  actionSubscription
   isPasswordHidden = false
   isLoading: boolean = false
   isSuccess: boolean = false
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private store: Store<AppState>, private snackbar: MatSnackBar) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private store: Store<AppState>, private snackbar: MatSnackBar, actions: Actions) {
     this.subscription = store.select("account").subscribe(value => {
         if (!value.error.isError && value.id != "") {
           this.isSuccess = true
@@ -37,6 +39,12 @@ export class LoginComponent implements OnDestroy {
         }
       }
     )
+
+    this.actionSubscription = actions.pipe(
+      ofType("[Login Page] Email Confirmation Required")
+    ).subscribe(() => {
+      this.router.navigate(["register"], {relativeTo: this.route})
+    })
   }
 
   onLoginClicked() {

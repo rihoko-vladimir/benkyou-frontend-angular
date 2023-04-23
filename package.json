@@ -23,8 +23,10 @@
     "@ngrx/effects": "^14.0.1",
     "@ngrx/store": "^14.0.1",
     "@ngrx/store-devtools": "^14.0.1",
+    "@types/gsap": "^3.0.0",
     "angular-code-input": "^1.6.0",
     "fast-json-patch": "^3.1.1",
+    "gsap": "^3.11.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

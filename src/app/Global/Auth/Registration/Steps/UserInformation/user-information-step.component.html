@@ -1,0 +1,25 @@
+<form [formGroup]="credentialsFormGroup" class="forms">
+  <mat-form-field appearance="outline">
+    <mat-label class="header-margin">Username</mat-label>
+    <input formControlName="userNameControl" matInput placeholder="Your creative Username" type="text">
+    <mat-error
+      *ngIf="credentialsFormGroup.controls.userNameControl.invalid">{{getUserNameErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label class="header-margin">Email</mat-label>
+    <input formControlName="emailControl" matInput placeholder="youremail@mail.com" type="email">
+    <mat-error *ngIf="credentialsFormGroup.controls.emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label class="header-margin">First Name</mat-label>
+    <input formControlName="firstNameControl" matInput placeholder="John" type="text">
+    <mat-error
+      *ngIf="credentialsFormGroup.controls.firstNameControl.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label class="header-margin">Last Name</mat-label>
+    <input formControlName="lastNameControl" matInput placeholder="Smith" type="text">
+    <mat-error
+      *ngIf="credentialsFormGroup.controls.lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
+  </mat-form-field>
+</form>

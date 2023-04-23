@@ -70,6 +70,9 @@ const routes: Routes = [
       animation: 'not-found'
     }
   },
+  {
+    path: "test-component", component: TestComponent
+  },
   {path: "", redirectTo: "hub", pathMatch: "full"},
   {path: "**", redirectTo: "not-found"}
 ]

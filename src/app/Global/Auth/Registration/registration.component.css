@@ -8,11 +8,6 @@
   max-width: 650px;
 }
 
-.registrationForm {
-  display: flex;
-  flex-direction: column;
-}
-
 .forms{
   display: flex;
   flex-direction: column;
@@ -34,25 +29,6 @@
   pointer-events: none;
 }
 
-.checkboxAndAgreement{
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-  margin-top: 24px;
-  align-items: start;
-  padding: 12px;
-}
-
-
-.agreement{
-  overflow-y: scroll;
-  max-width: 600px;
-  height: 350px;
-  text-align: justify;
-  overflow-x: auto;
-  background-color: rgba(0,0,0,0.04)
-}
-
 code-input{
   color: white;
   padding-top: 32px;
@@ -66,10 +42,4 @@ code-input{
   display: flex;
   flex-direction: row;
   column-gap: 12px;
-}
-
-.centered{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
