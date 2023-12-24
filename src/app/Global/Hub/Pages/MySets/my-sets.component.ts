@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import Set from "../../../../Models/Set"
-import {MatDialog} from "@angular/material/dialog";
 import {DialogProperties, OpenMode, SetDialogComponent} from "../../Components/SetDialog/set-dialog.component";
 import {Store} from "@ngrx/store";
 import AppState from "../../../../Redux/app.state";
 import {MySetsService} from "../../../../Services/my-sets.service";
+import {MatDialog} from "@angular/material/dialog";
 import {PageEvent} from "@angular/material/paginator";
 
 @Component({

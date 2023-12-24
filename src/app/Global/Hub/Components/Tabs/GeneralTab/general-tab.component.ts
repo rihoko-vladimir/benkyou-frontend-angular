@@ -1,10 +1,10 @@
 import {Component, OnDestroy} from "@angular/core";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import AppState from "../../../../../Redux/app.state";
 import {Store} from "@ngrx/store";
 import {AccountService} from "../../../../../Services/account.service";
 import {Account} from "../../../../../Models/Account";
 import {IAccountState} from "../../../../../Redux/Reducers/account.reducer";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: "general-tab",

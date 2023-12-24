@@ -1,8 +1,8 @@
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import Set from "../../../../Models/Set";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import Kanji from "../../../../Models/Kanji";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: "set-dialog",

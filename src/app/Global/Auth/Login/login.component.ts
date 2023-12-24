@@ -1,11 +1,11 @@
 import {Component, OnDestroy} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../Services/auth.service";
 import {Store} from "@ngrx/store";
 import AppState from "../../../Redux/app.state";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Actions, ofType} from "@ngrx/effects";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: "login",

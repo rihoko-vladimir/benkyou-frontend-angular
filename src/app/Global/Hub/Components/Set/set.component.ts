@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import Set from "../../../../Models/Set"
-import {MatDialog} from "@angular/material/dialog";
 import {DialogProperties, OpenMode, SetDialogComponent} from "../SetDialog/set-dialog.component";
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
@@ -9,6 +8,7 @@ import AppState from "../../../../Redux/app.state";
 import {MySetsService} from "../../../../Services/my-sets.service";
 import {RemoveConfirmationDialogComponent} from "../RemoveConfirmationDialog/remove-confirmation-dialog.component";
 import {DialogData, SetPreviewDialogComponent} from "../SetPreview/set-preview-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: "set",
