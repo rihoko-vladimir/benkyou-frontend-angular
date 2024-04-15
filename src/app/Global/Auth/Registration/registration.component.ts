@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {PasswordConfirmationEqualityValidator} from "../PasswordReset/validators/password-confirmation-equality";
 import {CodeInputComponent} from "angular-code-input";
 import {AuthService} from "../../../Services/auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {finalize} from "rxjs";
 
 

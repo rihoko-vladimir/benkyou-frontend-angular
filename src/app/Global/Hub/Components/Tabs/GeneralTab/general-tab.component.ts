@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from "@angular/core";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {MatLegacySlideToggleChange as MatSlideToggleChange} from "@angular/material/legacy-slide-toggle";
 import AppState from "../../../../../Redux/app.state";
 import {Store} from "@ngrx/store";
 import {AccountService} from "../../../../../Services/account.service";

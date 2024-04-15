@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../Services/auth.service";
 import {Store} from "@ngrx/store";
 import AppState from "../../../Redux/app.state";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 
 @Component({
   selector: "login",

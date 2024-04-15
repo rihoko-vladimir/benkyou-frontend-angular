@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import Set from "../../../../Models/Set"
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {DialogProperties, OpenMode, SetDialogComponent} from "../SetDialog/set-dialog.component";
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
