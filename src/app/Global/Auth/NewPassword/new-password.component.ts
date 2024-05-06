@@ -4,7 +4,7 @@ import {PasswordConfirmationEqualityValidator} from "../PasswordReset/validators
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../Services/auth.service";
 import {catchError, EMPTY} from "rxjs";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 //Password must contain one uppercase char, one digit and be at least 8 chars long
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;

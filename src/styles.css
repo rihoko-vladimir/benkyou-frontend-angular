@@ -13,6 +13,7 @@ body {
   row-gap: 16px;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
 mat-list-item {
   border-radius: 14px;
   user-select: none;
@@ -22,6 +23,7 @@ button{
   border-radius: 22px!important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
 mat-list-item:not(:first-child){
   margin-top: 8px;
 }
@@ -30,6 +32,7 @@ mat-list-item:not(:first-child){
   background: rgba(255, 255, 255, .04);
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
 .mat-list-item-ripple {
   border-radius: 14px;
 }
@@ -48,7 +51,7 @@ a:visited{
   box-sizing: border-box;
 }
 
-.mat-dialog-container{
+.mat-mdc-dialog-container{
   border-radius: 12px!important;
 }
 

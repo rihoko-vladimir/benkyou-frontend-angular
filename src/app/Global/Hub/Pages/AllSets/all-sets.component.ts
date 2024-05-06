@@ -4,7 +4,7 @@ import {Store} from "@ngrx/store";
 import AppState from "../../../../Redux/app.state";
 import {AllSetsService} from "../../../../Services/all-sets.service";
 import {FormControl} from "@angular/forms";
-import {LegacyPageEvent as PageEvent} from "@angular/material/legacy-paginator";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: "all-sets-page",

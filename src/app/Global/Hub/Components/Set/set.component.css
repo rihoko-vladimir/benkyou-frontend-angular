@@ -17,6 +17,7 @@
   justify-content: space-between;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-actions {
   margin: 0;
   padding: 0;
@@ -33,6 +34,7 @@ mat-card-actions {
   justify-content: end;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-content {
   margin: 0;
 }

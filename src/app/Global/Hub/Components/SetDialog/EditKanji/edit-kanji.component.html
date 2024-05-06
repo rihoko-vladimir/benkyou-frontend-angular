@@ -10,14 +10,14 @@
     <div class="readings">
       <mat-form-field appearance="outline">
         <mat-label>Kunyomi</mat-label>
-        <mat-chip-list #kunyomi>
-          <mat-chip *ngFor="let kunyomiString of kanji.kunyomi">
+        <mat-chip-grid #kunyomi>
+          <mat-chip-row *ngFor="let kunyomiString of kanji.kunyomi">
             {{kunyomiString}}
             <button matChipRemove (click)="removeKunyomi(kunyomiString)">
               <mat-icon>cancel</mat-icon>
             </button>
-          </mat-chip>
-        </mat-chip-list>
+          </mat-chip-row>
+        </mat-chip-grid>
         <input class="inputSizeFix"
                (focusin)="removeError('kunyomi')"
                [formControl]="kunyomiControl"
@@ -30,14 +30,14 @@
     <div class="readings">
       <mat-form-field appearance="outline">
         <mat-label>Onyomi</mat-label>
-        <mat-chip-list #onyomi>
-          <mat-chip *ngFor="let onyomiString of kanji.onyomi">
+        <mat-chip-grid #onyomi>
+          <mat-chip-row *ngFor="let onyomiString of kanji.onyomi">
             {{onyomiString}}
             <button matChipRemove (click)="removeOnyomi(onyomiString)">
               <mat-icon>cancel</mat-icon>
             </button>
-          </mat-chip>
-        </mat-chip-list>
+          </mat-chip-row>
+        </mat-chip-grid>
         <input class="inputSizeFix"
                (focusin)="removeError('onyomi')"
                [formControl]="onyomiControl"

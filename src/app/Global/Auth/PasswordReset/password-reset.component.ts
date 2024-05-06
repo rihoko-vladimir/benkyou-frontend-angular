@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {MatStepper} from "@angular/material/stepper";
 import {AuthService} from "../../../Services/auth.service";
 import {catchError, EMPTY} from "rxjs";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: "password-reset",
