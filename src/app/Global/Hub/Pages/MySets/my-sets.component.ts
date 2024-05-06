@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import Set from "../../../../Models/Set"
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {DialogProperties, OpenMode, SetDialogComponent} from "../../Components/SetDialog/set-dialog.component";
 import {Store} from "@ngrx/store";
 import AppState from "../../../../Redux/app.state";
 import {MySetsService} from "../../../../Services/my-sets.service";
-import {PageEvent} from "@angular/material/paginator";
+import {LegacyPageEvent as PageEvent} from "@angular/material/legacy-paginator";
 
 @Component({
   selector: "my-sets-page",

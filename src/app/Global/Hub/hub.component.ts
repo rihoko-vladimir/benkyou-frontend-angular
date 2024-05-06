@@ -2,7 +2,7 @@ import {Component, OnDestroy} from "@angular/core";
 import {ChildrenOutletContexts, NavigationEnd, Router, RouterOutlet} from "@angular/router";
 import AppState from "../../Redux/app.state";
 import {Store} from "@ngrx/store";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {dismissSnackbar} from "../../Redux/Actions/snackbar.actions";
 import {tabSwitchAnimations} from "./hub-route.animations";
 

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import Kanji from "../../../../../Models/Kanji";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {MatChipInputEvent, MatChipList} from "@angular/material/chips";
+import {MatLegacyChipInputEvent as MatChipInputEvent, MatLegacyChipList as MatChipList} from "@angular/material/legacy-chips";
 import {FormControl, Validators} from "@angular/forms";
 
 @Component({

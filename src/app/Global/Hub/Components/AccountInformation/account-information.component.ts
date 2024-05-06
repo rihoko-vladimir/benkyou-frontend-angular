@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {MatTabChangeEvent} from "@angular/material/tabs";
+import {MatLegacyTabChangeEvent as MatTabChangeEvent} from "@angular/material/legacy-tabs";
 
 @Component({
   selector : "account-information",
