@@ -11,26 +11,37 @@
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput placeholder="youremail@mail.com" [formControl]="loginControl" [disabled]="isLoading || isSuccess">
-      <mat-error *ngIf="loginControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+      <mat-error *ngIf="loginControl.invalid">{{ getEmailErrorMessage() }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput placeholder="Your very secure password" [formControl]="passwordControl"
              [type]="!isPasswordHidden ? 'password' : 'text'" [disabled]="isLoading || isSuccess">
       <button mat-icon-button matSuffix (click)="isPasswordHidden=!isPasswordHidden">
-        <mat-icon fontSet="material-icons-outlined">{{isPasswordHidden ? "visibility_off" : "visibility_on"}}</mat-icon>
+        <mat-icon fontSet="material-icons-outlined">{{ isPasswordHidden ? "visibility_off" : "visibility_on" }}
+        </mat-icon>
       </button>
-      <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      <mat-error *ngIf="passwordControl.invalid">{{ getPasswordErrorMessage() }}</mat-error>
     </mat-form-field>
     <a routerLink="/auth/forgot-password">I forgot my password</a>
   </div>
   <div class="buttons">
-    <button mat-flat-button color="primary" (click)="onLoginClicked()" [disabled]="isLoading || isSuccess">Login</button>
-    <button mat-flat-button color="warn" (click)="onPasskeyLoginClicked()" [disabled]="isLoading || isSuccess">
-      Passkey
-      <mat-icon>passkey</mat-icon>
+    <button mat-flat-button color="primary" (click)="onLoginClicked()" [disabled]="isLoading || isSuccess">Login
+    </button>
+    <button *ngIf="isPasskeyAvailable" mat-flat-button color="warn" (click)="onPasskeyLoginClicked()"
+            [disabled]="isLoading || isSuccess">
+      <div class="passkey">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,-25"/>
+        <span class="material-symbols-outlined passkey-padding">
+          passkey
+        </span>
+        Passkey
+      </div>
     </button>
     <p class="mat-typography suggestion-text">Don't have an account yet?</p>
-    <button mat-flat-button color="accent" (click)="onRegistrationClicked()" [disabled]="isLoading || isSuccess">Sign up</button>
+    <button mat-flat-button color="accent" (click)="onRegistrationClicked()" [disabled]="isLoading || isSuccess">Sign
+      up
+    </button>
   </div>
 </div>

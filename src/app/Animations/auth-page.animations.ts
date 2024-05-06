@@ -1,12 +1,8 @@
-import {animate, style, transition, trigger} from "@angular/animations";
+import { animate, style, transition, trigger } from '@angular/animations';
 
-
-export const cardsChangeAnimation =
-  trigger('routeAnimations', [
-    transition('* <=> *', [
-      style({opacity: 0}),
-      animate('400ms ease-out')]),
-  ]);
+export const cardsChangeAnimation = trigger('routeAnimations', [
+  transition('* <=> *', [style({ opacity: 0 }), animate('400ms ease-out')])
+]);
 
 // export const pageChangeAnimation =
 //   trigger('routeAnimations', [

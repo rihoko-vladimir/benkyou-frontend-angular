@@ -1,9 +1,7 @@
-import {NgModule} from "@angular/core";
-import {NotFoundComponent} from "../Global/NotFound/not-found.component";
+import { NgModule } from '@angular/core';
+import { NotFoundComponent } from '../Global/NotFound/not-found.component';
 
 @NgModule({
-  declarations: [
-    NotFoundComponent
-  ]
+  declarations: [NotFoundComponent]
 })
 export class NotFoundModule {}

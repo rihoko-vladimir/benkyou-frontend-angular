@@ -1,9 +1,9 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
-    <div class="avatar placeholderContainer" *ngIf="avatarUrl=='' || avatarUrl == null">
+    <div class="avatar placeholderContainer" *ngIf="avatarUrl==='' || avatarUrl === null">
       <mat-icon>account_circle</mat-icon>
     </div>
-    <img class="avatar" [src]="avatarUrl" alt="avatar" *ngIf="avatarUrl!='' && avatarUrl != null"/>
+    <img class="avatar" [src]="avatarUrl" alt="avatar" *ngIf="avatarUrl!=='' && avatarUrl !== null"/>
     <span class="mat-typography text-padding">{{firstName + " " + lastName}}</span>
   </mat-expansion-panel-header>
   <mat-list-item routerLink="/hub/account" [routerLinkActive]="['route-selected']">

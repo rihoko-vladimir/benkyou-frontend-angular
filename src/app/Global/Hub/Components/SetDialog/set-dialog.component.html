@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{mode == "create" ? "Create set" : "Edit set"}}</h2>
+<h2 mat-dialog-title>{{mode === "create" ? "Create set" : "Edit set"}}</h2>
 <mat-dialog-content>
   <form [formGroup]="setFormGroup" class="cardNameAndDescription">
     <mat-form-field appearance="outline">
@@ -17,10 +17,10 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onCloseClicked()">Back</button>
-  <button mat-flat-button color="accent" *ngIf="mode=='create'" (click)="onFinishClicked()"
+  <button mat-flat-button color="accent" *ngIf="mode==='create'" (click)="onFinishClicked()"
           [disabled]="!isFinishAvailable">Create
   </button>
-  <button mat-flat-button color="accent" *ngIf="mode=='edit'" (click)="onFinishClicked()"
+  <button mat-flat-button color="accent" *ngIf="mode==='edit'" (click)="onFinishClicked()"
           [disabled]="!isFinishAvailable">Edit
   </button>
 </mat-dialog-actions>

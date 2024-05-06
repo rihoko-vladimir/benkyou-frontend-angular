@@ -10,9 +10,9 @@
   <div *ngIf="isLoading && !isError" class="loaderContainer">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
-  <p *ngIf="sets.length==0 && !isLoading && !isError">Whooaaa, so empty here...</p>
-  <error componentName="My Sets" (onRetry)="onRetryClicked()" *ngIf="isError"></error>
-  <mat-paginator *ngIf="pagesCount != 1" hidePageSize="true" [pageSize]="pageSize" [pageIndex]="currentPage"
+  <p *ngIf="sets.length===0 && !isLoading && !isError">Whooaaa, so empty here...</p>
+  <error componentName="My Sets" (retry)="onRetryClicked()" *ngIf="isError"></error>
+  <mat-paginator *ngIf="pagesCount !== 1" hidePageSize="true" [pageSize]="pageSize" [pageIndex]="currentPage"
                  [length]="pagesCount * pageSize" (page)="onPageChanged($event)">
   </mat-paginator>
 </div>

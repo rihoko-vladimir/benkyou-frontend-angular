@@ -1,17 +1,15 @@
-import {Component, EventEmitter, Output} from "@angular/core";
-import {MatTabChangeEvent} from "@angular/material/tabs";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
-  selector : "account-information",
-  templateUrl : "account-information.component.html",
-  styleUrls : ["account-information.component.css"]
+  selector: 'account-information',
+  templateUrl: 'account-information.component.html',
+  styleUrls: ['account-information.component.css']
 })
-
 export class AccountInformationComponent {
-  @Output() tabIndexChange = new EventEmitter<number>()
-
+  @Output() tabIndexChange = new EventEmitter<number>();
 
   onTabChanged(event: MatTabChangeEvent) {
-    this.tabIndexChange.emit(event.index)
+    this.tabIndexChange.emit(event.index);
   }
 }

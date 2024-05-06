@@ -1,7 +1,7 @@
-import {KanjiRequest} from "./KanjiRequest";
+import { KanjiRequest } from './KanjiRequest';
 
-export interface SetRequest{
-  name : string,
-  description : string,
-  kanjiList : KanjiRequest[]
+export interface SetRequest {
+  name: string;
+  description: string;
+  kanjiList: KanjiRequest[];
 }

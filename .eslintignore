@@ -1,0 +1,9 @@
+.run
+node_modules
+wwwroot
+.angular
+.editorconfig
+.eslintrc.json
+.eslintignore
+.prettierrc
+.gitignore

@@ -1,46 +1,40 @@
-import {NgModule} from "@angular/core";
-import {HubComponent} from "../Global/Hub/hub.component";
-import {AppRoutingModule} from "./routing.module";
-import {MaterialModule} from "./material.module";
-import {HomePageComponent} from "../Global/Hub/Pages/Home/home-page.component";
-import {MySetsComponent} from "../Global/Hub/Pages/MySets/my-sets.component";
-import {AllSetsComponent} from "../Global/Hub/Pages/AllSets/all-sets.component";
-import {AccountComponent} from "../Global/Hub/Pages/Account/account.component";
-import {
-  AccountInfoListItemComponent
-} from "../Global/Hub/Components/AccountInfoListItem/account-info-list-item.component";
-import {SetGridComponent} from "../Global/Hub/Components/SetGrid/set-grid.component";
-import {SetComponent} from "../Global/Hub/Components/Set/set.component";
-import {CommonModule} from "@angular/common";
-import {KanjiListComponent} from "../Global/Hub/Components/KanjiList/kanji-list.component";
-import {KanjiComponent} from "../Global/Hub/Components/Kanji/kanji.component";
-import {SetDialogComponent} from "../Global/Hub/Components/SetDialog/set-dialog.component";
-import {EditKanjiListComponent} from "../Global/Hub/Components/SetDialog/EditKanjiList/edit-kanji-list.component";
-import {EditKanjiComponent} from "../Global/Hub/Components/SetDialog/EditKanji/edit-kanji.component";
-import {ReactiveFormsModule} from "@angular/forms";
-import {StudyPageComponent} from "../Global/Hub/Pages/StudyPage/study-page.component";
-import {ResultsComponent} from "../Global/Hub/Components/ResultsComponent/results.component";
-import {ResultComponent} from "../Global/Hub/Components/Result/result.component";
-import {ResultReadingComponent} from "../Global/Hub/Components/ResultReading/result-reading.component";
-import {AllSetsService} from "../Services/all-sets.service";
-import {MySetsService} from "../Services/my-sets.service";
-import {AccountOverviewComponent} from "../Global/Hub/Components/AccountOverview/account-overview.component";
-import {
-  RemoveConfirmationDialogComponent
-} from "../Global/Hub/Components/RemoveConfirmationDialog/remove-confirmation-dialog.component";
-import {AccountInformationComponent} from "../Global/Hub/Components/AccountInformation/account-information.component";
-import {GeneralTabComponent} from "../Global/Hub/Components/Tabs/GeneralTab/general-tab.component";
-import {PersonalTabComponent} from "../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component";
-import {AccountService} from "../Services/account.service";
-import {ErrorComponent} from "../Global/Hub/Components/ErrorComponent/error.component";
-import {TestComponent} from "../Global/Hub/Components/TestComponent/test.component";
-import {SpeechableReadingComponent} from "../Global/Hub/Components/SpeechableReading/speechable-reading.component";
-import {ReadingsContainerComponent} from "../Global/Hub/Components/ReadingsContainer/readings-container.component";
-import {
-  KanjiSvgDrawingPreviewComponent
-} from "../Global/Hub/Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component";
-import {KanjiPreviewComponent} from "../Global/Hub/Components/KanjiPreview/kanji-preview.component";
-import {SetPreviewDialogComponent} from "../Global/Hub/Components/SetPreview/set-preview-dialog.component";
+import { NgModule } from '@angular/core';
+import { HubComponent } from '../Global/Hub/hub.component';
+import { AppRoutingModule } from './routing.module';
+import { MaterialModule } from './material.module';
+import { HomePageComponent } from '../Global/Hub/Pages/Home/home-page.component';
+import { MySetsComponent } from '../Global/Hub/Pages/MySets/my-sets.component';
+import { AllSetsComponent } from '../Global/Hub/Pages/AllSets/all-sets.component';
+import { AccountComponent } from '../Global/Hub/Pages/Account/account.component';
+import { AccountInfoListItemComponent } from '../Global/Hub/Components/AccountInfoListItem/account-info-list-item.component';
+import { SetGridComponent } from '../Global/Hub/Components/SetGrid/set-grid.component';
+import { SetComponent } from '../Global/Hub/Components/Set/set.component';
+import { CommonModule } from '@angular/common';
+import { KanjiListComponent } from '../Global/Hub/Components/KanjiList/kanji-list.component';
+import { KanjiComponent } from '../Global/Hub/Components/Kanji/kanji.component';
+import { SetDialogComponent } from '../Global/Hub/Components/SetDialog/set-dialog.component';
+import { EditKanjiListComponent } from '../Global/Hub/Components/SetDialog/EditKanjiList/edit-kanji-list.component';
+import { EditKanjiComponent } from '../Global/Hub/Components/SetDialog/EditKanji/edit-kanji.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StudyPageComponent } from '../Global/Hub/Pages/StudyPage/study-page.component';
+import { ResultsComponent } from '../Global/Hub/Components/ResultsComponent/results.component';
+import { ResultComponent } from '../Global/Hub/Components/Result/result.component';
+import { ResultReadingComponent } from '../Global/Hub/Components/ResultReading/result-reading.component';
+import { AllSetsService } from '../Services/all-sets.service';
+import { MySetsService } from '../Services/my-sets.service';
+import { AccountOverviewComponent } from '../Global/Hub/Components/AccountOverview/account-overview.component';
+import { RemoveConfirmationDialogComponent } from '../Global/Hub/Components/RemoveConfirmationDialog/remove-confirmation-dialog.component';
+import { AccountInformationComponent } from '../Global/Hub/Components/AccountInformation/account-information.component';
+import { GeneralTabComponent } from '../Global/Hub/Components/Tabs/GeneralTab/general-tab.component';
+import { PersonalTabComponent } from '../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component';
+import { AccountService } from '../Services/account.service';
+import { ErrorComponent } from '../Global/Hub/Components/ErrorComponent/error.component';
+import { TestComponent } from '../Global/Hub/Components/TestComponent/test.component';
+import { SpeechableReadingComponent } from '../Global/Hub/Components/SpeechableReading/speechable-reading.component';
+import { ReadingsContainerComponent } from '../Global/Hub/Components/ReadingsContainer/readings-container.component';
+import { KanjiSvgDrawingPreviewComponent } from '../Global/Hub/Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
+import { KanjiPreviewComponent } from '../Global/Hub/Components/KanjiPreview/kanji-preview.component';
+import { SetPreviewDialogComponent } from '../Global/Hub/Components/SetPreview/set-preview-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,21 +68,8 @@ import {SetPreviewDialogComponent} from "../Global/Hub/Components/SetPreview/set
     SetPreviewDialogComponent,
     TestComponent
   ],
-  imports: [
-    AppRoutingModule,
-    MaterialModule,
-    CommonModule,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    AllSetsService,
-    MySetsService,
-    AccountService
-  ],
-  exports: [
-    ResultReadingComponent
-  ]
+  imports: [AppRoutingModule, MaterialModule, CommonModule, ReactiveFormsModule],
+  providers: [AllSetsService, MySetsService, AccountService],
+  exports: [ResultReadingComponent]
 })
-
-export class HubModule {
-}
+export class HubModule {}

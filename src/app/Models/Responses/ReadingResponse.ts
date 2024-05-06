@@ -1,3 +1,3 @@
-export interface ReadingResponse{
-  reading : string
+export interface ReadingResponse {
+  reading: string;
 }

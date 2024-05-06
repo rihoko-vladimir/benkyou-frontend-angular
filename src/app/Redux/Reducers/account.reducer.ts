@@ -1,33 +1,33 @@
-import {createReducer, on} from "@ngrx/store";
-import {accountError, getAccountInfoSuccess, loginSuccess, logout} from "../Actions/account.actions";
+import { createReducer, on } from '@ngrx/store';
+import { accountError, getAccountInfoSuccess, loginSuccess, logout } from '../Actions/account.actions';
 
 export interface IAccountState {
-  id: string,
-  firstName: string,
-  lastName: string,
-  userName: string,
-  userRole: string,
-  birthDay: string,
-  avatarUrl: string,
-  isTermsAccepted: boolean,
-  isAccountPublic: boolean,
-  about: string,
-  error: { isError: boolean, errorMessage: string }
+  id: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  userRole: string;
+  birthDay: string;
+  avatarUrl: string;
+  isTermsAccepted: boolean;
+  isAccountPublic: boolean;
+  about: string;
+  error: { isError: boolean; errorMessage: string };
 }
 
 const initialState: IAccountState = {
-  about: "",
-  avatarUrl: "",
-  birthDay: "",
-  firstName: "",
-  id: "",
+  about: '',
+  avatarUrl: '',
+  birthDay: '',
+  firstName: '',
+  id: '',
   isAccountPublic: false,
-  userRole: "user",
-  lastName: "",
-  userName: "",
+  userRole: 'user',
+  lastName: '',
+  userName: '',
   isTermsAccepted: true,
-  error: {isError: false, errorMessage: ""}
-}
+  error: { isError: false, errorMessage: '' }
+};
 
 export const accountReducer = createReducer(
   initialState,
@@ -42,7 +42,7 @@ export const accountReducer = createReducer(
     userRole: account.userRole,
     userName: account.userName,
     id: account.id,
-    error: {isError: false, errorMessage: ""}
+    error: { isError: false, errorMessage: '' }
   })),
   on(getAccountInfoSuccess, (store, account) => ({
     about: account.about,
@@ -55,12 +55,11 @@ export const accountReducer = createReducer(
     userRole: account.userRole,
     userName: account.userName,
     id: account.id,
-    error: {isError: false, errorMessage: ""}
+    error: { isError: false, errorMessage: '' }
   })),
-  on(accountError, (state, {errorMessage}) => ({
+  on(accountError, (state, { errorMessage }) => ({
     ...state,
-    error: {isError: true, errorMessage: errorMessage}
+    error: { isError: true, errorMessage: errorMessage }
   })),
   on(logout, () => initialState)
-)
-
+);

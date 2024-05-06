@@ -5,5 +5,5 @@
   <div *ngIf="isLoading && !isError" class="loaderContainer">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
-  <error *ngIf="isError" componentName="Account" (onRetry)="onRetryClicked()"></error>
+  <error *ngIf="isError" componentName="Account" (retry)="onRetryClicked()"></error>
 </div>

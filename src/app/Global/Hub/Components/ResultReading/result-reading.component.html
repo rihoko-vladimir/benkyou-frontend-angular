@@ -1,4 +1,4 @@
 <div class="reading"
-     [ngClass]="{correct : type == 'correct', required : type == 'required' , incorrect : type == 'incorrect'}">
+     [ngClass]="{correct : type === 'correct', required : type === 'required' , incorrect : type === 'incorrect'}">
   <p class="mat-typography">{{reading}}</p>
 </div>

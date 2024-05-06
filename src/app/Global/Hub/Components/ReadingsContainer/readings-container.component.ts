@@ -1,11 +1,38 @@
-import {Component, Input} from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: "readings-container",
-  templateUrl: "readings-container.component.html",
-  styleUrls: ["readings-container.component.css"]
+  selector: 'readings-container',
+  templateUrl: 'readings-container.component.html',
+  styleUrls: ['readings-container.component.css']
 })
-
 export class ReadingsContainerComponent {
-  @Input("readings") readings: string[] = ["死", "b", "c", "a", "b", "c", "a", "b", "c", "漢字", "b", "c", "母", "b", "c", "a", "b", "c", "a", "b", "c", "a", "b", "c", "a", "b", "c"]
+  @Input() readings: string[] = [
+    '死',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c',
+    '漢字',
+    'b',
+    'c',
+    '母',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c'
+  ];
 }

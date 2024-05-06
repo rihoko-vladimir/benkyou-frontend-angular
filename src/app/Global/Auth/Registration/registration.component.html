@@ -79,7 +79,7 @@
     <button (click)="onPreviousClicked()"
             [disabled]="isLoading"
             mat-stroked-button>
-      {{stepper.selectedIndex == 0 ? "Cancel" : "Back"}}
+      {{stepper.selectedIndex === 0 ? "Cancel" : "Back"}}
     </button>
     <div class="spinnerAndButton">
       <mat-progress-spinner
@@ -92,7 +92,7 @@
               [disabled]="isLoading"
               color="accent"
               mat-flat-button>
-        {{stepper.selectedIndex == stepper.steps.length - 1 ? "Finish" : "Next"}}
+        {{stepper.selectedIndex === stepper.steps.length - 1 ? "Finish" : "Next"}}
       </button>
     </div>
   </div>

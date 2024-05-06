@@ -1,3 +1,3 @@
-export interface IAppConfiguration{
-  apiEndpoint : string;
+export interface IAppConfiguration {
+  apiEndpoint: string;
 }

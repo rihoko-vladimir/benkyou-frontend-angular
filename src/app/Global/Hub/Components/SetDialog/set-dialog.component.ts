@@ -1,36 +1,36 @@
-import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import Set from "../../../../Models/Set";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import Kanji from "../../../../Models/Kanji";
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import Set from '../../../../Models/Set';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Kanji from '../../../../Models/Kanji';
 
 @Component({
-  selector: "set-dialog",
-  templateUrl: "set-dialog.component.html",
-  styleUrls: ["set-dialog.component.css"]
+  selector: 'set-dialog',
+  templateUrl: 'set-dialog.component.html',
+  styleUrls: ['set-dialog.component.css']
 })
-
 export class SetDialogComponent {
-  mode: OpenMode
-  set: Set
-  isFinishAvailable: boolean
+  mode: OpenMode;
+  set: Set;
+  isFinishAvailable: boolean;
 
-  setFormGroup
+  setFormGroup;
 
-  constructor(private dialogRef: MatDialogRef<SetDialogComponent>, @Inject(MAT_DIALOG_DATA) props: DialogProperties) {
-    this.set = props.set
-    this.mode = props.mode
-    this.isFinishAvailable = false
+  constructor(
+    private dialogRef: MatDialogRef<SetDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) props: DialogProperties
+  ) {
+    this.set = props.set;
+    this.mode = props.mode;
+    this.isFinishAvailable = false;
     this.setFormGroup = new FormGroup({
       nameControl: new FormControl(this.set.name, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(15)
       ]),
-      descriptionControl: new FormControl(this.set.description, [
-        Validators.required,
-        Validators.maxLength(90)])
-    })
+      descriptionControl: new FormControl(this.set.description, [Validators.required, Validators.maxLength(90)])
+    });
   }
 
   onFieldChange() {
@@ -38,70 +38,68 @@ export class SetDialogComponent {
   }
 
   onCloseClicked() {
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 
   onFinishClicked() {
     if (this.setFormGroup.valid) {
-      this.set.name = this.setFormGroup.controls.nameControl.value!
-      this.set.description = this.setFormGroup.controls.descriptionControl.value!
-      this.dialogRef.close(this.set)
+      this.set.name = this.setFormGroup.controls.nameControl.value!;
+      this.set.description = this.setFormGroup.controls.descriptionControl.value!;
+      this.dialogRef.close(this.set);
     } else {
-      this.setFormGroup.markAllAsTouched()
+      this.setFormGroup.markAllAsTouched();
     }
   }
 
   getNameErrorMessage() {
     if (this.setFormGroup.controls.nameControl.hasError(Validators.required.name)) {
-      return "This field is required"
+      return 'This field is required';
     }
 
-    if (this.setFormGroup.controls.nameControl.hasError("minlength")) {
-      return "This field must be at least 3 chars long"
+    if (this.setFormGroup.controls.nameControl.hasError('minlength')) {
+      return 'This field must be at least 3 chars long';
     }
 
-    if (this.setFormGroup.controls.nameControl.hasError("maxlength")) {
-      return "This field must be not longer than 15 chars"
+    if (this.setFormGroup.controls.nameControl.hasError('maxlength')) {
+      return 'This field must be not longer than 15 chars';
     }
 
-    return "Unknown error"
+    return 'Unknown error';
   }
 
   getDescriptionErrorMessage() {
     if (this.setFormGroup.controls.descriptionControl.hasError(Validators.required.name)) {
-      return "This field is required"
+      return 'This field is required';
     }
 
-    if (this.setFormGroup.controls.descriptionControl.hasError("maxlength")) {
-      return "This field must be not longer than 90 chars"
+    if (this.setFormGroup.controls.descriptionControl.hasError('maxlength')) {
+      return 'This field must be not longer than 90 chars';
     }
 
-    return "Unknown error"
+    return 'Unknown error';
   }
 
   onKanjiListChange(kanjiList: Kanji[]) {
-    this.isFinishAvailable = this.isListCorrect(kanjiList) && this.setFormGroup.valid
+    this.isFinishAvailable = this.isListCorrect(kanjiList) && this.setFormGroup.valid;
   }
 
   isListCorrect(kanjiList: Kanji[]) {
-    let isCorrect = true
+    let isCorrect = true;
     kanjiList.forEach(kanji => {
-      if (kanji.kanji == "" || (kanji.kunyomi.length == 0 && kanji.onyomi.length == 0))
-        isCorrect = false
-    })
-    return isCorrect
+      if (kanji.kanji === '' || (kanji.kunyomi.length === 0 && kanji.onyomi.length === 0)) isCorrect = false;
+    });
+    return isCorrect;
   }
 }
 
 export enum OpenMode {
-  edit = "edit",
-  create = "create"
+  edit = 'edit',
+  create = 'create'
 }
 
 export class DialogProperties {
-  mode: OpenMode
-  set: Set
-
+  mode: OpenMode;
+  set: Set;
 
   constructor(mode: OpenMode, set: Set) {
     this.mode = mode;

@@ -24,3 +24,13 @@
 .suggestion-text{
   margin: 8px 0;
 }
+
+.passkey{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.passkey-padding{
+  padding-right: 6px;
+}

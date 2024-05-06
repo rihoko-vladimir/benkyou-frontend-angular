@@ -1,10 +1,9 @@
-import {Injectable} from "@angular/core";
-import {IAppConfiguration} from "./IAppConfiguration";
+import { Injectable } from '@angular/core';
+import { IAppConfiguration } from './IAppConfiguration';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
-
-export class AppConfiguration implements IAppConfiguration{
-  public apiEndpoint: string = "http://localhost:3080";
+export class AppConfiguration implements IAppConfiguration {
+  public apiEndpoint: string = 'http://localhost:3080';
 }

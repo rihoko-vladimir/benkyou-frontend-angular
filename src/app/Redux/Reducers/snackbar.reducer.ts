@@ -1,41 +1,42 @@
-import {createReducer, on} from "@ngrx/store";
+import { createReducer, on } from '@ngrx/store';
 import {
   addSetSuccess,
   createSetSuccess,
   dismissSnackbar,
   removeSetSuccess,
   visibilityChangeSuccess
-} from "../Actions/snackbar.actions";
+} from '../Actions/snackbar.actions';
 
 export interface ISnackbarState {
-  isShown : boolean,
-  message : string
+  isShown: boolean;
+  message: string;
 }
 
-const initialState : ISnackbarState = {
-  isShown : false,
-  message : ""
-}
+const initialState: ISnackbarState = {
+  isShown: false,
+  message: ''
+};
 
-export const snackbarReducer = createReducer(initialState,
+export const snackbarReducer = createReducer(
+  initialState,
   on(addSetSuccess, () => ({
-    isShown : true,
-    message : "Set was successfully added to your list"
+    isShown: true,
+    message: 'Set was successfully added to your list'
   })),
   on(createSetSuccess, () => ({
-    isShown : true,
-    message : "Set was created successfully"
+    isShown: true,
+    message: 'Set was created successfully'
   })),
   on(removeSetSuccess, () => ({
-    isShown : true,
-    message : "Set was removed successfully"
+    isShown: true,
+    message: 'Set was removed successfully'
   })),
   on(visibilityChangeSuccess, () => ({
-    isShown : true,
-    message : "Visibility changed successfully"
+    isShown: true,
+    message: 'Visibility changed successfully'
   })),
   on(dismissSnackbar, () => ({
-    isShown : false,
-    message : ""
+    isShown: false,
+    message: ''
   }))
-)
+);

@@ -4,7 +4,7 @@
       <mat-card-title>{{set.name}}</mat-card-title>
       <mat-card-subtitle>{{set.description}}</mat-card-subtitle>
     </div>
-    <button *ngIf="mode=='owner'" mat-icon-button matTooltip="Remove set" matTooltipPosition="above"
+    <button *ngIf="mode==='owner'" mat-icon-button matTooltip="Remove set" matTooltipPosition="above"
             (click)="onRemoveClicked(set.id)">
       <mat-icon>close</mat-icon>
     </button>
@@ -14,9 +14,9 @@
       <button mat-button (click)="openPreview()" [matTooltip]="'Preview'" matTooltipPosition="below">
         Preview
       </button>
-      <button *ngIf="mode=='owner'" mat-button (click)="onEditClicked()">Edit</button>
-      <button *ngIf="mode=='owner'" mat-flat-button color="accent" (click)="onStudyClicked()">Study!</button>
-      <button *ngIf="mode=='notOwner'" mat-flat-button color="accent" (click)="onAddClicked()">Add</button>
+      <button *ngIf="mode==='owner'" mat-button (click)="onEditClicked()">Edit</button>
+      <button *ngIf="mode==='owner'" mat-flat-button color="accent" (click)="onStudyClicked()">Study!</button>
+      <button *ngIf="mode==='notOwner'" mat-flat-button color="accent" (click)="onAddClicked()">Add</button>
     </mat-card-actions>
   </div>
 </mat-card>

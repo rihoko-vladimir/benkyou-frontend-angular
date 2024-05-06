@@ -3,7 +3,7 @@
               [kanji]="kanji"
               [isRemoveAvailable]="kanjiList.length>3"
               [myIndex]="kanjiList.indexOf(kanji)"
-              (onRemove)="onRemoveKanji($event.valueOf())"
+              (remove)="onRemoveKanji($event.valueOf())"
               (kanjiChange)="onKanjiChanged($event)"
               @enterRemoveAnim>
   </edit-kanji>

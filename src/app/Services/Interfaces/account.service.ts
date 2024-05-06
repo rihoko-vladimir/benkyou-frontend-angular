@@ -1,9 +1,9 @@
-import {Account} from "../../Models/Account";
+import { Account } from '../../Models/Account';
 
-export interface IAccountService{
-  updateUserAccount(updatedUserData : Account) : void
+export interface IAccountService {
+  updateUserAccount(updatedUserData: Account): void;
 
-  uploadNewAvatar(file : File) : void
+  uploadNewAvatar(file: File): void;
 
-  getAccountInfo() : void
+  getAccountInfo(): void;
 }

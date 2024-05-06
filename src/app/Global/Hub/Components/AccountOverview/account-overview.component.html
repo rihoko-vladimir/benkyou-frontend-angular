@@ -9,14 +9,14 @@
         <mat-icon style="width: 50px; height: 50px; font-size: 50px">account_circle</mat-icon>
       </div>
       <button mat-mini-fab color="accent" class="changeAvatar" (click)="fileInput.click()"
-              *ngIf="currentTab == 1 && fileImage===undefined" [@changeButton]>
+              *ngIf="currentTab === 1 && fileImage===undefined" [@changeButton]>
         <mat-icon>photo_camera</mat-icon>
       </button>
       <div class="changeAvatar discardConfirm" *ngIf="fileImage!==undefined">
-        <button mat-mini-fab style="background: red" (click)="onDiscard()" *ngIf="currentTab == 1">
+        <button mat-mini-fab style="background: red" (click)="onDiscard()" *ngIf="currentTab === 1">
           <mat-icon>close</mat-icon>
         </button>
-        <button mat-mini-fab color="accent" (click)="onChange()" *ngIf="currentTab == 1">
+        <button mat-mini-fab color="accent" (click)="onChange()" *ngIf="currentTab === 1">
           <mat-icon>done</mat-icon>
         </button>
       </div>
