@@ -26,7 +26,11 @@
   </div>
   <div class="buttons">
     <button mat-flat-button color="primary" (click)="onLoginClicked()" [disabled]="isLoading || isSuccess">Login</button>
-    <p class="mat-typography">Don't have an account yet?</p>
+    <button mat-flat-button color="warn" (click)="onPasskeyLoginClicked()" [disabled]="isLoading || isSuccess">
+      Passkey
+      <mat-icon>passkey</mat-icon>
+    </button>
+    <p class="mat-typography suggestion-text">Don't have an account yet?</p>
     <button mat-flat-button color="accent" (click)="onRegistrationClicked()" [disabled]="isLoading || isSuccess">Sign up</button>
   </div>
 </div>

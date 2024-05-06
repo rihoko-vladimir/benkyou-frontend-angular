@@ -20,3 +20,7 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.suggestion-text{
+  margin: 8px 0;
+}

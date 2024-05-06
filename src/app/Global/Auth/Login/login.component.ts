@@ -79,4 +79,8 @@ export class LoginComponent implements OnDestroy {
       duration: 3000
     })
   }
+
+  onPasskeyLoginClicked() {
+
+  }
 }

@@ -20,8 +20,6 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 })
 
 export class RegistrationComponent {
-  isUserAgreed: boolean
-  isCheckboxError: boolean
   areButtonsHidden: boolean
   isLoading: boolean = false
   userId: string
@@ -61,11 +59,8 @@ export class RegistrationComponent {
         Validators.required
       ])
   }, [PasswordConfirmationEqualityValidator("passwordControl", "passwordConfirmationControl")])
-  formGroups = [this.credentialsFormGroup, this.passwordFormGroup]
 
   constructor(private router: Router, private authService: AuthService, private snackbar: MatSnackBar) {
-    this.isUserAgreed = false
-    this.isCheckboxError = false
     this.areButtonsHidden = false
     this.userId = ""
   }
@@ -87,30 +82,26 @@ export class RegistrationComponent {
         break
       }
       case 2: {
-        if (this.isUserAgreed) {
-          let observable = this.authService.register(
-            this.credentialsFormGroup.controls.userNameControl.value!,
-            this.credentialsFormGroup.controls.emailControl.value!,
-            this.credentialsFormGroup.controls.firstNameControl.value!,
-            this.credentialsFormGroup.controls.lastNameControl.value!,
-            this.passwordFormGroup.controls.passwordControl.value!)
-          this.isLoading = true
-          observable
-            .pipe(
-              finalize(() => this.isLoading = false)
-            )
-            .subscribe(
-              userId => {
-                this.userId = userId
-                this.hideButtons()
-                this.stepper.next()
-              },
-              error => {
-                this.showErrorSnackbar(error.value)
-              })
-        } else {
-          this.isCheckboxError = true
-        }
+        let observable = this.authService.register(
+          this.credentialsFormGroup.controls.userNameControl.value!,
+          this.credentialsFormGroup.controls.emailControl.value!,
+          this.credentialsFormGroup.controls.firstNameControl.value!,
+          this.credentialsFormGroup.controls.lastNameControl.value!,
+          this.passwordFormGroup.controls.passwordControl.value!)
+        this.isLoading = true
+        observable
+          .pipe(
+            finalize(() => this.isLoading = false)
+          )
+          .subscribe(
+            userId => {
+              this.userId = userId
+              this.hideButtons()
+              this.stepper.next()
+            },
+            error => {
+              this.showErrorSnackbar(error.value)
+            })
         break
       }
     }
@@ -189,11 +180,6 @@ export class RegistrationComponent {
       return "Password confirmation must be the same as password"
 
     return "Unknown error occurred :("
-  }
-
-  onCheckboxClicked() {
-    this.isUserAgreed = !this.isUserAgreed
-    this.isCheckboxError = false
   }
 
   hideButtons() {
