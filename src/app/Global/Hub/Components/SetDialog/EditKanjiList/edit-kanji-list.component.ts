@@ -5,7 +5,7 @@ import { animate, animateChild, query, stagger, style, transition, trigger } fro
 @Component({
   selector: 'edit-kanji-list',
   templateUrl: 'edit-kanji-list.component.html',
-  styleUrls: ['edit-kanji-list.component.css'],
+  styleUrls: ['edit-kanji-list.component.scss'],
   animations: [
     trigger('parentEnter', [transition(':enter', [query('@enterRemoveAnim', stagger('100ms', animateChild()))])]),
     trigger('enterRemoveAnim', [

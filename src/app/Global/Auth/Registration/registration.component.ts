@@ -14,7 +14,7 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 @Component({
   selector: 'registration',
   templateUrl: 'registration.component.html',
-  styleUrls: ['registration.component.css'],
+  styleUrls: ['registration.component.scss'],
   animations: []
 })
 export class RegistrationComponent {

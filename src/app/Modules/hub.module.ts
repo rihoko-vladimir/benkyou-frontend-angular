@@ -9,7 +9,7 @@ import { AccountComponent } from '../Global/Hub/Pages/Account/account.component'
 import { AccountInfoListItemComponent } from '../Global/Hub/Components/AccountInfoListItem/account-info-list-item.component';
 import { SetGridComponent } from '../Global/Hub/Components/SetGrid/set-grid.component';
 import { SetComponent } from '../Global/Hub/Components/Set/set.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { KanjiListComponent } from '../Global/Hub/Components/KanjiList/kanji-list.component';
 import { KanjiComponent } from '../Global/Hub/Components/Kanji/kanji.component';
 import { SetDialogComponent } from '../Global/Hub/Components/SetDialog/set-dialog.component';
@@ -35,6 +35,8 @@ import { ReadingsContainerComponent } from '../Global/Hub/Components/ReadingsCon
 import { KanjiSvgDrawingPreviewComponent } from '../Global/Hub/Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
 import { KanjiPreviewComponent } from '../Global/Hub/Components/KanjiPreview/kanji-preview.component';
 import { SetPreviewDialogComponent } from '../Global/Hub/Components/SetPreview/set-preview-dialog.component';
+import { MatRipple } from '@angular/material/core';
+import { ThemeChangeComponent } from '../Global/Hub/Components/ThemeChange/theme-change.component';
 
 @NgModule({
   declarations: [
@@ -66,9 +68,10 @@ import { SetPreviewDialogComponent } from '../Global/Hub/Components/SetPreview/s
     KanjiSvgDrawingPreviewComponent,
     KanjiPreviewComponent,
     SetPreviewDialogComponent,
-    TestComponent
+    TestComponent,
+    ThemeChangeComponent
   ],
-  imports: [AppRoutingModule, MaterialModule, CommonModule, ReactiveFormsModule],
+  imports: [AppRoutingModule, MaterialModule, CommonModule, ReactiveFormsModule, MatRipple, NgOptimizedImage],
   providers: [AllSetsService, MySetsService, AccountService],
   exports: [ResultReadingComponent]
 })

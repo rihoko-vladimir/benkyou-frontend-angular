@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'password-reset',
   templateUrl: 'password-reset.component.html',
-  styleUrls: ['password-reset.component.css']
+  styleUrls: ['password-reset.component.scss']
 })
 export class PasswordResetComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);

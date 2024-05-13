@@ -5,7 +5,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'set-grid',
   templateUrl: 'set-grid.component.html',
-  styleUrls: ['set-grid.component.css'],
+  styleUrls: ['set-grid.component.scss'],
   animations: [
     trigger('enterRemoveAnim', [
       transition(':leave', [

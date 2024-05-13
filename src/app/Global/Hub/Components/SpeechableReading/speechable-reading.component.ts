@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'speechable-reading',
   templateUrl: 'speechable-reading.component.html',
-  styleUrls: ['speechable-reading.component.css']
+  styleUrls: ['speechable-reading.component.scss']
 })
 export class SpeechableReadingComponent {
   @Input() reading: string = '話す';

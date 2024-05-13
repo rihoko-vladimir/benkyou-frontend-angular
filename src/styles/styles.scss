@@ -1,0 +1,33 @@
+*{
+  transition-property: color, background-color, border-color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-horizontal-stepper-wrapper {
+  row-gap: 16px;
+}
+
+.route-selected {
+  background: rgba(255, 255, 255, .04);
+}
+
+a{
+  text-decoration: none;
+}
+
+.page-content{
+  padding-top: 24px;
+  height: 100%;
+  box-sizing: border-box;
+}
+

@@ -12,7 +12,7 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 @Component({
   selector: 'new-password',
   templateUrl: 'new-password.component.html',
-  styleUrls: ['new-password.component.css']
+  styleUrls: ['new-password.component.scss']
 })
 export class NewPasswordComponent implements OnInit {
   isLoading: boolean = false;

@@ -11,7 +11,7 @@ export class DialogData {
 @Component({
   selector: 'set-preview-dialog',
   templateUrl: 'set-preview-dialog.component.html',
-  styleUrls: ['set-preview-dialog.component.css']
+  styleUrls: ['set-preview-dialog.component.scss']
 })
 export class SetPreviewDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}

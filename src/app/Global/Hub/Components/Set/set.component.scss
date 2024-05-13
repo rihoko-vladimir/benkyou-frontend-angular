@@ -6,7 +6,6 @@
   width: 50vh;
   height: 470px;
   border-radius: 12px;
-  border-color: transparent;
   border-width: 1px;
   border-style: solid;
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
@@ -17,8 +16,6 @@
   justify-content: space-between;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-actions {
   margin: 0;
   padding: 0;
@@ -35,8 +32,6 @@ mat-card-actions {
   justify-content: end;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-content {
   margin: 0;
 }

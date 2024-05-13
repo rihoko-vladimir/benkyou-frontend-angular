@@ -5,7 +5,7 @@ mat-expansion-panel-header{
 
 mat-expansion-panel{
   box-shadow: none!important;
-  border-radius: 14px;
+  border-radius: 24px;
 }
 
 :host::ng-deep .mat-expansion-panel-body{
@@ -37,4 +37,8 @@ mat-expansion-panel{
 
 .text-padding{
   padding-left: 8px;
+}
+
+.active{
+  background-color: rgba(0, 0, 0, 0.03);
 }

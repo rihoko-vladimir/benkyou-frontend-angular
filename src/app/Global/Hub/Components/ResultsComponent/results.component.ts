@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'results',
   templateUrl: 'results.component.html',
-  styleUrls: ['results.component.css']
+  styleUrls: ['results.component.scss']
 })
 export class ResultsComponent {
   @Input() results!: Answer[];

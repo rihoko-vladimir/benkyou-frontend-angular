@@ -9,7 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'all-sets-page',
   templateUrl: 'all-sets.component.html',
-  styleUrls: ['all-sets.component.css']
+  styleUrls: ['all-sets.component.scss']
 })
 export class AllSetsComponent implements OnDestroy, OnInit {
   currentSets: Set[] = [];

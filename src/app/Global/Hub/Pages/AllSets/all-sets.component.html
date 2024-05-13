@@ -7,7 +7,7 @@
   </mat-form-field>
   <set-grid *ngIf="!isLoading && !isError" [sets]="currentSets" [mode]="'notOwner'"></set-grid>
   <div *ngIf="isLoading && !isError" class="loaderContainer">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
   </div>
   <p *ngIf="currentSets.length===0 && !isLoading && !isError">Whooaaa, so empty here...</p>
   <error *ngIf="isError" componentName="All Sets" (retry)="onRetryClicked()"></error>

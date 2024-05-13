@@ -7,7 +7,7 @@ import { AuthService } from '../../../../Services/auth.service';
 
 @Component({
   selector: 'account-info-list-item',
-  styleUrls: ['account-info-list-item.component.css'],
+  styleUrls: ['account-info-list-item.component.scss'],
   templateUrl: 'account-info-list-item.component.html'
 })
 export class AccountInfoListItemComponent implements OnDestroy, OnInit {

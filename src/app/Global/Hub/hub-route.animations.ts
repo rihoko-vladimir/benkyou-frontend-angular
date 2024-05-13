@@ -4,12 +4,12 @@ export const tabSwitchAnimations = trigger('routeAnimations', [
   transition('* => Study', [
     style({
       position: 'relative',
-      top: '100vh'
+      right: '-100vh'
     }),
     animate(
       '300ms cubic-bezier(0, 0, 0.3, 0.6)',
       style({
-        top: '0'
+        right: '0'
       })
     )
   ]),

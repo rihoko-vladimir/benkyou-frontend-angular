@@ -13,7 +13,7 @@ import { DialogData, SetPreviewDialogComponent } from '../SetPreview/set-preview
 @Component({
   selector: 'set',
   templateUrl: 'set.component.html',
-  styleUrls: ['set.component.css']
+  styleUrls: ['set.component.scss']
 })
 export class SetComponent {
   @Input() set!: Set;

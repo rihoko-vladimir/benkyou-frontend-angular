@@ -7,7 +7,7 @@ import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'edit-kanji',
   templateUrl: 'edit-kanji.component.html',
-  styleUrls: ['edit-kanji.component.css']
+  styleUrls: ['edit-kanji.component.scss']
 })
 export class EditKanjiComponent implements OnInit {
   @Input() kanji!: Kanji;

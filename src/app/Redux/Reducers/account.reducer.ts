@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { accountError, getAccountInfoSuccess, loginSuccess, logout } from '../Actions/account.actions';
+import { accountError, getAccountInfoSuccess, loginSuccess, logout, themeChange } from '../Actions/account.actions';
+import { ThemePreference } from '../../Models/Enums/ThemePreference';
 
 export interface IAccountState {
   id: string;
@@ -13,6 +14,7 @@ export interface IAccountState {
   isAccountPublic: boolean;
   about: string;
   error: { isError: boolean; errorMessage: string };
+  themePreference?: ThemePreference;
 }
 
 const initialState: IAccountState = {
@@ -26,12 +28,14 @@ const initialState: IAccountState = {
   lastName: '',
   userName: '',
   isTermsAccepted: true,
-  error: { isError: false, errorMessage: '' }
+  error: { isError: false, errorMessage: '' },
+  themePreference: ThemePreference.Auto
 };
 
 export const accountReducer = createReducer(
   initialState,
   on(loginSuccess, (state, account) => ({
+    ...state,
     about: account.about,
     avatarUrl: account.avatarUrl,
     birthDay: account.birthDay,
@@ -44,7 +48,8 @@ export const accountReducer = createReducer(
     id: account.id,
     error: { isError: false, errorMessage: '' }
   })),
-  on(getAccountInfoSuccess, (store, account) => ({
+  on(getAccountInfoSuccess, (state, account) => ({
+    ...state,
     about: account.about,
     avatarUrl: account.avatarUrl,
     birthDay: account.birthDay,
@@ -60,6 +65,10 @@ export const accountReducer = createReducer(
   on(accountError, (state, { errorMessage }) => ({
     ...state,
     error: { isError: true, errorMessage: errorMessage }
+  })),
+  on(themeChange, (state, { theme }) => ({
+    ...state,
+    themePreference: theme
   })),
   on(logout, () => initialState)
 );

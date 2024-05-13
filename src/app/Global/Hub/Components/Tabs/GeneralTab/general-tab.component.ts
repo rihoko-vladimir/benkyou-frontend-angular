@@ -9,7 +9,7 @@ import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
 @Component({
   selector: 'general-tab',
   templateUrl: 'general-tab.component.html',
-  styleUrls: ['general-tab.component.css']
+  styleUrls: ['general-tab.component.scss']
 })
 export class GeneralTabComponent implements OnDestroy {
   accountInfo!: IAccountState;
@@ -17,7 +17,7 @@ export class GeneralTabComponent implements OnDestroy {
   subscription;
 
   constructor(
-    private store: Store<AppState>,
+    store: Store<AppState>,
     private accountService: AccountService
   ) {
     this.subscription = store.select('account').subscribe(accountInfo => {
@@ -27,6 +27,7 @@ export class GeneralTabComponent implements OnDestroy {
   }
 
   onVisibilityChanged(event: MatSlideToggleChange) {
+    this.isPublic = !this.isPublic;
     const accountData: Account = {
       firstName: this.accountInfo.firstName,
       lastName: this.accountInfo.lastName,

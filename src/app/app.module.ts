@@ -21,6 +21,7 @@ import { JwtRefreshInterceptor } from './Interceptors/JwtRefreshInterceptor';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TimeoutInterceptor } from './Interceptors/TimeoutInterceptor';
 import { snackbarReducer } from './Redux/Reducers/snackbar.reducer';
+import { ThemeService } from './Services/theme.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +48,7 @@ import { snackbarReducer } from './Redux/Reducers/snackbar.reducer';
     EffectsModule.forRoot([])
   ],
   providers: [
+    ThemeService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtRefreshInterceptor,

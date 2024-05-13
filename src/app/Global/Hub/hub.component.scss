@@ -1,0 +1,55 @@
+mat-drawer-container{
+  height: 100%;
+}
+
+:host::ng-deep .mat-mdc-list-item-unscoped-content{
+  display: flex;
+  align-items: center;
+}
+
+mat-drawer-content{
+  height: 100%;
+}
+
+mat-drawer{
+  width: 260px;
+}
+
+.text-padding{
+  padding-left: 8px;
+}
+
+.subheader-margin{
+  margin-left: 18px;
+  margin-top: 24px;
+}
+
+.account-subheader-margin{
+  margin-left: 18px;
+  margin-top: 12px;
+}
+
+.pageContainer{
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 45px;
+}
+
+.container{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.theme-change-icon{
+  margin-bottom: 8px;
+}
+
+.active{
+  background-color: rgba(0, 0, 0, 0.03);
+}

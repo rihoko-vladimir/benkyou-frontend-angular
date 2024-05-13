@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'result-reading',
   templateUrl: 'result-reading.component.html',
-  styleUrls: ['result-reading.component.css']
+  styleUrls: ['result-reading.component.scss']
 })
 export class ResultReadingComponent {
   @Input() reading: string = '';

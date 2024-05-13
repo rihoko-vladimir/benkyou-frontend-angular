@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'remove-confirmation-dialog',
   templateUrl: 'remove-confirmation-dialog.component.html',
-  styleUrls: ['remove-confirmation-dialog.component.css']
+  styleUrls: ['remove-confirmation-dialog.component.scss']
 })
 export class RemoveConfirmationDialogComponent {
   constructor(private dialogRef: MatDialogRef<RemoveConfirmationDialogComponent>) {}

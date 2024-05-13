@@ -26,8 +26,6 @@ const unnecessaryStateRemover = (key: string, value: RootState) => {
       return undefined;
     case 'snackbar':
       return undefined;
-    case 'account':
-      return Object.assign({}, value);
     default:
       return value;
   }

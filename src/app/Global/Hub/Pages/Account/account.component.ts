@@ -6,7 +6,7 @@ import { AccountService } from '../../../../Services/account.service';
 @Component({
   selector: 'account-page',
   templateUrl: 'account.component.html',
-  styleUrls: ['account.component.css']
+  styleUrls: ['account.component.scss']
 })
 export class AccountComponent implements OnInit, OnDestroy {
   currentTab: number = 0;

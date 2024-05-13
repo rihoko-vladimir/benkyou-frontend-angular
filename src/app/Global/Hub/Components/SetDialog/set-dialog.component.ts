@@ -7,7 +7,7 @@ import Kanji from '../../../../Models/Kanji';
 @Component({
   selector: 'set-dialog',
   templateUrl: 'set-dialog.component.html',
-  styleUrls: ['set-dialog.component.css']
+  styleUrl: 'set-dialog.component.scss'
 })
 export class SetDialogComponent {
   mode: OpenMode;

@@ -7,7 +7,7 @@ import { AccountService } from '../../../../Services/account.service';
 @Component({
   selector: 'account-overview',
   templateUrl: 'account-overview.component.html',
-  styleUrls: ['account-overview.component.css'],
+  styleUrls: ['account-overview.component.scss'],
   animations: [
     trigger('changeButton', [
       transition(':enter', [

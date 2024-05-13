@@ -1,0 +1,15 @@
+<button mat-icon-button (click)="changeTheme()" [matTooltip]="getTooltip()">
+  <mat-icon fontSet="material-icons-outlined">
+    @switch (themePreference){
+      @case (ThemePreference.Auto){
+        contrast
+      }
+      @case (ThemePreference.Dark){
+        dark_mode
+      }
+      @case (ThemePreference.Light){
+        light_mode
+      }
+    }
+  </mat-icon>
+</button>

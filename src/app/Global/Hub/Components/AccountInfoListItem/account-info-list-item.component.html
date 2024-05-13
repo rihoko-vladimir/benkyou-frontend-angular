@@ -1,12 +1,12 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <div class="avatar placeholderContainer" *ngIf="avatarUrl==='' || avatarUrl === null">
+<mat-expansion-panel #panel [class.active]="panel.expanded">
+  <mat-expansion-panel-header matRipple [class.active]="panel.expanded">
+    <div *ngIf="avatarUrl==='' || avatarUrl === null" class="avatar placeholderContainer">
       <mat-icon>account_circle</mat-icon>
     </div>
-    <img class="avatar" [src]="avatarUrl" alt="avatar" *ngIf="avatarUrl!=='' && avatarUrl !== null"/>
-    <span class="mat-typography text-padding">{{firstName + " " + lastName}}</span>
+    <img *ngIf="avatarUrl!=='' && avatarUrl !== null" [ngSrc]="avatarUrl" alt="avatar" class="avatar"/>
+    <span class="mat-typography text-padding">{{ firstName + " " + lastName }}</span>
   </mat-expansion-panel-header>
-  <mat-list-item routerLink="/hub/account" [routerLinkActive]="['route-selected']">
+  <mat-list-item routerLink="/hub/account" routerLinkActive="active">
     <mat-icon fontSet="material-icons-outlined">settings</mat-icon>
     <span class="mat-typography text-padding">Account settings</span>
   </mat-list-item>

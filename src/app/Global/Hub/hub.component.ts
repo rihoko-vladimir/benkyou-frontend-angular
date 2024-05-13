@@ -8,7 +8,7 @@ import { tabSwitchAnimations } from './hub-route.animations';
 
 @Component({
   selector: 'hub-component',
-  styleUrls: ['hub.component.css'],
+  styleUrls: ['hub.component.scss'],
   templateUrl: 'hub.component.html',
   animations: [tabSwitchAnimations]
 })
@@ -18,7 +18,7 @@ export class HubComponent implements OnDestroy {
   storeSubscription;
 
   constructor(
-    private router: Router,
+    router: Router,
     private store: Store<AppState>,
     private snackbar: MatSnackBar,
     private contexts: ChildrenOutletContexts

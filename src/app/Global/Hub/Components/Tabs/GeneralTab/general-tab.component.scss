@@ -1,8 +1,9 @@
 .container{
   padding: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .description{
   font-size: x-small;
-  color: gray;
 }

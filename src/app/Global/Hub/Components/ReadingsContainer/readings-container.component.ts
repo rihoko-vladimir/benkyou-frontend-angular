@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'readings-container',
   templateUrl: 'readings-container.component.html',
-  styleUrls: ['readings-container.component.css']
+  styleUrls: ['readings-container.component.scss']
 })
 export class ReadingsContainerComponent {
   @Input() readings: string[] = [

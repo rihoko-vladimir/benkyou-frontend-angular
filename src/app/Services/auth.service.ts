@@ -28,14 +28,14 @@ export class AuthService implements IAuthService {
     return this.httpClient.post<string>(`${this.appConfig.apiEndpoint}/auth/confirm-email`, confirmationRequest);
   }
 
-  login(login: string, password: string): void {
+  login(login: string, password: string) {
     const credentials = {
       login: login,
       password: password
     };
 
     this.httpClient
-      .post<void>(`${this.appConfig.apiEndpoint}/auth/login`, credentials, {
+      .post(`${this.appConfig.apiEndpoint}/auth/login`, credentials, {
         withCredentials: true
       })
       .pipe(
@@ -50,7 +50,7 @@ export class AuthService implements IAuthService {
       });
   }
 
-  getUserInfo(): void {
+  getUserInfo() {
     this.httpClient
       .get<UserResponse>(`${this.appConfig.apiEndpoint}/user/get-info`, {
         withCredentials: true
@@ -80,7 +80,7 @@ export class AuthService implements IAuthService {
       });
   }
 
-  register(userName: string, email: string, firstName: string, lastName: string, password: string): Observable<string> {
+  register(userName: string, email: string, firstName: string, lastName: string, password: string) {
     const registrationRequest = {
       userName,
       email,
@@ -93,11 +93,11 @@ export class AuthService implements IAuthService {
     return this.httpClient.post<string>(`${this.appConfig.apiEndpoint}/auth/register`, registrationRequest);
   }
 
-  resetPassword(email: string): Observable<void> {
+  resetPassword(email: string) {
     return this.httpClient.post<void>(`${this.appConfig.apiEndpoint}/auth/reset-password?email=${email}`, null);
   }
 
-  setNewPassword(newPassword: string, email: string, token: string): Observable<void> {
+  setNewPassword(newPassword: string, email: string, token: string) {
     const setNewPasswordRequest = {
       password: newPassword
     };

@@ -9,7 +9,7 @@ import Answer from '../../../../Models/Answer';
 @Component({
   selector: 'study-page',
   templateUrl: 'study-page.component.html',
-  styleUrls: ['study-page.component.css']
+  styleUrls: ['study-page.component.scss']
 })
 export class StudyPageComponent implements OnDestroy {
   subscription;

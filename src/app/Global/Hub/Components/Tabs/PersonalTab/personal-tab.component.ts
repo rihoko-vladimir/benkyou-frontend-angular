@@ -9,7 +9,7 @@ import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
 @Component({
   selector: 'personal-tab',
   templateUrl: 'personal-tab.component.html',
-  styleUrls: ['personal-tab.component.css']
+  styleUrls: ['personal-tab.component.scss']
 })
 export class PersonalTabComponent implements OnDestroy {
   minimalDate = new Date('1900/01/01');
