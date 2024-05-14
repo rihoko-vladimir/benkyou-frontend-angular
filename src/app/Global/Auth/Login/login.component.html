@@ -15,7 +15,8 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input [disabled]="isLoading || isSuccess" [formControl]="passwordControl" [type]="!isPasswordHidden ? 'password' : 'text'"
+      <input [disabled]="isLoading || isSuccess" [formControl]="passwordControl"
+             [type]="!isPasswordHidden ? 'password' : 'text'"
              matInput placeholder="Your very secure password">
       <button (click)="isPasswordHidden=!isPasswordHidden" mat-icon-button matSuffix>
         <mat-icon fontSet="material-icons-outlined">{{ isPasswordHidden ? "visibility_off" : "visibility_on" }}
@@ -28,7 +29,8 @@
   <div class="buttons">
     <button (click)="onLoginClicked()" [disabled]="isLoading || isSuccess" color="primary" mat-flat-button>Login
     </button>
-    <button (click)="onPasskeyLoginClicked()" *ngIf="isPasskeyAvailable" [disabled]="isLoading || isSuccess" color="warn"
+    <button (click)="onPasskeyLoginClicked()" *ngIf="isPasskeyAvailable" [disabled]="isLoading || isSuccess"
+            color="warn"
             mat-flat-button>
       <div class="passkey">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,-25"
@@ -39,7 +41,7 @@
         Passkey
       </div>
     </button>
-    <p class="mat-typography suggestion-text">Don't have an account yet?</p>
+    <p class="suggestion-text">Don't have an account yet?</p>
     <button (click)="onRegistrationClicked()" [disabled]="isLoading || isSuccess" color="accent" mat-flat-button>
       Sign up
     </button>

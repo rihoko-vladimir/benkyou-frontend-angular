@@ -1,8 +1,9 @@
 .page-content {
-  height: 96%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   column-gap: 12px;
+  padding-bottom: 24px;
 }
 
 :host {

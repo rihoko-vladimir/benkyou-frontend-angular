@@ -42,3 +42,7 @@ mat-expansion-panel{
 .active{
   background-color: rgba(0, 0, 0, 0.03);
 }
+
+:host{
+  color: var(--mat-app-text-color);
+}

@@ -1,9 +1,17 @@
-.container{
+.container {
   padding: 16px;
   display: flex;
   flex-direction: column;
 }
 
-.description{
+.description {
   font-size: x-small;
+}
+
+.color {
+  color: var(--mat-app-text-color);
+}
+
+:host {
+  color: var(--mat-app-text-color);
 }

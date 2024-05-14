@@ -3,7 +3,7 @@
     <account-overview [currentTab]="currentTab" *ngIf="!isError && !isLoading"></account-overview>
     <account-information (tabIndexChange)="onTabChanged($event)" *ngIf="!isError && !isLoading"></account-information>
   <div *ngIf="isLoading && !isError" class="loaderContainer">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
   </div>
   <error *ngIf="isError" componentName="Account" (retry)="onRetryClicked()"></error>
 </div>

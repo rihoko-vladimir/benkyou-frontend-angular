@@ -15,6 +15,10 @@
   width: 450px
 }
 
+:host{
+  color: var(--mat-app-text-color);
+}
+
 .textAndLoader{
   display: flex;
   flex-direction: row;

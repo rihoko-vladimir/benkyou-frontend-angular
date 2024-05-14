@@ -12,7 +12,7 @@
   box-shadow: none;
 }
 
-.placeholderContainer{
+.placeholderContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,17 +36,17 @@
 .avatarClass {
   width: 128px;
   height: 128px;
-  background-color: rgba(0,0,0,0.04);
+  background-color: rgba(0, 0, 0, 0.04);
   border-radius: 50%;
 }
 
-.changeAvatar{
+.changeAvatar {
   position: absolute;
   bottom: 4%;
   right: 4%;
 }
 
-.discardConfirm{
+.discardConfirm {
   bottom: 2%;
   right: 2%;
   display: flex;
@@ -54,6 +54,7 @@
   column-gap: 5px;
 }
 
-:host{
+:host {
   min-height: 100%;
+  color: var(--mat-app-text-color);
 }
