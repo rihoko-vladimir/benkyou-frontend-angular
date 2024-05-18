@@ -107,4 +107,9 @@ export class AuthService implements IAuthService {
       setNewPasswordRequest
     );
   }
+
+  getAssertionOptions() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return this.httpClient.get<any>(`${this.appConfig.apiEndpoint}/auth/assertion-options`);
+  }
 }

@@ -16,3 +16,7 @@
 .tabs {
   margin-top: 12px
 }
+
+:host::ng-deep .mdc-tab__text-label{
+  color: var(--mat-app-text-color)!important;
+}

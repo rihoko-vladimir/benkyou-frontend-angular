@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss']
 })
-export class LoginComponent implements OnDestroy, OnInit {
+export class LoginComponent implements OnDestroy {
   loginControl = new FormControl('', [Validators.required, Validators.email]);
   passwordControl = new FormControl('', [Validators.required]);
   subscription;
@@ -40,23 +40,6 @@ export class LoginComponent implements OnDestroy, OnInit {
         this.isLoading = false;
       }
     });
-  }
-
-  ngOnInit() {
-    if (
-      window.PublicKeyCredential &&
-      PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable &&
-      PublicKeyCredential.isConditionalMediationAvailable
-    ) {
-      Promise.all([
-        PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable(),
-        PublicKeyCredential.isConditionalMediationAvailable()
-      ]).then(results => {
-        if (results.every(r => r === true)) {
-          this.isPasskeyAvailable = true;
-        }
-      });
-    }
   }
 
   onLoginClicked() {
@@ -100,5 +83,18 @@ export class LoginComponent implements OnDestroy, OnInit {
     });
   }
 
-  onPasskeyLoginClicked() {}
+  onPasskeyLoginClicked() {
+    this.authService.getAssertionOptions().subscribe(async options => {
+      const challenge = options.challenge.replace(/-/g, '+').replace(/_/g, '/');
+      options.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      options.allowCredentials.forEach((listItem: { id: any }) => {
+        const fixedId = listItem.id.replace(/_/g, '/').replace(/-/g, '+');
+        listItem.id = Uint8Array.from(atob(fixedId), c => c.charCodeAt(0));
+      });
+
+      await navigator.credentials.get({ publicKey: options });
+    });
+  }
 }
