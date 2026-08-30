@@ -49,17 +49,15 @@ export class MySetsComponent implements OnInit, OnDestroy {
   }
 
   onSetCreated(set: Set | undefined) {
-    if (set !== undefined) {
-      this.mySetsService.createSet(set).subscribe({
-        next: () => {
-          this.store.dispatch(createSetSuccess());
-          this.loadMySets(1, 9);
-        },
-        error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
-      });
-    } else {
-      console.log("Set wasn't created");
-    }
+    if (set === undefined) return;
+
+    this.mySetsService.createSet(set).subscribe({
+      next: () => {
+        this.store.dispatch(createSetSuccess());
+        this.loadMySets(1, 9);
+      },
+      error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
+    });
   }
 
   ngOnInit(): void {

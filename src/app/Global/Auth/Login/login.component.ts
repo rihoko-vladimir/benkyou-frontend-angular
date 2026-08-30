@@ -84,7 +84,6 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    console.log("i'm destroyed");
   }
 
   showLoginError(errorMessage: string) {

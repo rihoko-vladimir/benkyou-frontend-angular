@@ -29,7 +29,6 @@ export class JwtRefreshInterceptor implements HttpInterceptor {
             })
           );
         }
-        console.log(error);
         return throwError(error);
       })
     );
