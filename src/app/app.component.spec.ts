@@ -1,29 +1,35 @@
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ChildrenOutletContexts } from '@angular/router';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { ThemePreference } from './Models/Enums/ThemePreference';
+import { ThemeService } from './Services/theme.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent]
+      declarations: [AppComponent],
+      providers: [
+        { provide: ChildrenOutletContexts, useValue: { getContext: () => null } },
+        { provide: ApplicationRef, useValue: { tick: () => {} } },
+        { provide: ThemeService, useValue: { getTheme: () => of(ThemePreference.Light) } }
+      ]
     }).compileComponents();
   });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'benkyou-frontend-angular'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toEqual('benkyou-frontend-angular');
-  });
-
-  it('should render title', () => {
+  it('applies the theme class matching the theme preference', () => {
+    document.body.classList.remove('light-theme', 'dark-theme');
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('benkyou-frontend-angular app is running!');
+
+    expect(document.body.classList.contains('light-theme')).toBeTrue();
   });
 });
