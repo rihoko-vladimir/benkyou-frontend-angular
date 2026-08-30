@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { accountError, loginSuccess, logout, themeChange } from '../Actions/account.actions';
+import { accountError, accountInfoSuccess, logout, themeChange } from '../Actions/account.actions';
 import { ThemePreference } from '../../Models/Enums/ThemePreference';
 
 export interface IAccountState {
@@ -32,23 +32,9 @@ const initialState: IAccountState = {
   themePreference: ThemePreference.Auto
 };
 
-export const accountReducer = createReducer(
-  initialState,
-  on(loginSuccess, (state, account) => ({
-    ...state,
-    ...mapAccountInfo(account)
-  })),
-  on(accountError, (state, { errorMessage }) => ({
-    ...state,
-    error: { isError: true, errorMessage: errorMessage }
-  })),
-  on(themeChange, (state, { theme }) => ({
-    ...state,
-    themePreference: theme
-  })),
-  on(logout, () => initialState)
-);
-
+// Maps a full account snapshot onto state. Used by accountInfoSuccess for every flow that
+// yields fresh account info (login, get-info, update-info, avatar upload); the error flag is
+// reset so a failed request followed by a success clears the error UI.
 const mapAccountInfo = (account: IAccountState) => ({
   about: account.about,
   avatarUrl: account.avatarUrl,
@@ -62,3 +48,20 @@ const mapAccountInfo = (account: IAccountState) => ({
   id: account.id,
   error: { isError: false, errorMessage: '' }
 });
+
+export const accountReducer = createReducer(
+  initialState,
+  on(accountInfoSuccess, (state, account) => ({
+    ...state,
+    ...mapAccountInfo(account)
+  })),
+  on(accountError, (state, { errorMessage }) => ({
+    ...state,
+    error: { isError: true, errorMessage: errorMessage }
+  })),
+  on(themeChange, (state, { theme }) => ({
+    ...state,
+    themePreference: theme
+  })),
+  on(logout, () => initialState)
+);

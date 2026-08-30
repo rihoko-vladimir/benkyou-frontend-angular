@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import { Store } from '@ngrx/store';
 import AppState from '../Redux/app.state';
-import { accountError, loginSuccess } from '../Redux/Actions/account.actions';
+import { accountError, accountInfoSuccess } from '../Redux/Actions/account.actions';
 import { UserResponse } from '../Models/Responses/UserResponse';
 
 @Injectable({
@@ -63,7 +63,7 @@ export class AuthService implements IAuthService {
       )
       .subscribe(value => {
         this.store.dispatch(
-          loginSuccess({
+          accountInfoSuccess({
             isTermsAccepted: true,
             userName: value.userName,
             firstName: value.firstName,

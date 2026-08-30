@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import * as jsonpatch from 'fast-json-patch';
 import { catchError, EMPTY } from 'rxjs';
-import { accountError, loginSuccess } from '../Redux/Actions/account.actions';
+import { accountError, accountInfoSuccess } from '../Redux/Actions/account.actions';
 import { UserResponse } from '../Models/Responses/UserResponse';
 import { Injectable } from '@angular/core';
 import { visibilityChangeSuccess } from '../Redux/Actions/snackbar.actions';
@@ -54,7 +54,7 @@ export class AccountService implements IAccountService {
           this.store.dispatch(visibilityChangeSuccess());
         }
         this.store.dispatch(
-          loginSuccess({
+          accountInfoSuccess({
             id: userInfo.id,
             firstName: userInfo.firstName,
             lastName: userInfo.lastName,
@@ -86,7 +86,7 @@ export class AccountService implements IAccountService {
       )
       .subscribe((userInfo: UserResponse) => {
         this.store.dispatch(
-          loginSuccess({
+          accountInfoSuccess({
             id: userInfo.id,
             firstName: userInfo.firstName,
             lastName: userInfo.lastName,
@@ -116,7 +116,7 @@ export class AccountService implements IAccountService {
       )
       .subscribe(value => {
         this.store.dispatch(
-          loginSuccess({
+          accountInfoSuccess({
             isTermsAccepted: true,
             userName: value.userName,
             firstName: value.firstName,
