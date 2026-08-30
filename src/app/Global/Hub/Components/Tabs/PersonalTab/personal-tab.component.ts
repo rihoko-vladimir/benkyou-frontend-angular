@@ -6,6 +6,9 @@ import { selectAccount } from '../../../../../Redux/Selectors/selectors';
 import { Account } from '../../../../../Models/Account';
 import { AccountService } from '../../../../../Services/account.service';
 import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
+import { accountError, accountInfoSuccess } from '../../../../../Redux/Actions/account.actions';
+import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
+import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 import { MatButton } from '@angular/material/button';
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material/input';
@@ -115,6 +118,22 @@ export class PersonalTabComponent implements OnDestroy {
       birthDay: this.personalFormGroup.controls.birthdayControl.value?.toDateString() ?? null,
       isAccountPublic: this.accountState.isAccountPublic
     };
-    this.accountService.updateUserAccount(accountInfo);
+    const currentAccountInfo: Account = {
+      firstName: this.accountState.firstName,
+      lastName: this.accountState.lastName,
+      about: this.accountState.about,
+      userName: this.accountState.userName,
+      birthDay: this.accountState.birthDay,
+      isAccountPublic: this.accountState.isAccountPublic
+    };
+    this.accountService.updateUserAccount(currentAccountInfo, accountInfo).subscribe({
+      next: userInfo => {
+        if (this.accountState.isAccountPublic !== userInfo.isAccountPublic) {
+          this.store.dispatch(visibilityChangeSuccess());
+        }
+        this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo)));
+      },
+      error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+    });
   }
 }

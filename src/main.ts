@@ -18,6 +18,7 @@ import { accountReducer } from './app/Redux/Reducers/account.reducer';
 import { snackbarReducer } from './app/Redux/Reducers/snackbar.reducer';
 import { hydrationMetaReducer } from './app/Redux/Reducers/hydration.reducer';
 import { JwtRefreshInterceptor } from './app/Interceptors/JwtRefreshInterceptor';
+import { HttpErrorInterceptor } from './app/Interceptors/HttpErrorInterceptor';
 import { TimeoutInterceptor } from './app/Interceptors/TimeoutInterceptor';
 import { ThemeService } from './app/Services/theme.service';
 import { AuthService } from './app/Services/auth.service';
@@ -58,6 +59,11 @@ bootstrapApplication(AppComponent, {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtRefreshInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     },
     {

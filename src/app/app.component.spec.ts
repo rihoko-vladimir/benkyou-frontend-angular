@@ -1,30 +1,23 @@
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { provideStore } from '@ngrx/store';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { ThemePreference } from './Models/Enums/ThemePreference';
 import { ThemeService } from './Services/theme.service';
-import { setStudyReducer } from './Redux/Reducers/set-study.reducer';
-import { allSetsReducer } from './Redux/Reducers/all-sets.reducer';
-import { mySetsReducer } from './Redux/Reducers/my-sets.reducer';
-import { accountReducer } from './Redux/Reducers/account.reducer';
-import { snackbarReducer } from './Redux/Reducers/snackbar.reducer';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      // AppComponent is a standalone component (post-migration), so it goes
+      // into `imports`, not `declarations`. The template renders
+      // <router-outlet name="primary">, whose real directive needs a live
+      // Router - provideRouter([]) supplies one without any routes.
       providers: [
         provideRouter([]),
-        // Real store mirroring main.ts (without the hydration meta-reducer):
-        // AppComponent subscribes to ThemeService, which reads the account slice.
-        provideStore({
-          setStudy: setStudyReducer,
-          allSets: allSetsReducer,
-          mySets: mySetsReducer,
-          account: accountReducer,
-          snackbar: snackbarReducer
-        }),
-        ThemeService
+        { provide: ApplicationRef, useValue: { tick: () => {} } },
+        { provide: ThemeService, useValue: { getTheme: () => of(ThemePreference.Light) } }
       ]
     }).compileComponents();
   });
@@ -32,6 +25,15 @@ describe('AppComponent', () => {
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+
     expect(app).toBeTruthy();
+  });
+
+  it('applies the theme class matching the theme preference', () => {
+    document.body.classList.remove('light-theme', 'dark-theme');
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    expect(document.body.classList.contains('light-theme')).toBeTrue();
   });
 });
