@@ -25,6 +25,7 @@ import { AuthService } from './app/Services/auth.service';
 import { AllSetsService } from './app/Services/all-sets.service';
 import { MySetsService } from './app/Services/my-sets.service';
 import { AccountService } from './app/Services/account.service';
+import { SetsApiService } from './app/Services/sets-api.service';
 import { AuthGuard } from './app/Guards/auth.guard';
 import { SetPasswordGuard } from './app/Guards/set-password.guard';
 
@@ -53,6 +54,7 @@ bootstrapApplication(AppComponent, {
     AuthService,
     AllSetsService,
     MySetsService,
+    SetsApiService,
     AccountService,
     AuthGuard,
     SetPasswordGuard,

@@ -3,52 +3,36 @@ import { IMySetsService } from './Interfaces/my-sets.service';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import Set from '../Models/Set';
-import { SetResponse } from '../Models/Responses/SetResponse';
-import { PagedSetsResponse } from '../Models/Responses/PagedSetsResponse';
-import { Observable } from 'rxjs';
 import { SetRequest } from '../Models/Requests/SetRequest';
+import { Observable } from 'rxjs';
 import * as jsonpatch from 'fast-json-patch';
-import { map } from 'rxjs';
-import {
-  mapKanjiToKanjiRequest,
-  mapPagedSetsResponseToPagedSets,
-  mapSetResponseToSet,
-  mapSetToSetRequest
-} from './Helpers/converters';
+import { mapSetToSetRequest } from './Helpers/converters';
+import { SetsApiService } from './sets-api.service';
 import { IPagedSets } from './Interfaces/paged-sets';
 
+/**
+ * Facade over the shared SetsApiService for the my-sets slice.
+ * HTTP request building and response mapping live in SetsApiService;
+ * this service exposes the typed contracts the components subscribe to.
+ */
 @Injectable()
 export class MySetsService implements IMySetsService {
   constructor(
     private httpClient: HttpClient,
-    private appConfig: AppConfiguration
+    private appConfig: AppConfiguration,
+    private setsApi: SetsApiService
   ) {}
 
   createSet(set: Set): Observable<Set> {
-    return this.httpClient
-      .post<SetResponse>(`${this.appConfig.apiEndpoint}/sets/create`, this.toSetRequest(set), {
-        withCredentials: true
-      })
-      .pipe(map(mapSetResponseToSet));
+    return this.setsApi.createSet(set);
   }
 
   addSet(set: Set): Observable<Set> {
-    return this.httpClient
-      .post<SetResponse>(`${this.appConfig.apiEndpoint}/sets/create`, this.toSetRequest(set), {
-        withCredentials: true
-      })
-      .pipe(map(mapSetResponseToSet));
+    return this.setsApi.createSet(set);
   }
 
   getMySets(pageNumber: number, pageSize: number): Observable<IPagedSets> {
-    return this.httpClient
-      .get<PagedSetsResponse>(
-        `${this.appConfig.apiEndpoint}/sets/my-sets?pageNumber=${pageNumber}&pageSize=${pageSize}`,
-        {
-          withCredentials: true
-        }
-      )
-      .pipe(map(mapPagedSetsResponseToPagedSets));
+    return this.setsApi.getMySets(pageNumber, pageSize);
   }
 
   patchMySet(setId: string, newSet: Set, originalSet: Set): Observable<void> {
@@ -65,13 +49,5 @@ export class MySetsService implements IMySetsService {
     return this.httpClient.delete<void>(`${this.appConfig.apiEndpoint}/sets/remove?setId=${setId}`, {
       withCredentials: true
     });
-  }
-
-  private toSetRequest(set: Set): SetRequest {
-    return {
-      name: set.name,
-      description: set.description,
-      kanjiList: set.kanjiList.map(mapKanjiToKanjiRequest)
-    };
   }
 }
