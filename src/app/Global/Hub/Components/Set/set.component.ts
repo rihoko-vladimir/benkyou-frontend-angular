@@ -67,10 +67,7 @@ export class SetComponent {
   }
 
   onSetChanged(editedSet: Set | undefined) {
-    if (editedSet === undefined) {
-      console.log("set wasn't changed");
-    } else {
-      console.log(editedSet);
+    if (editedSet !== undefined) {
       this.setChange.emit(editedSet);
     }
   }
