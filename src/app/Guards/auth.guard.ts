@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import AppState from '../Redux/app.state';
+import { selectAccount } from '../Redux/Selectors/selectors';
 
 @Injectable()
 export class AuthGuard {
@@ -13,7 +14,7 @@ export class AuthGuard {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let isLoggedIn = false;
     this.store
-      .select('account')
+      .select(selectAccount)
       .subscribe(value => {
         isLoggedIn = value.id !== '';
       })

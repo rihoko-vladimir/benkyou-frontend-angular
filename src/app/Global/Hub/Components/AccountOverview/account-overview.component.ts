@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 import AppState from '../../../../Redux/app.state';
+import { selectAccount } from '../../../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AccountService } from '../../../../Services/account.service';
@@ -55,7 +56,7 @@ export class AccountOverviewComponent implements OnDestroy, OnChanges {
     private store: Store<AppState>,
     private accountService: AccountService
   ) {
-    this.subscription = store.select('account').subscribe(value => {
+    this.subscription = store.select(selectAccount).subscribe(value => {
       this.firstName = value.firstName;
       this.lastName = value.lastName;
       this.avatarUrl = value.avatarUrl;

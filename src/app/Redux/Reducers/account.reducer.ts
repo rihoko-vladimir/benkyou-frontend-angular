@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { accountError, getAccountInfoSuccess, loginSuccess, logout, themeChange } from '../Actions/account.actions';
+import { accountError, loginSuccess, logout, themeChange } from '../Actions/account.actions';
 import { ThemePreference } from '../../Models/Enums/ThemePreference';
 
 export interface IAccountState {
@@ -36,31 +36,7 @@ export const accountReducer = createReducer(
   initialState,
   on(loginSuccess, (state, account) => ({
     ...state,
-    about: account.about,
-    avatarUrl: account.avatarUrl,
-    birthDay: account.birthDay,
-    firstName: account.firstName,
-    lastName: account.lastName,
-    isAccountPublic: account.isAccountPublic,
-    isTermsAccepted: account.isTermsAccepted,
-    userRole: account.userRole,
-    userName: account.userName,
-    id: account.id,
-    error: { isError: false, errorMessage: '' }
-  })),
-  on(getAccountInfoSuccess, (state, account) => ({
-    ...state,
-    about: account.about,
-    avatarUrl: account.avatarUrl,
-    birthDay: account.birthDay,
-    firstName: account.firstName,
-    lastName: account.lastName,
-    isAccountPublic: account.isAccountPublic,
-    isTermsAccepted: account.isTermsAccepted,
-    userRole: account.userRole,
-    userName: account.userName,
-    id: account.id,
-    error: { isError: false, errorMessage: '' }
+    ...mapAccountInfo(account)
   })),
   on(accountError, (state, { errorMessage }) => ({
     ...state,
@@ -72,3 +48,17 @@ export const accountReducer = createReducer(
   })),
   on(logout, () => initialState)
 );
+
+const mapAccountInfo = (account: IAccountState) => ({
+  about: account.about,
+  avatarUrl: account.avatarUrl,
+  birthDay: account.birthDay,
+  firstName: account.firstName,
+  lastName: account.lastName,
+  isAccountPublic: account.isAccountPublic,
+  isTermsAccepted: account.isTermsAccepted,
+  userRole: account.userRole,
+  userName: account.userName,
+  id: account.id,
+  error: { isError: false, errorMessage: '' }
+});

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
+import { selectAccount } from '../../../../Redux/Selectors/selectors';
 import { AccountService } from '../../../../Services/account.service';
 import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -25,7 +26,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private accountService: AccountService
   ) {
-    this.subscription = store.select('account').subscribe(account => {
+    this.subscription = store.select(selectAccount).subscribe(account => {
       this.isLoading = false;
       this.isError = account.error.isError;
     });

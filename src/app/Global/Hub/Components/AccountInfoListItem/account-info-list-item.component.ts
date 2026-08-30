@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
+import { selectAccount } from '../../../../Redux/Selectors/selectors';
 import { logout } from '../../../../Redux/Actions/account.actions';
 import { AuthService } from '../../../../Services/auth.service';
 import { MatListItem } from '@angular/material/list';
@@ -38,7 +39,7 @@ export class AccountInfoListItemComponent implements OnDestroy, OnInit {
     private store: Store<AppState>,
     private authService: AuthService
   ) {
-    this.subscription = store.select('account').subscribe(value => {
+    this.subscription = store.select(selectAccount).subscribe(value => {
       this.avatarUrl = value.avatarUrl;
       this.firstName = value.firstName;
       this.lastName = value.lastName;

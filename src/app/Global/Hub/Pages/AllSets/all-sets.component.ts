@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
+import { selectAllSets } from '../../../../Redux/Selectors/selectors';
 import { AllSetsService } from '../../../../Services/all-sets.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
@@ -48,7 +49,7 @@ export class AllSetsComponent implements OnDestroy, OnInit {
     private store: Store<AppState>,
     private allSetsService: AllSetsService
   ) {
-    this.subscription = store.select('allSets').subscribe(value => {
+    this.subscription = store.select(selectAllSets).subscribe(value => {
       this.currentSets = value.sets;
       this.setCount = value.setsCount;
       this.currentPage = value.currentPage - 1;

@@ -8,6 +8,7 @@ import {
   RouterLinkActive
 } from '@angular/router';
 import AppState from '../../Redux/app.state';
+import { selectSnackbar } from '../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { dismissSnackbar } from '../../Redux/Actions/snackbar.actions';
@@ -58,7 +59,7 @@ export class HubComponent implements OnDestroy {
         this.isShown = value.url !== '/hub/study';
       }
     });
-    this.storeSubscription = store.select('snackbar').subscribe(value => {
+    this.storeSubscription = store.select(selectSnackbar).subscribe(value => {
       if (value.isShown) this.showSnackbar(value.message);
     });
   }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { Store } from '@ngrx/store';
 import AppState from '../../../Redux/app.state';
+import { selectAccount } from '../../../Redux/Selectors/selectors';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -50,7 +51,7 @@ export class LoginComponent implements OnDestroy {
     store: Store<AppState>,
     private snackbar: MatSnackBar
   ) {
-    this.subscription = store.select('account').subscribe(value => {
+    this.subscription = store.select(selectAccount).subscribe(value => {
       if (!value?.error?.isError && value.id !== '') {
         this.isSuccess = true;
         this.isLoading = false;

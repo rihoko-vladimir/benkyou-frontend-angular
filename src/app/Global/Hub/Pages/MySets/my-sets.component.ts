@@ -4,6 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../../Components/SetDialog/set-dialog.component';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
+import { selectMySets } from '../../../../Redux/Selectors/selectors';
 import { MySetsService } from '../../../../Services/my-sets.service';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
@@ -33,7 +34,7 @@ export class MySetsComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private mySetsService: MySetsService
   ) {
-    this.subscription = store.select('mySets').subscribe(value => {
+    this.subscription = store.select(selectMySets).subscribe(value => {
       this.pagesCount = value.pagesCount;
       this.pageSize = value.setsCount;
       this.sets = value.sets;

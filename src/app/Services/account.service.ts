@@ -2,11 +2,12 @@ import { IAccountService } from './Interfaces/account.service';
 import { Account } from '../Models/Account';
 import { Store } from '@ngrx/store';
 import AppState from '../Redux/app.state';
+import { selectAccount } from '../Redux/Selectors/selectors';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import * as jsonpatch from 'fast-json-patch';
 import { catchError, EMPTY } from 'rxjs';
-import { accountError, getAccountInfoSuccess, loginSuccess } from '../Redux/Actions/account.actions';
+import { accountError, loginSuccess } from '../Redux/Actions/account.actions';
 import { UserResponse } from '../Models/Responses/UserResponse';
 import { Injectable } from '@angular/core';
 import { visibilityChangeSuccess } from '../Redux/Actions/snackbar.actions';
@@ -22,7 +23,7 @@ export class AccountService implements IAccountService {
   updateUserAccount(updatedUserData: Account): void {
     let sourceUserData!: Account;
     this.store
-      .select('account')
+      .select(selectAccount)
       .subscribe(value => {
         sourceUserData = {
           firstName: value.firstName,
@@ -115,7 +116,7 @@ export class AccountService implements IAccountService {
       )
       .subscribe(value => {
         this.store.dispatch(
-          getAccountInfoSuccess({
+          loginSuccess({
             isTermsAccepted: true,
             userName: value.userName,
             firstName: value.firstName,

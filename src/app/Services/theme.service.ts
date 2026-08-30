@@ -3,6 +3,7 @@ import { ThemePreference } from '../Models/Enums/ThemePreference';
 import { switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import AppState from '../Redux/app.state';
+import { selectAccount } from '../Redux/Selectors/selectors';
 import { themeChange } from '../Redux/Actions/account.actions';
 import { Injectable } from '@angular/core';
 
@@ -12,7 +13,7 @@ export class ThemeService implements IThemeService {
 
   getTheme() {
     return this.store
-      .select('account')
+      .select(selectAccount)
       .pipe(switchMap(async state => state.themePreference as ThemePreference | undefined));
   }
 
