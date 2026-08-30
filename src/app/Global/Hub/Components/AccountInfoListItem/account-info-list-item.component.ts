@@ -13,21 +13,20 @@ import { MatRipple } from '@angular/material/core';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
 @Component({
-  selector: 'account-info-list-item',
-  styleUrls: ['account-info-list-item.component.scss'],
-  templateUrl: 'account-info-list-item.component.html',
-  standalone: true,
-  imports: [
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatRipple,
-    NgIf,
-    MatIcon,
-    NgOptimizedImage,
-    MatListItem,
-    RouterLink,
-    RouterLinkActive
-  ]
+    selector: 'account-info-list-item',
+    styleUrls: ['account-info-list-item.component.scss'],
+    templateUrl: 'account-info-list-item.component.html',
+    imports: [
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatRipple,
+        NgIf,
+        MatIcon,
+        NgOptimizedImage,
+        MatListItem,
+        RouterLink,
+        RouterLinkActive
+    ]
 })
 export class AccountInfoListItemComponent implements OnDestroy, OnInit {
   avatarUrl: string = '';

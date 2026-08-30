@@ -3,11 +3,10 @@ import { SpeechableReadingComponent } from '../SpeechableReading/speechable-read
 import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'readings-container',
-  templateUrl: 'readings-container.component.html',
-  styleUrls: ['readings-container.component.scss'],
-  standalone: true,
-  imports: [NgFor, SpeechableReadingComponent]
+    selector: 'readings-container',
+    templateUrl: 'readings-container.component.html',
+    styleUrls: ['readings-container.component.scss'],
+    imports: [NgFor, SpeechableReadingComponent]
 })
 export class ReadingsContainerComponent {
   @Input() readings: string[] = [

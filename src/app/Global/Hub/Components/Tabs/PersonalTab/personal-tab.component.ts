@@ -16,25 +16,24 @@ import { MatFormField, MatLabel, MatError, MatHint, MatSuffix } from '@angular/m
 import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
-  selector: 'personal-tab',
-  templateUrl: 'personal-tab.component.html',
-  styleUrls: ['personal-tab.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatError,
-    MatDatepickerInput,
-    MatHint,
-    MatDatepickerToggle,
-    MatSuffix,
-    MatDatepicker,
-    MatButton,
-    MatNativeDateModule
-  ]
+    selector: 'personal-tab',
+    templateUrl: 'personal-tab.component.html',
+    styleUrls: ['personal-tab.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatError,
+        MatDatepickerInput,
+        MatHint,
+        MatDatepickerToggle,
+        MatSuffix,
+        MatDatepicker,
+        MatButton,
+        MatNativeDateModule
+    ]
 })
 export class PersonalTabComponent implements OnDestroy {
   minimalDate = new Date('1900/01/01');

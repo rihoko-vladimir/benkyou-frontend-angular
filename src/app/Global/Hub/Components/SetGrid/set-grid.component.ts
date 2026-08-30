@@ -5,26 +5,22 @@ import { SetComponent } from '../Set/set.component';
 import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'set-grid',
-  templateUrl: 'set-grid.component.html',
-  styleUrls: ['set-grid.component.scss'],
-  animations: [
-    trigger('enterRemoveAnim', [
-      transition(':leave', [
-        style({
-          transform: 'scale(1)'
-        }),
-        animate(
-          '100ms',
-          style({
-            transform: 'scale(0)'
-          })
-        )
-      ])
-    ])
-  ],
-  standalone: true,
-  imports: [NgFor, SetComponent]
+    selector: 'set-grid',
+    templateUrl: 'set-grid.component.html',
+    styleUrls: ['set-grid.component.scss'],
+    animations: [
+        trigger('enterRemoveAnim', [
+            transition(':leave', [
+                style({
+                    transform: 'scale(1)'
+                }),
+                animate('100ms', style({
+                    transform: 'scale(0)'
+                }))
+            ])
+        ])
+    ],
+    imports: [NgFor, SetComponent]
 })
 export class SetGridComponent {
   @Input() sets!: Set[];

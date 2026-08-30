@@ -16,24 +16,23 @@ import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field'
 import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
-  selector: 'all-sets-page',
-  templateUrl: 'all-sets.component.html',
-  styleUrls: ['all-sets.component.scss'],
-  standalone: true,
-  imports: [
-    MatFormField,
-    MatLabel,
-    MatIcon,
-    MatPrefix,
-    MatInput,
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    SetGridComponent,
-    MatProgressSpinner,
-    ErrorComponent,
-    MatPaginator
-  ]
+    selector: 'all-sets-page',
+    templateUrl: 'all-sets.component.html',
+    styleUrls: ['all-sets.component.scss'],
+    imports: [
+        MatFormField,
+        MatLabel,
+        MatIcon,
+        MatPrefix,
+        MatInput,
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        SetGridComponent,
+        MatProgressSpinner,
+        ErrorComponent,
+        MatPaginator
+    ]
 })
 export class AllSetsComponent implements OnDestroy, OnInit {
   currentSets: Set[] = [];

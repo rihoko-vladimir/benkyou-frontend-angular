@@ -11,11 +11,10 @@ import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.a
 import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 
 @Component({
-  selector: 'general-tab',
-  templateUrl: 'general-tab.component.html',
-  styleUrls: ['general-tab.component.scss'],
-  standalone: true,
-  imports: [MatSlideToggle]
+    selector: 'general-tab',
+    templateUrl: 'general-tab.component.html',
+    styleUrls: ['general-tab.component.scss'],
+    imports: [MatSlideToggle]
 })
 export class GeneralTabComponent implements OnDestroy {
   accountInfo!: IAccountState;

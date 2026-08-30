@@ -12,37 +12,30 @@ import { NgIf } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'account-overview',
-  templateUrl: 'account-overview.component.html',
-  styleUrls: ['account-overview.component.scss'],
-  animations: [
-    trigger('changeButton', [
-      transition(':enter', [
-        style({
-          transform: 'scale(0)'
-        }),
-        animate(
-          '150ms',
-          style({
-            transform: 'scale(1)'
-          })
-        )
-      ]),
-      transition(':leave', [
-        style({
-          transform: 'scale(1)'
-        }),
-        animate(
-          '150ms',
-          style({
-            transform: 'scale(0)'
-          })
-        )
-      ])
-    ])
-  ],
-  standalone: true,
-  imports: [MatCard, NgIf, MatIcon, MatMiniFabButton]
+    selector: 'account-overview',
+    templateUrl: 'account-overview.component.html',
+    styleUrls: ['account-overview.component.scss'],
+    animations: [
+        trigger('changeButton', [
+            transition(':enter', [
+                style({
+                    transform: 'scale(0)'
+                }),
+                animate('150ms', style({
+                    transform: 'scale(1)'
+                }))
+            ]),
+            transition(':leave', [
+                style({
+                    transform: 'scale(1)'
+                }),
+                animate('150ms', style({
+                    transform: 'scale(0)'
+                }))
+            ])
+        ])
+    ],
+    imports: [MatCard, NgIf, MatIcon, MatMiniFabButton]
 })
 export class AccountOverviewComponent implements OnDestroy, OnChanges {
   @Input() currentTab: number = 0;

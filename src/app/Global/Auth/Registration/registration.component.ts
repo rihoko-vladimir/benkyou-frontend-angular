@@ -18,28 +18,27 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-  selector: 'registration',
-  templateUrl: 'registration.component.html',
-  styleUrls: ['registration.component.scss'],
-  animations: [],
-  standalone: true,
-  imports: [
-    MatStepper,
-    MatStep,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    NgIf,
-    MatError,
-    CodeInputModule,
-    MatStepperIcon,
-    MatIcon,
-    MatButton,
-    MatProgressSpinner,
-    MatSnackBarModule
-  ]
+    selector: 'registration',
+    templateUrl: 'registration.component.html',
+    styleUrls: ['registration.component.scss'],
+    animations: [],
+    imports: [
+        MatStepper,
+        MatStep,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        NgIf,
+        MatError,
+        CodeInputModule,
+        MatStepperIcon,
+        MatIcon,
+        MatButton,
+        MatProgressSpinner,
+        MatSnackBarModule
+    ]
 })
 export class RegistrationComponent {
   areButtonsHidden: boolean;

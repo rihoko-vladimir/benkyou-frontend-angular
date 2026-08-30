@@ -6,11 +6,10 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'theme-change',
-  templateUrl: 'theme-change.component.html',
-  styleUrl: 'theme-change.component.less',
-  standalone: true,
-  imports: [MatIconButton, MatTooltip, MatIcon]
+    selector: 'theme-change',
+    templateUrl: 'theme-change.component.html',
+    styleUrl: 'theme-change.component.less',
+    imports: [MatIconButton, MatTooltip, MatIcon]
 })
 export class ThemeChangeComponent {
   themePreference?: ThemePreference;

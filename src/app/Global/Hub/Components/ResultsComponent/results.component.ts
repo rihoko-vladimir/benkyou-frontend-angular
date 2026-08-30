@@ -8,11 +8,10 @@ import { ResultComponent } from '../Result/result.component';
 import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'results',
-  templateUrl: 'results.component.html',
-  styleUrls: ['results.component.scss'],
-  standalone: true,
-  imports: [NgFor, ResultComponent, MatButton]
+    selector: 'results',
+    templateUrl: 'results.component.html',
+    styleUrls: ['results.component.scss'],
+    imports: [NgFor, ResultComponent, MatButton]
 })
 export class ResultsComponent {
   @Input() results!: Answer[];

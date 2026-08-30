@@ -12,11 +12,10 @@ import { AccountOverviewComponent } from '../../Components/AccountOverview/accou
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'account-page',
-  templateUrl: 'account.component.html',
-  styleUrls: ['account.component.scss'],
-  standalone: true,
-  imports: [NgIf, AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
+    selector: 'account-page',
+    templateUrl: 'account.component.html',
+    styleUrls: ['account.component.scss'],
+    imports: [NgIf, AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
 })
 export class AccountComponent implements OnInit, OnDestroy {
   currentTab: number = 0;

@@ -17,11 +17,10 @@ import { createSetSuccess, removeSetSuccess } from '../../../../Redux/Actions/sn
 import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
-  selector: 'my-sets-page',
-  templateUrl: 'my-sets.component.html',
-  styleUrls: ['my-sets.component.scss'],
-  standalone: true,
-  imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
+    selector: 'my-sets-page',
+    templateUrl: 'my-sets.component.html',
+    styleUrls: ['my-sets.component.scss'],
+    imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
 })
 export class MySetsComponent implements OnInit, OnDestroy {
   sets: Set[] = [];

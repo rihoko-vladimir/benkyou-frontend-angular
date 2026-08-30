@@ -10,24 +10,23 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'password-reset',
-  templateUrl: 'password-reset.component.html',
-  styleUrls: ['password-reset.component.scss'],
-  standalone: true,
-  imports: [
-    MatStepper,
-    MatStep,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    MatError,
-    MatButton,
-    NgClass,
-    MatSnackBarModule
-  ]
+    selector: 'password-reset',
+    templateUrl: 'password-reset.component.html',
+    styleUrls: ['password-reset.component.scss'],
+    imports: [
+        MatStepper,
+        MatStep,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        MatError,
+        MatButton,
+        NgClass,
+        MatSnackBarModule
+    ]
 })
 export class PasswordResetComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);

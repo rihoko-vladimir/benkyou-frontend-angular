@@ -17,25 +17,24 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'set-dialog',
-  templateUrl: 'set-dialog.component.html',
-  styleUrl: 'set-dialog.component.scss',
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatError,
-    MatDivider,
-    EditKanjiListComponent,
-    MatDialogActions,
-    MatButton,
-    NgIf
-  ]
+    selector: 'set-dialog',
+    templateUrl: 'set-dialog.component.html',
+    styleUrl: 'set-dialog.component.scss',
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatError,
+        MatDivider,
+        EditKanjiListComponent,
+        MatDialogActions,
+        MatButton,
+        NgIf
+    ]
 })
 export class SetDialogComponent {
   mode: OpenMode;

@@ -13,11 +13,10 @@ import { NgIf, NgFor } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'study-page',
-  templateUrl: 'study-page.component.html',
-  styleUrls: ['study-page.component.scss'],
-  standalone: true,
-  imports: [MatCard, NgIf, KanjiSvgDrawingPreviewComponent, CdkDropList, NgFor, CdkDrag, MatButton, ResultsComponent]
+    selector: 'study-page',
+    templateUrl: 'study-page.component.html',
+    styleUrls: ['study-page.component.scss'],
+    imports: [MatCard, NgIf, KanjiSvgDrawingPreviewComponent, CdkDropList, NgFor, CdkDrag, MatButton, ResultsComponent]
 })
 export class StudyPageComponent implements OnDestroy {
   subscription;

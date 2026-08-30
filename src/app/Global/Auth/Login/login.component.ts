@@ -16,26 +16,25 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner,
-    MatIcon,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    FormsModule,
-    ReactiveFormsModule,
-    MatError,
-    MatIconButton,
-    MatSuffix,
-    RouterLink,
-    MatButton,
-    MatSnackBarModule
-  ]
+    selector: 'login',
+    templateUrl: 'login.component.html',
+    styleUrls: ['login.component.scss'],
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        MatIcon,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        FormsModule,
+        ReactiveFormsModule,
+        MatError,
+        MatIconButton,
+        MatSuffix,
+        RouterLink,
+        MatButton,
+        MatSnackBarModule
+    ]
 })
 export class LoginComponent implements OnDestroy {
   loginControl = new FormControl('', [Validators.required, Validators.email]);

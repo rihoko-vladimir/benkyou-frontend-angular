@@ -21,26 +21,25 @@ import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'hub-component',
-  styleUrls: ['hub.component.scss'],
-  templateUrl: 'hub.component.html',
-  animations: [tabSwitchAnimations],
-  standalone: true,
-  imports: [
-    MatDrawerContainer,
-    MatDrawer,
-    MatNavList,
-    MatListItem,
-    RouterLink,
-    RouterLinkActive,
-    MatIcon,
-    MatDivider,
-    AccountInfoListItemComponent,
-    ThemeChangeComponent,
-    MatDrawerContent,
-    RouterOutlet,
-    MatSnackBarModule
-  ]
+    selector: 'hub-component',
+    styleUrls: ['hub.component.scss'],
+    templateUrl: 'hub.component.html',
+    animations: [tabSwitchAnimations],
+    imports: [
+        MatDrawerContainer,
+        MatDrawer,
+        MatNavList,
+        MatListItem,
+        RouterLink,
+        RouterLinkActive,
+        MatIcon,
+        MatDivider,
+        AccountInfoListItemComponent,
+        ThemeChangeComponent,
+        MatDrawerContent,
+        RouterOutlet,
+        MatSnackBarModule
+    ]
 })
 export class HubComponent implements OnDestroy {
   isShown: boolean;

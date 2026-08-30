@@ -3,11 +3,10 @@ import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from
 import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'remove-confirmation-dialog',
-  templateUrl: 'remove-confirmation-dialog.component.html',
-  styleUrls: ['remove-confirmation-dialog.component.scss'],
-  standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
+    selector: 'remove-confirmation-dialog',
+    templateUrl: 'remove-confirmation-dialog.component.html',
+    styleUrls: ['remove-confirmation-dialog.component.scss'],
+    imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
 })
 export class RemoveConfirmationDialogComponent {
   constructor(private dialogRef: MatDialogRef<RemoveConfirmationDialogComponent>) {}

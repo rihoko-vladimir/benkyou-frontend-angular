@@ -17,11 +17,10 @@ export class DialogData {
   }
 }
 @Component({
-  selector: 'set-preview-dialog',
-  templateUrl: 'set-preview-dialog.component.html',
-  styleUrls: ['set-preview-dialog.component.scss'],
-  standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, KanjiListComponent, MatDialogActions, MatButton, MatDialogClose]
+    selector: 'set-preview-dialog',
+    templateUrl: 'set-preview-dialog.component.html',
+    styleUrls: ['set-preview-dialog.component.scss'],
+    imports: [MatDialogTitle, MatDialogContent, KanjiListComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class SetPreviewDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}

@@ -18,22 +18,21 @@ import { NgIf } from '@angular/common';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 
 @Component({
-  selector: 'set',
-  templateUrl: 'set.component.html',
-  styleUrls: ['set.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardSubtitle,
-    NgIf,
-    MatIconButton,
-    MatTooltip,
-    MatIcon,
-    MatCardActions,
-    MatButton,
-    MatDialogModule
-  ]
+    selector: 'set',
+    templateUrl: 'set.component.html',
+    styleUrls: ['set.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardSubtitle,
+        NgIf,
+        MatIconButton,
+        MatTooltip,
+        MatIcon,
+        MatCardActions,
+        MatButton,
+        MatDialogModule
+    ]
 })
 export class SetComponent {
   @Input() set!: Set;
