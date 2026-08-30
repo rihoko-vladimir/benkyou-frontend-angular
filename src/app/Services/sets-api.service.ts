@@ -9,6 +9,17 @@ import { PagedSets } from './Interfaces/paged-sets';
 import { mapPagedSetsResponseToPagedSets, mapSetResponseToSet, mapSetToSetRequest } from './Helpers/converters';
 
 @Injectable()
+/**
+ * Shared HTTP gateway for set endpoints.
+ *
+ * Thin layer: builds the request, maps the raw API response to domain types
+ * (via converters.ts) and returns an Observable. Error handling and store
+ * dispatch stay in the consumer facades (MySetsService / AllSetsService).
+ *
+ * Note: searchQuery is URL-encoded on purpose so queries containing special
+ * characters (spaces, '&', '=') reach the backend intact instead of breaking
+ * the query string.
+ */
 export class SetsApiService {
   constructor(
     private httpClient: HttpClient,
