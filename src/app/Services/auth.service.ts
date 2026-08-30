@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IAuthService } from './Interfaces/auth.service';
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
-import { Store } from '@ngrx/store';
-import AppState from '../Redux/app.state';
-import { accountError, loginSuccess } from '../Redux/Actions/account.actions';
 import { UserResponse } from '../Models/Responses/UserResponse';
 
 @Injectable({
@@ -15,8 +12,7 @@ import { UserResponse } from '../Models/Responses/UserResponse';
 export class AuthService implements IAuthService {
   constructor(
     private httpClient: HttpClient,
-    private appConfig: AppConfiguration,
-    private store: Store<AppState>
+    private appConfig: AppConfiguration
   ) {}
 
   confirmEmailAddress(userId: string, confirmationCode: string): Observable<string> {
@@ -28,58 +24,24 @@ export class AuthService implements IAuthService {
     return this.httpClient.post<string>(`${this.appConfig.apiEndpoint}/auth/confirm-email`, confirmationRequest);
   }
 
-  login(login: string, password: string) {
+  login(login: string, password: string): Observable<void> {
     const credentials = {
       login: login,
       password: password
     };
 
-    this.httpClient
-      .post(`${this.appConfig.apiEndpoint}/auth/login`, credentials, {
-        withCredentials: true
-      })
-      .pipe(
-        catchError(error => {
-          this.store.dispatch(accountError({ errorMessage: error.error ?? 'Service unavailable' }));
-          return EMPTY;
-        })
-      )
-      .subscribe(() => {
-        this.getUserInfo();
-      });
+    return this.httpClient.post<void>(`${this.appConfig.apiEndpoint}/auth/login`, credentials, {
+      withCredentials: true
+    });
   }
 
-  getUserInfo() {
-    this.httpClient
-      .get<UserResponse>(`${this.appConfig.apiEndpoint}/user/get-info`, {
-        withCredentials: true
-      })
-      .pipe(
-        catchError(error => {
-          this.store.dispatch(accountError({ errorMessage: error.error ?? 'Service unavailable' }));
-          return EMPTY;
-        })
-      )
-      .subscribe(value => {
-        this.store.dispatch(
-          loginSuccess({
-            isTermsAccepted: true,
-            userName: value.userName,
-            firstName: value.firstName,
-            lastName: value.lastName,
-            userRole: value.userRole,
-            isAccountPublic: value.isAccountPublic,
-            birthDay: value.birthDay,
-            about: value.about,
-            avatarUrl: value.avatarUrl,
-            id: value.id,
-            error: { isError: false, errorMessage: '' }
-          })
-        );
-      });
+  getUserInfo(): Observable<UserResponse> {
+    return this.httpClient.get<UserResponse>(`${this.appConfig.apiEndpoint}/user/get-info`, {
+      withCredentials: true
+    });
   }
 
-  register(userName: string, email: string, firstName: string, lastName: string, password: string) {
+  register(userName: string, email: string, firstName: string, lastName: string, password: string): Observable<string> {
     const registrationRequest = {
       userName,
       email,
@@ -92,11 +54,11 @@ export class AuthService implements IAuthService {
     return this.httpClient.post<string>(`${this.appConfig.apiEndpoint}/auth/register`, registrationRequest);
   }
 
-  resetPassword(email: string) {
+  resetPassword(email: string): Observable<void> {
     return this.httpClient.post<void>(`${this.appConfig.apiEndpoint}/auth/reset-password?email=${email}`, null);
   }
 
-  setNewPassword(newPassword: string, email: string, token: string) {
+  setNewPassword(newPassword: string, email: string, token: string): Observable<void> {
     const setNewPasswordRequest = {
       password: newPassword
     };

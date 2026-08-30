@@ -1,9 +1,11 @@
 import { Account } from '../../Models/Account';
+import { Observable } from 'rxjs';
+import { UserResponse } from '../../Models/Responses/UserResponse';
 
 export interface IAccountService {
-  updateUserAccount(updatedUserData: Account): void;
+  updateUserAccount(currentUserData: Account, updatedUserData: Account): Observable<UserResponse>;
 
-  uploadNewAvatar(file: File): void;
+  uploadNewAvatar(file: File): Observable<UserResponse>;
 
-  getAccountInfo(): void;
+  getAccountInfo(): Observable<UserResponse>;
 }

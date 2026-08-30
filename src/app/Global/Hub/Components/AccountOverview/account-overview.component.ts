@@ -3,6 +3,8 @@ import AppState from '../../../../Redux/app.state';
 import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AccountService } from '../../../../Services/account.service';
+import { accountError, loginSuccess } from '../../../../Redux/Actions/account.actions';
+import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
@@ -91,7 +93,10 @@ export class AccountOverviewComponent implements OnDestroy, OnChanges {
   }
 
   onChange() {
-    this.accountService.uploadNewAvatar(this.selectedFile!);
+    this.accountService.uploadNewAvatar(this.selectedFile!).subscribe({
+      next: userInfo => this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo))),
+      error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+    });
   }
 
   onDiscard() {

@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
 import { PasswordConfirmationEqualityValidator } from '../PasswordReset/validators/password-confirmation-equality';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
-import { catchError, EMPTY } from 'rxjs';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -60,19 +59,18 @@ export class NewPasswordComponent implements OnInit {
       this.isLoading = true;
       this.authService
         .setNewPassword(this.passwordGroup.controls.confirmationControl.value!, this.email, this.token)
-        .pipe(
-          catchError(error => {
+        .subscribe({
+          next: () => {
+            this.router.navigate(['auth']);
+          },
+          error: error => {
             this.isLoading = false;
             this.snackbar.open(error.error, undefined, {
               horizontalPosition: 'start',
               verticalPosition: 'bottom',
               duration: 3000
             });
-            return EMPTY;
-          })
-        )
-        .subscribe(() => {
-          this.router.navigate(['auth']);
+          }
         });
     }
   }
