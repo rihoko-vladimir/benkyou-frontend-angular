@@ -5,13 +5,9 @@ import { KanjiResponse } from '../../Models/Responses/KanjiResponse';
 import { SetRequest } from '../../Models/Requests/SetRequest';
 import { KanjiRequest } from '../../Models/Requests/KanjiRequest';
 import { PagedSetsResponse } from '../../Models/Responses/PagedSetsResponse';
-import { PagedSets } from '../Interfaces/paged-sets';
-
-export const mapPagedSetsResponseToPagedSets = (pagedResponse: PagedSetsResponse): PagedSets => ({
-  sets: pagedResponse.sets.map(mapSetResponseToSet),
-  pagesCount: pagedResponse.pagesCount,
-  currentPage: pagedResponse.currentPage
-});
+import { IPagedSets } from '../Interfaces/paged-sets';
+import { UserResponse } from '../../Models/Responses/UserResponse';
+import { IAccountState } from '../../Redux/Reducers/account.reducer';
 
 export const mapSetResponseToSet = (setResponse: SetResponse) =>
   new Set(
@@ -44,4 +40,24 @@ export const mapKanjiToKanjiRequest = (kanji: Kanji): KanjiRequest => ({
   onyomiReadings: kanji.onyomi.map(reading => ({
     reading: reading
   }))
+});
+
+export const mapPagedSetsResponseToPagedSets = (pagedResponse: PagedSetsResponse): IPagedSets => ({
+  sets: pagedResponse.sets.map(mapSetResponseToSet),
+  pagesCount: pagedResponse.pagesCount,
+  currentPage: pagedResponse.currentPage
+});
+
+export const mapUserResponseToAccountState = (userInfo: UserResponse): IAccountState => ({
+  id: userInfo.id,
+  firstName: userInfo.firstName,
+  lastName: userInfo.lastName,
+  userName: userInfo.userName,
+  userRole: userInfo.userRole,
+  isTermsAccepted: userInfo.isTermsAccepted,
+  isAccountPublic: userInfo.isAccountPublic,
+  birthDay: userInfo.birthDay,
+  about: userInfo.about,
+  avatarUrl: userInfo.avatarUrl,
+  error: { isError: false, errorMessage: '' }
 });

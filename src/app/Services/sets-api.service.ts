@@ -5,7 +5,7 @@ import Set from '../Models/Set';
 import { SetResponse } from '../Models/Responses/SetResponse';
 import { PagedSetsResponse } from '../Models/Responses/PagedSetsResponse';
 import { Observable, map } from 'rxjs';
-import { PagedSets } from './Interfaces/paged-sets';
+import { IPagedSets } from './Interfaces/paged-sets';
 import { mapPagedSetsResponseToPagedSets, mapSetResponseToSet, mapSetToSetRequest } from './Helpers/converters';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class SetsApiService {
     private appConfig: AppConfiguration
   ) {}
 
-  getMySets(pageNumber: number, pageSize: number): Observable<PagedSets> {
+  getMySets(pageNumber: number, pageSize: number): Observable<IPagedSets> {
     return this.httpClient
       .get<PagedSetsResponse>(
         `${this.appConfig.apiEndpoint}/sets/my-sets?pageNumber=${pageNumber}&pageSize=${pageSize}`,
@@ -37,7 +37,7 @@ export class SetsApiService {
       .pipe(map(mapPagedSetsResponseToPagedSets));
   }
 
-  getAllSets(pageNumber: number, pageSize: number, searchQuery?: string): Observable<PagedSets> {
+  getAllSets(pageNumber: number, pageSize: number, searchQuery?: string): Observable<IPagedSets> {
     return this.httpClient
       .get<PagedSetsResponse>(
         `${this.appConfig.apiEndpoint}/sets/all-sets?pageNumber=${pageNumber}&pageSize=${pageSize}&searchQuery=${encodeURIComponent(searchQuery ?? '')}`,

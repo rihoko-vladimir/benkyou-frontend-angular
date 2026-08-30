@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordConfirmationEqualityValidator } from '../PasswordReset/validators/password-confirmation-equality';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
-import { catchError, EMPTY } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 //Password must contain one uppercase char, one digit and be at least 8 chars long
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
@@ -12,7 +14,9 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 @Component({
   selector: 'new-password',
   templateUrl: 'new-password.component.html',
-  styleUrls: ['new-password.component.scss']
+  styleUrls: ['new-password.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, MatButton, MatSnackBarModule]
 })
 export class NewPasswordComponent implements OnInit {
   isLoading: boolean = false;
@@ -55,19 +59,18 @@ export class NewPasswordComponent implements OnInit {
       this.isLoading = true;
       this.authService
         .setNewPassword(this.passwordGroup.controls.confirmationControl.value!, this.email, this.token)
-        .pipe(
-          catchError(error => {
+        .subscribe({
+          next: () => {
+            this.router.navigate(['auth']);
+          },
+          error: error => {
             this.isLoading = false;
             this.snackbar.open(error.error, undefined, {
               horizontalPosition: 'start',
               verticalPosition: 'bottom',
               duration: 3000
             });
-            return EMPTY;
-          })
-        )
-        .subscribe(() => {
-          this.router.navigate(['auth']);
+          }
         });
     }
   }

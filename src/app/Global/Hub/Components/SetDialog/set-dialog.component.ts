@@ -1,13 +1,41 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions
+} from '@angular/material/dialog';
 import Set from '../../../../Models/Set';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Kanji from '../../../../Models/Kanji';
+import { NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { EditKanjiListComponent } from './EditKanjiList/edit-kanji-list.component';
+import { MatDivider } from '@angular/material/divider';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'set-dialog',
   templateUrl: 'set-dialog.component.html',
-  styleUrl: 'set-dialog.component.scss'
+  styleUrl: 'set-dialog.component.scss',
+  standalone: true,
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatDivider,
+    EditKanjiListComponent,
+    MatDialogActions,
+    MatButton,
+    NgIf
+  ]
 })
 export class SetDialogComponent {
   mode: OpenMode;

@@ -1,15 +1,40 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../../Redux/app.state';
+import { selectAccount } from '../../../../../Redux/Selectors/selectors';
 import { Account } from '../../../../../Models/Account';
 import { AccountService } from '../../../../../Services/account.service';
 import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
+import { accountError, accountInfoSuccess } from '../../../../../Redux/Actions/account.actions';
+import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
+import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
+import { MatButton } from '@angular/material/button';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError, MatHint, MatSuffix } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'personal-tab',
   templateUrl: 'personal-tab.component.html',
-  styleUrls: ['personal-tab.component.scss']
+  styleUrls: ['personal-tab.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatDatepickerInput,
+    MatHint,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    MatButton,
+    MatNativeDateModule
+  ]
 })
 export class PersonalTabComponent implements OnDestroy {
   minimalDate = new Date('1900/01/01');
@@ -28,7 +53,7 @@ export class PersonalTabComponent implements OnDestroy {
     private store: Store<AppState>,
     private accountService: AccountService
   ) {
-    this.subscription = store.select('account').subscribe(account => {
+    this.subscription = store.select(selectAccount).subscribe(account => {
       this.personalFormGroup.controls.firstNameControl.setValue(account.firstName);
       this.personalFormGroup.controls.lastNameControl.setValue(account.lastName);
       this.personalFormGroup.controls.userNameControl.setValue(account.userName);
@@ -93,6 +118,22 @@ export class PersonalTabComponent implements OnDestroy {
       birthDay: this.personalFormGroup.controls.birthdayControl.value?.toDateString() ?? null,
       isAccountPublic: this.accountState.isAccountPublic
     };
-    this.accountService.updateUserAccount(accountInfo);
+    const currentAccountInfo: Account = {
+      firstName: this.accountState.firstName,
+      lastName: this.accountState.lastName,
+      about: this.accountState.about,
+      userName: this.accountState.userName,
+      birthDay: this.accountState.birthDay,
+      isAccountPublic: this.accountState.isAccountPublic
+    };
+    this.accountService.updateUserAccount(currentAccountInfo, accountInfo).subscribe({
+      next: userInfo => {
+        if (this.accountState.isAccountPublic !== userInfo.isAccountPublic) {
+          this.store.dispatch(visibilityChangeSuccess());
+        }
+        this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo)));
+      },
+      error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+    });
   }
 }

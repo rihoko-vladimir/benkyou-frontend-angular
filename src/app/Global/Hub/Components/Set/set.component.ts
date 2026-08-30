@@ -1,19 +1,39 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import Set from '../../../../Models/Set';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../SetDialog/set-dialog.component';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { startStudying } from '../../../../Redux/Actions/set-study.actions';
 import AppState from '../../../../Redux/app.state';
 import { MySetsService } from '../../../../Services/my-sets.service';
+import { addSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
+import { loadMySetsFailure } from '../../../../Redux/Actions/my-sets.actions';
 import { RemoveConfirmationDialogComponent } from '../RemoveConfirmationDialog/remove-confirmation-dialog.component';
 import { DialogData, SetPreviewDialogComponent } from '../SetPreview/set-preview-dialog.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 
 @Component({
   selector: 'set',
   templateUrl: 'set.component.html',
-  styleUrls: ['set.component.scss']
+  styleUrls: ['set.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    NgIf,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatCardActions,
+    MatButton,
+    MatDialogModule
+  ]
 })
 export class SetComponent {
   @Input() set!: Set;
@@ -49,10 +69,7 @@ export class SetComponent {
   }
 
   onSetChanged(editedSet: Set | undefined) {
-    if (editedSet === undefined) {
-      console.log("set wasn't changed");
-    } else {
-      console.log(editedSet);
+    if (editedSet !== undefined) {
       this.setChange.emit(editedSet);
     }
   }
@@ -63,7 +80,10 @@ export class SetComponent {
   }
 
   onAddClicked() {
-    this.mySetsService.addSet(this.set);
+    this.mySetsService.addSet(this.set).subscribe({
+      next: () => this.store.dispatch(addSetSuccess()),
+      error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
+    });
   }
 
   openPreview() {

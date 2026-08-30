@@ -24,12 +24,27 @@ Install node dependencies
   npm install
 ```
 
-Start the project:
+Run the dev server:
 
 ```bash
-  ng serve --prod
+  ng serve
 ```
 
+Build for production:
+
+```bash
+  ng build
+```
+
+Run tests (Karma, requires Chrome):
+
+```bash
+  ng test
+```
+
+## Configuration
+
+The API endpoint is configured in `src/app/Constants/AppConfiguration.ts` (currently `http://localhost:3080`). A running backend is required for the login and sets features.
 
 ## Screenshots
 

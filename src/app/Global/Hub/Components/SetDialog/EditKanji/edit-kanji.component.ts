@@ -1,13 +1,41 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Kanji from '../../../../../Models/Kanji';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent, MatChipListbox } from '@angular/material/chips';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  MatChipInputEvent,
+  MatChipListbox,
+  MatChipGrid,
+  MatChipRow,
+  MatChipRemove,
+  MatChipInput
+} from '@angular/material/chips';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgFor } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'edit-kanji',
   templateUrl: 'edit-kanji.component.html',
-  styleUrls: ['edit-kanji.component.scss']
+  styleUrls: ['edit-kanji.component.scss'],
+  standalone: true,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    MatChipGrid,
+    NgFor,
+    MatChipRow,
+    MatChipRemove,
+    MatIcon,
+    MatChipInput,
+    MatIconButton
+  ]
 })
 export class EditKanjiComponent implements OnInit {
   @Input() kanji!: Kanji;
