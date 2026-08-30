@@ -14,7 +14,7 @@ import { DialogData, SetPreviewDialogComponent } from '../SetPreview/set-preview
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton, MatButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 
 @Component({
@@ -25,7 +25,6 @@ import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular
     MatCard,
     MatCardTitle,
     MatCardSubtitle,
-    NgIf,
     MatIconButton,
     MatTooltip,
     MatIcon,

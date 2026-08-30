@@ -9,14 +9,14 @@ import Answer from '../../../../Models/Answer';
 import { ResultsComponent } from '../../Components/ResultsComponent/results.component';
 import { MatButton } from '@angular/material/button';
 import { KanjiSvgDrawingPreviewComponent } from '../../Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'study-page',
   templateUrl: 'study-page.component.html',
   styleUrls: ['study-page.component.scss'],
-  imports: [MatCard, NgIf, KanjiSvgDrawingPreviewComponent, CdkDropList, NgFor, CdkDrag, MatButton, ResultsComponent]
+  imports: [MatCard, KanjiSvgDrawingPreviewComponent, CdkDropList, CdkDrag, MatButton, ResultsComponent]
 })
 export class StudyPageComponent implements OnDestroy {
   private store = inject<Store<AppState>>(Store);

@@ -5,13 +5,12 @@ import { finishStudying } from '../../../../Redux/Actions/set-study.actions';
 import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { ResultComponent } from '../Result/result.component';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'results',
   templateUrl: 'results.component.html',
   styleUrls: ['results.component.scss'],
-  imports: [NgFor, ResultComponent, MatButton]
+  imports: [ResultComponent, MatButton]
 })
 export class ResultsComponent {
   private store = inject(Store);

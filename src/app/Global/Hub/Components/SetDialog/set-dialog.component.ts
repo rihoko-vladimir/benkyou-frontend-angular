@@ -9,7 +9,7 @@ import {
 import Set from '../../../../Models/Set';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Kanji from '../../../../Models/Kanji';
-import { NgIf } from '@angular/common';
+
 import { MatButton } from '@angular/material/button';
 import { EditKanjiListComponent } from './EditKanjiList/edit-kanji-list.component';
 import { MatDivider } from '@angular/material/divider';
@@ -32,8 +32,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
     MatDivider,
     EditKanjiListComponent,
     MatDialogActions,
-    MatButton,
-    NgIf
+    MatButton
   ]
 })
 export class SetDialogComponent {

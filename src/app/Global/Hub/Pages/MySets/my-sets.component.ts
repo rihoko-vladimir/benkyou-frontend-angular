@@ -10,7 +10,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SetGridComponent } from '../../Components/SetGrid/set-grid.component';
-import { NgIf } from '@angular/common';
+
 import { MatButton } from '@angular/material/button';
 import { loadMySetsFailure, loadMySetsSuccess } from '../../../../Redux/Actions/my-sets.actions';
 import { createSetSuccess, removeSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
@@ -20,7 +20,7 @@ import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
   selector: 'my-sets-page',
   templateUrl: 'my-sets.component.html',
   styleUrls: ['my-sets.component.scss'],
-  imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
+  imports: [MatButton, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
 })
 export class MySetsComponent implements OnInit, OnDestroy {
   private dialog = inject(MatDialog);

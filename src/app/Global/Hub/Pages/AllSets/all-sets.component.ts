@@ -9,7 +9,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SetGridComponent } from '../../Components/SetGrid/set-grid.component';
-import { NgIf } from '@angular/common';
+
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
@@ -27,7 +27,6 @@ import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Action
     MatInput,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     SetGridComponent,
     MatProgressSpinner,
     ErrorComponent,

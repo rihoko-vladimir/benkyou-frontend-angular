@@ -5,7 +5,7 @@ import { MatStepper, MatStep } from '@angular/material/stepper';
 import { AuthService } from '../../../Services/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButton } from '@angular/material/button';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
@@ -21,7 +21,6 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
     MatInput,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     MatError,
     MatButton,
     NgClass,

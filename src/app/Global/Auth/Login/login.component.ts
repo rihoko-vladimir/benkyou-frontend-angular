@@ -13,14 +13,12 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
   imports: [
-    NgIf,
     MatProgressSpinner,
     MatIcon,
     MatFormField,

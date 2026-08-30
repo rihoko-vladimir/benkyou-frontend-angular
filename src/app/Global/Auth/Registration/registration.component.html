@@ -2,64 +2,72 @@
 <div class="registrationForm">
   <mat-stepper #stepper [linear]="true" class="registration">
     <mat-step label="User information" state="creds">
-
       <form [formGroup]="credentialsFormGroup" class="forms">
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Username</mat-label>
-          <input formControlName="userNameControl" matInput placeholder="Your creative Username" type="text">
-          <mat-error
-            *ngIf="credentialsFormGroup.controls.userNameControl.invalid">{{getUserNameErrorMessage()}}</mat-error>
+          <input formControlName="userNameControl" matInput placeholder="Your creative Username" type="text" />
+          @if (credentialsFormGroup.controls.userNameControl.invalid) {
+            <mat-error>{{ getUserNameErrorMessage() }}</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Email</mat-label>
-          <input formControlName="emailControl" matInput placeholder="youremail@mail.com" type="email">
-          <mat-error *ngIf="credentialsFormGroup.controls.emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+          <input formControlName="emailControl" matInput placeholder="youremail@mail.com" type="email" />
+          @if (credentialsFormGroup.controls.emailControl.invalid) {
+            <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">First Name</mat-label>
-          <input formControlName="firstNameControl" matInput placeholder="John" type="text">
-          <mat-error
-            *ngIf="credentialsFormGroup.controls.firstNameControl.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+          <input formControlName="firstNameControl" matInput placeholder="John" type="text" />
+          @if (credentialsFormGroup.controls.firstNameControl.invalid) {
+            <mat-error>{{ getFirstNameErrorMessage() }}</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Last Name</mat-label>
-          <input formControlName="lastNameControl" matInput placeholder="Smith" type="text">
-          <mat-error
-            *ngIf="credentialsFormGroup.controls.lastNameControl.invalid">{{getLastNameErrorMessage()}}</mat-error>
+          <input formControlName="lastNameControl" matInput placeholder="Smith" type="text" />
+          @if (credentialsFormGroup.controls.lastNameControl.invalid) {
+            <mat-error>{{ getLastNameErrorMessage() }}</mat-error>
+          }
         </mat-form-field>
       </form>
     </mat-step>
     <mat-step label="Password" state="password">
-
       <form [formGroup]="passwordFormGroup" class="forms">
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Password</mat-label>
-          <input formControlName="passwordControl" matInput placeholder="Your very secure password" type="password">
-          <mat-error *ngIf="passwordFormGroup.controls.passwordControl">{{getPasswordErrorMessage()}}</mat-error>
+          <input formControlName="passwordControl" matInput placeholder="Your very secure password" type="password" />
+          @if (passwordFormGroup.controls.passwordControl) {
+            <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label class="header-margin">Password confirmation</mat-label>
-          <input formControlName="passwordConfirmationControl" matInput placeholder="Your very secure password confirmation"
-                 type="password">
-          <mat-error
-            *ngIf="passwordFormGroup.controls.passwordConfirmationControl">{{getPasswordConfirmationErrorMessage()}}</mat-error>
+          <input
+            formControlName="passwordConfirmationControl"
+            matInput
+            placeholder="Your very secure password confirmation"
+            type="password" />
+          @if (passwordFormGroup.controls.passwordConfirmationControl) {
+            <mat-error>{{ getPasswordConfirmationErrorMessage() }}</mat-error>
+          }
         </mat-form-field>
       </form>
     </mat-step>
     <mat-step label="Confirmation" state="confirmation">
       <h3 class="mat-typography">Email confirmation</h3>
-      <p class="mat-typography">We've sent an email confirmation to {{credentialsFormGroup.controls.emailControl.value}}
-        . The letter will include the
-        code, please, type it in the field below. If you don't see anything, please check your Spam
-        folder.</p>
+      <p class="mat-typography">
+        We've sent an email confirmation to {{ credentialsFormGroup.controls.emailControl.value }} . The letter will
+        include the code, please, type it in the field below. If you don't see anything, please check your Spam folder.
+      </p>
       <div class="centered">
         <code-input
           #confirmationCode
           (codeCompleted)="onSendConfirmationCode($event)"
           [codeLength]="6"
           [isCharsCode]="false"
-          [isCodeHidden]="false"
-        ></code-input>
+          [isCodeHidden]="false"></code-input>
       </div>
     </mat-step>
     <ng-template matStepperIcon="creds">
@@ -75,26 +83,19 @@
       <mat-icon>done</mat-icon>
     </ng-template>
   </mat-stepper>
-  <div *ngIf="!areButtonsHidden" class="buttons">
-    <button (click)="onPreviousClicked()"
-            [disabled]="isLoading"
-            mat-stroked-button>
-      {{stepper.selectedIndex === 0 ? "Cancel" : "Back"}}
-    </button>
-    <div class="spinnerAndButton">
-      <mat-progress-spinner
-        *ngIf="isLoading"
-        color="primary"
-        diameter="36"
-        mode="indeterminate">
-      </mat-progress-spinner>
-      <button (click)="onNextClicked()"
-              [disabled]="isLoading"
-              color="accent"
-              mat-flat-button>
-        {{stepper.selectedIndex === stepper.steps.length - 1 ? "Finish" : "Next"}}
+  @if (!areButtonsHidden) {
+    <div class="buttons">
+      <button (click)="onPreviousClicked()" [disabled]="isLoading" mat-stroked-button>
+        {{ stepper.selectedIndex === 0 ? "Cancel" : "Back" }}
       </button>
+      <div class="spinnerAndButton">
+        @if (isLoading) {
+          <mat-progress-spinner color="primary" diameter="36" mode="indeterminate"> </mat-progress-spinner>
+        }
+        <button (click)="onNextClicked()" [disabled]="isLoading" color="accent" mat-flat-button>
+          {{ stepper.selectedIndex === stepper.steps.length - 1 ? "Finish" : "Next" }}
+        </button>
+      </div>
     </div>
-  </div>
+  }
 </div>
-

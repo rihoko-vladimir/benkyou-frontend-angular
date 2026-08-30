@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import Answer from '../../../../Models/Answer';
 import { ResultReadingComponent } from '../ResultReading/result-reading.component';
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'result',
   templateUrl: 'result.component.html',
   styleUrls: ['result.component.scss'],
-  imports: [NgClass, NgFor, ResultReadingComponent]
+  imports: [NgClass, ResultReadingComponent]
 })
 export class ResultComponent implements OnInit {
   @Input() answer!: Answer;

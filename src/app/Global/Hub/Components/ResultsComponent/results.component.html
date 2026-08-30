@@ -2,7 +2,9 @@
   <div class="titleAndResults">
     <h4 class="mat-headline-4" style="margin-bottom: 0">Results</h4>
     <div class="resultsContainer">
-      <result *ngFor="let result of results" [answer]="result"></result>
+      @for (result of results; track result) {
+        <result [answer]="result"></result>
+      }
     </div>
   </div>
   <div class="buttons">

@@ -8,7 +8,7 @@ import { AuthService } from '../../../../Services/auth.service';
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
 import { MatListItem } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
@@ -20,7 +20,6 @@ import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/ex
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatRipple,
-    NgIf,
     MatIcon,
     NgOptimizedImage,
     MatListItem,

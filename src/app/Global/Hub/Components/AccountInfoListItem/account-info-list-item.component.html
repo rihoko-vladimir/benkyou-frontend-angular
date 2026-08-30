@@ -1,9 +1,13 @@
 <mat-expansion-panel #panel [class.active]="panel.expanded">
   <mat-expansion-panel-header matRipple [class.active]="panel.expanded">
-    <div *ngIf="avatarUrl==='' || avatarUrl === null" class="avatar placeholderContainer">
-      <mat-icon>account_circle</mat-icon>
-    </div>
-    <img *ngIf="avatarUrl!=='' && avatarUrl !== null" [ngSrc]="avatarUrl" alt="avatar" class="avatar"/>
+    @if (avatarUrl === "" || avatarUrl === null) {
+      <div class="avatar placeholderContainer">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+    }
+    @if (avatarUrl !== "" && avatarUrl !== null) {
+      <img [ngSrc]="avatarUrl" alt="avatar" class="avatar" />
+    }
     <span class="mat-typography text-padding">{{ firstName + " " + lastName }}</span>
   </mat-expansion-panel-header>
   <mat-list-item routerLink="/hub/account" routerLinkActive="active">

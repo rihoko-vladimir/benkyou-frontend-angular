@@ -4,7 +4,6 @@ import { animate, animateChild, query, stagger, style, transition, trigger } fro
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { EditKanjiComponent } from '../EditKanji/edit-kanji.component';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'edit-kanji-list',
@@ -31,7 +30,7 @@ import { NgFor } from '@angular/common';
       ])
     ])
   ],
-  imports: [NgFor, EditKanjiComponent, MatIconButton, MatIcon]
+  imports: [EditKanjiComponent, MatIconButton, MatIcon]
 })
 export class EditKanjiListComponent {
   @Input() kanjiList!: Kanji[];

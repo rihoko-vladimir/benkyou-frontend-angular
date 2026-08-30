@@ -8,7 +8,7 @@ import { accountError, accountInfoSuccess } from '../../../../Redux/Actions/acco
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 import { MatCard } from '@angular/material/card';
 
 @Component({
@@ -41,7 +41,7 @@ import { MatCard } from '@angular/material/card';
       ])
     ])
   ],
-  imports: [MatCard, NgIf, MatIcon, MatMiniFabButton]
+  imports: [MatCard, MatIcon, MatMiniFabButton]
 })
 export class AccountOverviewComponent implements OnDestroy, OnChanges {
   private store = inject<Store<AppState>>(Store);

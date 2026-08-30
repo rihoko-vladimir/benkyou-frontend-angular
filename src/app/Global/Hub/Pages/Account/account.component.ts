@@ -9,13 +9,12 @@ import { ErrorComponent } from '../../Components/ErrorComponent/error.component'
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AccountInformationComponent } from '../../Components/AccountInformation/account-information.component';
 import { AccountOverviewComponent } from '../../Components/AccountOverview/account-overview.component';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'account-page',
   templateUrl: 'account.component.html',
   styleUrls: ['account.component.scss'],
-  imports: [NgIf, AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
+  imports: [AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
 })
 export class AccountComponent implements OnInit, OnDestroy {
   private store = inject<Store<AppState>>(Store);

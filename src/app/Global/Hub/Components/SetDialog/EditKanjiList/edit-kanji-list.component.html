@@ -1,14 +1,15 @@
 <div class="kanjiList" @parentEnter #list>
-  <edit-kanji *ngFor="let kanji of kanjiList"
-              [kanji]="kanji"
-              [isRemoveAvailable]="kanjiList.length>3"
-              [myIndex]="kanjiList.indexOf(kanji)"
-              (remove)="onRemoveKanji($event.valueOf())"
-              (kanjiChange)="onKanjiChanged($event)"
-              @enterRemoveAnim>
-  </edit-kanji>
+  @for (kanji of kanjiList; track kanji) {
+    <edit-kanji
+      [kanji]="kanji"
+      [isRemoveAvailable]="kanjiList.length > 3"
+      [myIndex]="kanjiList.indexOf(kanji)"
+      (remove)="onRemoveKanji($event.valueOf())"
+      (kanjiChange)="onKanjiChanged($event)"
+      @enterRemoveAnim>
+    </edit-kanji>
+  }
   <button mat-icon-button (click)="onAddNewKanjiClicked()">
     <mat-icon>playlist_add</mat-icon>
   </button>
 </div>
-

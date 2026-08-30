@@ -12,7 +12,7 @@ import {
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { NgFor } from '@angular/common';
+
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
@@ -28,7 +28,6 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatError,
     MatChipGrid,
-    NgFor,
     MatChipRow,
     MatChipRemove,
     MatIcon,

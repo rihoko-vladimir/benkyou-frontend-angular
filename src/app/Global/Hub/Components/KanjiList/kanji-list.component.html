@@ -1,3 +1,5 @@
 <div class="container">
-  <kanji-preview *ngFor="let kanji of kanjiList" [kanji]="kanji"></kanji-preview>
+  @for (kanji of kanjiList; track kanji) {
+    <kanji-preview [kanji]="kanji"></kanji-preview>
+  }
 </div>
