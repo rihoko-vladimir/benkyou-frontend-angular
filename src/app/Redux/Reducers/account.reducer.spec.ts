@@ -1,5 +1,5 @@
 import { ThemePreference } from '../../Models/Enums/ThemePreference';
-import { accountError, accountInfoSuccess, accountInfoSuccess, logout, themeChange } from '../Actions/account.actions';
+import { accountError, accountInfoSuccess, logout, themeChange } from '../Actions/account.actions';
 import { accountReducer, IAccountState } from './account.reducer';
 
 const accountPayload: IAccountState = {
