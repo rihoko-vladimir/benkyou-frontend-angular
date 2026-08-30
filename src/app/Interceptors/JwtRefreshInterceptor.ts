@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { catchError, EMPTY, mergeMap, Observable, throwError } from 'rxjs';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import AppState from '../Redux/app.state';
