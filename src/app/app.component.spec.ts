@@ -1,4 +1,3 @@
-import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
@@ -14,9 +13,11 @@ describe('AppComponent', () => {
       // into `imports`, not `declarations`. The template renders
       // <router-outlet name="primary">, whose real directive needs a live
       // Router - provideRouter([]) supplies one without any routes.
+      // NOTE: do NOT stub ApplicationRef here — Angular 18's
+      // ChangeDetectionSchedulerImpl injects the real one and the bare
+      // { tick } useValue stub breaks its constructor.
       providers: [
         provideRouter([]),
-        { provide: ApplicationRef, useValue: { tick: () => {} } },
         { provide: ThemeService, useValue: { getTheme: () => of(ThemePreference.Light) } }
       ]
     }).compileComponents();
