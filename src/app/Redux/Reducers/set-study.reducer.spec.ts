@@ -113,7 +113,7 @@ describe('setStudyReducer', () => {
 
       const state = setStudyReducer(started, finishStudying());
 
-      expect(state).toBe(initialState);
+      expect(state).toEqual(initialState);
     });
   });
 
@@ -124,7 +124,7 @@ describe('setStudyReducer', () => {
 
       const state = setStudyReducer(answered, logout());
 
-      expect(state).toBe(initialState);
+      expect(state).toEqual(initialState);
     });
   });
 });

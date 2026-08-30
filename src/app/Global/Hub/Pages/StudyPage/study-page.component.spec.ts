@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
@@ -7,8 +8,14 @@ import Answer from '../../../../Models/Answer';
 import Kanji from '../../../../Models/Kanji';
 import { nextKanji } from '../../../../Redux/Actions/set-study.actions';
 import { IStudyState } from '../../../../Redux/Reducers/set-study.reducer';
-import { KanjiSvgDrawingPreviewComponent } from '../../Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
 import { StudyPageComponent } from './study-page.component';
+
+// The real KanjiSvgDrawingPreviewComponent fetches `assets/kanji/*.svg` in its
+// ngOnInit, which would perform a real HTTP request in the test environment.
+// It is stubbed out here: this smoke spec only cares about the StudyPage
+// component's store wiring, not about SVG rendering.
+@Component({ selector: 'kanji-svg-drawing-preview', template: '' })
+class KanjiSvgDrawingPreviewStubComponent {}
 
 describe('StudyPageComponent', () => {
   let component: StudyPageComponent;
@@ -34,7 +41,11 @@ describe('StudyPageComponent', () => {
     store.select.and.returnValue(of(studyState));
 
     TestBed.configureTestingModule({
-      declarations: [StudyPageComponent, KanjiSvgDrawingPreviewComponent],
+      declarations: [StudyPageComponent, KanjiSvgDrawingPreviewStubComponent],
+      // The template also uses <mat-card>, which the smoke spec does not need to
+      // render meaningfully; CUSTOM_ELEMENTS_SCHEMA keeps it inert and silences
+      // NG0304 "not a known element" log noise.
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [CommonModule, DragDropModule],
       providers: [{ provide: Store, useValue: store }]
     });

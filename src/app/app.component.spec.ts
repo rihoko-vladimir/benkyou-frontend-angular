@@ -1,4 +1,4 @@
-import { ApplicationRef } from '@angular/core';
+import { ApplicationRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ChildrenOutletContexts } from '@angular/router';
 import { of } from 'rxjs';
@@ -10,6 +10,10 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
+      // The app shell template only wraps <router-outlet>; the router is not
+      // part of this unit-test module, so the outlet is left as an inert
+      // custom element instead of importing RouterTestingModule.
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: ChildrenOutletContexts, useValue: { getContext: () => null } },
         { provide: ApplicationRef, useValue: { tick: () => {} } },
