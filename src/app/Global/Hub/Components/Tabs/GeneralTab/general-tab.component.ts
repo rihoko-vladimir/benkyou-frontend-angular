@@ -1,11 +1,12 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import AppState from '../../../../../Redux/app.state';
+import { selectAccount } from '../../../../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
 import { AccountService } from '../../../../../Services/account.service';
 import { Account } from '../../../../../Models/Account';
 import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
-import { accountError, loginSuccess } from '../../../../../Redux/Actions/account.actions';
+import { accountError, accountInfoSuccess } from '../../../../../Redux/Actions/account.actions';
 import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
 import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 
@@ -25,7 +26,7 @@ export class GeneralTabComponent implements OnDestroy {
     private store: Store<AppState>,
     private accountService: AccountService
   ) {
-    this.subscription = store.select('account').subscribe(accountInfo => {
+    this.subscription = store.select(selectAccount).subscribe(accountInfo => {
       this.accountInfo = accountInfo;
       this.isPublic = accountInfo.isAccountPublic;
     });
@@ -54,7 +55,7 @@ export class GeneralTabComponent implements OnDestroy {
         if (this.accountInfo.isAccountPublic !== userInfo.isAccountPublic) {
           this.store.dispatch(visibilityChangeSuccess());
         }
-        this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo)));
+        this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo)));
       },
       error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
     });

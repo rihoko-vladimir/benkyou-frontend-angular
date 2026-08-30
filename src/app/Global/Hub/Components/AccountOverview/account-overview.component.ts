@@ -1,9 +1,10 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 import AppState from '../../../../Redux/app.state';
+import { selectAccount } from '../../../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AccountService } from '../../../../Services/account.service';
-import { accountError, loginSuccess } from '../../../../Redux/Actions/account.actions';
+import { accountError, accountInfoSuccess } from '../../../../Redux/Actions/account.actions';
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -57,7 +58,7 @@ export class AccountOverviewComponent implements OnDestroy, OnChanges {
     private store: Store<AppState>,
     private accountService: AccountService
   ) {
-    this.subscription = store.select('account').subscribe(value => {
+    this.subscription = store.select(selectAccount).subscribe(value => {
       this.firstName = value.firstName;
       this.lastName = value.lastName;
       this.avatarUrl = value.avatarUrl;
@@ -94,7 +95,7 @@ export class AccountOverviewComponent implements OnDestroy, OnChanges {
 
   onChange() {
     this.accountService.uploadNewAvatar(this.selectedFile!).subscribe({
-      next: userInfo => this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo))),
+      next: userInfo => this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo))),
       error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
     });
   }

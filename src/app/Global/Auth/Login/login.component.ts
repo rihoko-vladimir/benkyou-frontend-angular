@@ -4,8 +4,9 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { Store } from '@ngrx/store';
 import AppState from '../../../Redux/app.state';
+import { selectAccount } from '../../../Redux/Selectors/selectors';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { accountError, loginSuccess } from '../../../Redux/Actions/account.actions';
+import { accountError, accountInfoSuccess } from '../../../Redux/Actions/account.actions';
 import { mapUserResponseToAccountState } from '../../../Services/Helpers/converters';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -51,7 +52,7 @@ export class LoginComponent implements OnDestroy {
     private store: Store<AppState>,
     private snackbar: MatSnackBar
   ) {
-    this.subscription = store.select('account').subscribe(value => {
+    this.subscription = store.select(selectAccount).subscribe(value => {
       if (!value?.error?.isError && value.id !== '') {
         this.isSuccess = true;
         this.isLoading = false;
@@ -81,7 +82,7 @@ export class LoginComponent implements OnDestroy {
 
   private loadUserInfo() {
     this.authService.getUserInfo().subscribe({
-      next: userInfo => this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo))),
+      next: userInfo => this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo))),
       error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
     });
   }

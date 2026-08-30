@@ -2,10 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../../Redux/app.state';
+import { selectAccount } from '../../../../../Redux/Selectors/selectors';
 import { Account } from '../../../../../Models/Account';
 import { AccountService } from '../../../../../Services/account.service';
 import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
-import { accountError, loginSuccess } from '../../../../../Redux/Actions/account.actions';
+import { accountError, accountInfoSuccess } from '../../../../../Redux/Actions/account.actions';
 import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
 import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 import { MatButton } from '@angular/material/button';
@@ -52,7 +53,7 @@ export class PersonalTabComponent implements OnDestroy {
     private store: Store<AppState>,
     private accountService: AccountService
   ) {
-    this.subscription = store.select('account').subscribe(account => {
+    this.subscription = store.select(selectAccount).subscribe(account => {
       this.personalFormGroup.controls.firstNameControl.setValue(account.firstName);
       this.personalFormGroup.controls.lastNameControl.setValue(account.lastName);
       this.personalFormGroup.controls.userNameControl.setValue(account.userName);
@@ -130,7 +131,7 @@ export class PersonalTabComponent implements OnDestroy {
         if (this.accountState.isAccountPublic !== userInfo.isAccountPublic) {
           this.store.dispatch(visibilityChangeSuccess());
         }
-        this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo)));
+        this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo)));
       },
       error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
     });

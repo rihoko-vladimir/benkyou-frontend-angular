@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import Kanji from '../../../../Models/Kanji';
 import AppState from '../../../../Redux/app.state';
+import { selectSetStudy } from '../../../../Redux/Selectors/selectors';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { nextKanji } from '../../../../Redux/Actions/set-study.actions';
 import Answer from '../../../../Models/Answer';
@@ -29,7 +30,7 @@ export class StudyPageComponent implements OnDestroy {
   answers: Answer[] = [];
 
   constructor(private store: Store<AppState>) {
-    this.subscription = store.select('setStudy').subscribe(value => {
+    this.subscription = store.select(selectSetStudy).subscribe(value => {
       this.currentAllReadings = [...value.currentRandomReadings];
       this.currentKanji = value.currentKanji;
       this.length = value.length;

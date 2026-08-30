@@ -14,6 +14,8 @@ export const hydrationMetaReducer = (reducer: ActionReducer<RootState>): ActionR
       }
     }
     const nextState = reducer(state, action);
+    // Persist everything except transient slices (setStudy, snackbar), whose content
+    // must never survive a page reload.
     localStorage.setItem('state', JSON.stringify(nextState, unnecessaryStateRemover));
     return nextState;
   };

@@ -2,12 +2,9 @@ import { createAction, props } from '@ngrx/store';
 import { IAccountState } from '../Reducers/account.reducer';
 import { ThemePreference } from '../../Models/Enums/ThemePreference';
 
-export const loginSuccess = createAction('[Login page] Login Success', props<IAccountState>());
-
-export const getAccountInfoSuccess = createAction(
-  '[Account Page/Login Page] Get Account Info Success',
-  props<IAccountState>()
-);
+// Single success action for every flow that yields fresh account info:
+// login (AuthService.getUserInfo) and account refresh/update/avatar upload (AccountService).
+export const accountInfoSuccess = createAction('[Auth] Account Info Success', props<IAccountState>());
 
 export const logout = createAction('[Account page] Log out');
 

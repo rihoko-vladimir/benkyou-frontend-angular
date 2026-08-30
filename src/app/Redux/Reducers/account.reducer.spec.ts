@@ -1,5 +1,5 @@
 import { ThemePreference } from '../../Models/Enums/ThemePreference';
-import { accountError, getAccountInfoSuccess, loginSuccess, logout, themeChange } from '../Actions/account.actions';
+import { accountError, accountInfoSuccess, logout, themeChange } from '../Actions/account.actions';
 import { accountReducer, IAccountState } from './account.reducer';
 
 const accountPayload: IAccountState = {
@@ -39,8 +39,8 @@ describe('accountReducer', () => {
     expect(state).toEqual(expectedInitialState);
   });
 
-  it('populates the account on loginSuccess', () => {
-    const state = accountReducer(undefined, loginSuccess(accountPayload));
+  it('populates the account on accountInfoSuccess', () => {
+    const state = accountReducer(undefined, accountInfoSuccess(accountPayload));
 
     expect(state.id).toBe('user-1');
     expect(state.firstName).toBe('Taro');
@@ -55,8 +55,8 @@ describe('accountReducer', () => {
     expect(state.error).toEqual({ isError: false, errorMessage: '' });
   });
 
-  it('populates the account on getAccountInfoSuccess', () => {
-    const state = accountReducer(undefined, getAccountInfoSuccess(accountPayload));
+  it('populates the account on accountInfoSuccess', () => {
+    const state = accountReducer(undefined, accountInfoSuccess(accountPayload));
 
     expect(state.id).toBe('user-1');
     expect(state.firstName).toBe('Taro');
@@ -66,13 +66,13 @@ describe('accountReducer', () => {
   });
 
   it('does not change themePreference on login', () => {
-    const state = accountReducer(undefined, loginSuccess(accountPayload));
+    const state = accountReducer(undefined, accountInfoSuccess(accountPayload));
 
     expect(state.themePreference).toBe(ThemePreference.Auto);
   });
 
   it('sets the error flag and message on accountError, preserving account data', () => {
-    const loggedIn = accountReducer(undefined, loginSuccess(accountPayload));
+    const loggedIn = accountReducer(undefined, accountInfoSuccess(accountPayload));
 
     const state = accountReducer(loggedIn, accountError({ errorMessage: 'Invalid credentials' }));
 
@@ -89,7 +89,7 @@ describe('accountReducer', () => {
   });
 
   it('resets the account to its initial state on logout', () => {
-    const loggedIn = accountReducer(undefined, loginSuccess(accountPayload));
+    const loggedIn = accountReducer(undefined, accountInfoSuccess(accountPayload));
     const withError = accountReducer(loggedIn, accountError({ errorMessage: 'Boom' }));
 
     const state = accountReducer(withError, logout());
