@@ -6,6 +6,9 @@ import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { MySetsService } from '../../../../Services/my-sets.service';
 import { PageEvent } from '@angular/material/paginator';
+import { loadMySetsFailure, loadMySetsSuccess } from '../../../../Redux/Actions/my-sets.actions';
+import { createSetSuccess, removeSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
+import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
   selector: 'my-sets-page',
@@ -47,7 +50,13 @@ export class MySetsComponent implements OnInit, OnDestroy {
 
   onSetCreated(set: Set | undefined) {
     if (set !== undefined) {
-      this.mySetsService.createSet(set!);
+      this.mySetsService.createSet(set).subscribe({
+        next: () => {
+          this.store.dispatch(createSetSuccess());
+          this.loadMySets(1, 9);
+        },
+        error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
+      });
     } else {
       console.log("Set wasn't created");
     }
@@ -55,7 +64,7 @@ export class MySetsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.mySetsService.getMySets(1, this.pageSize);
+    this.loadMySets(1, this.pageSize);
   }
 
   ngOnDestroy(): void {
@@ -63,20 +72,43 @@ export class MySetsComponent implements OnInit, OnDestroy {
   }
 
   onSetRemoved(id: string) {
-    this.mySetsService.removeMySet(id, this.currentPage + 1, this.pageSize);
+    this.mySetsService.removeMySet(id).subscribe({
+      next: () => {
+        this.store.dispatch(removeSetSuccess());
+        this.loadMySets(this.currentPage + 1, this.pageSize);
+      },
+      error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
+    });
   }
 
   onSetChanged(changesObj: { set: Set; originalSet: Set }) {
-    this.mySetsService.patchMySet(changesObj.set.id, changesObj.set, changesObj.originalSet);
+    this.mySetsService.patchMySet(changesObj.set.id, changesObj.set, changesObj.originalSet).subscribe({
+      next: () => this.loadMySets(1, 9),
+      error: error => this.store.dispatch(loadAllSetsFailure({ errorMessage: error.error }))
+    });
   }
 
   onRetryClicked() {
     this.isLoading = true;
-    this.mySetsService.getMySets(1, this.pageSize);
+    this.loadMySets(1, this.pageSize);
   }
 
   onPageChanged(event: PageEvent) {
     this.isLoading = true;
-    this.mySetsService.getMySets(event.pageIndex + 1, this.pageSize);
+    this.loadMySets(event.pageIndex + 1, this.pageSize);
+  }
+
+  private loadMySets(pageNumber: number, pageSize: number) {
+    this.mySetsService.getMySets(pageNumber, pageSize).subscribe({
+      next: value =>
+        this.store.dispatch(
+          loadMySetsSuccess({
+            sets: value.sets,
+            pagesCount: value.pagesCount,
+            pageNumber: value.currentPage
+          })
+        ),
+      error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
+    });
   }
 }

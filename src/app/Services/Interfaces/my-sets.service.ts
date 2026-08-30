@@ -1,13 +1,15 @@
 import Set from '../../Models/Set';
+import { Observable } from 'rxjs';
+import { IPagedSets } from './paged-sets';
 
 export interface IMySetsService {
-  getMySets(pageNumber: number, pageSize: number): void;
+  getMySets(pageNumber: number, pageSize: number): Observable<IPagedSets>;
 
-  removeMySet(setId: string, pageNumber: number, pageSize: number): void;
+  removeMySet(setId: string): Observable<void>;
 
-  patchMySet(setId: string, newSet: Set, originalSet: Set): void;
+  patchMySet(setId: string, newSet: Set, originalSet: Set): Observable<void>;
 
-  createSet(setRequest: Set): void;
+  createSet(set: Set): Observable<Set>;
 
-  addSet(set: Set): void;
+  addSet(set: Set): Observable<Set>;
 }

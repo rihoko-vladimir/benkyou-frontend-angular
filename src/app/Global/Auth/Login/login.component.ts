@@ -5,6 +5,8 @@ import { AuthService } from '../../../Services/auth.service';
 import { Store } from '@ngrx/store';
 import AppState from '../../../Redux/app.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { accountError, loginSuccess } from '../../../Redux/Actions/account.actions';
+import { mapUserResponseToAccountState } from '../../../Services/Helpers/converters';
 
 @Component({
   selector: 'login',
@@ -24,7 +26,7 @@ export class LoginComponent implements OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    store: Store<AppState>,
+    private store: Store<AppState>,
     private snackbar: MatSnackBar
   ) {
     this.subscription = store.select('account').subscribe(value => {
@@ -45,11 +47,21 @@ export class LoginComponent implements OnDestroy {
   onLoginClicked() {
     if (this.loginControl.valid && this.passwordControl.valid) {
       this.isLoading = true;
-      this.authService.login(this.loginControl.value!, this.passwordControl.value!);
+      this.authService.login(this.loginControl.value!, this.passwordControl.value!).subscribe({
+        next: () => this.loadUserInfo(),
+        error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+      });
     } else {
       this.loginControl.markAsTouched();
       this.passwordControl.markAsTouched();
     }
+  }
+
+  private loadUserInfo() {
+    this.authService.getUserInfo().subscribe({
+      next: userInfo => this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo))),
+      error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+    });
   }
 
   async onRegistrationClicked() {

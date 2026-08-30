@@ -74,7 +74,7 @@ export class RegistrationComponent {
             this.stepper.next();
           },
           error => {
-            this.showErrorSnackbar(error.value);
+            this.showErrorSnackbar(error.error);
           }
         );
         break;
@@ -161,7 +161,7 @@ export class RegistrationComponent {
         this.router.navigate(['auth']);
       },
       error => {
-        this.showErrorSnackbar(error.value);
+        this.showErrorSnackbar(error.error);
       }
     );
   }

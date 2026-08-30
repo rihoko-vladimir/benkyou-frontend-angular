@@ -9,6 +9,8 @@ import AppState from '../../../../Redux/app.state';
 import { MySetsService } from '../../../../Services/my-sets.service';
 import { RemoveConfirmationDialogComponent } from '../RemoveConfirmationDialog/remove-confirmation-dialog.component';
 import { DialogData, SetPreviewDialogComponent } from '../SetPreview/set-preview-dialog.component';
+import { addSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
+import { loadMySetsFailure } from '../../../../Redux/Actions/my-sets.actions';
 
 @Component({
   selector: 'set',
@@ -63,7 +65,10 @@ export class SetComponent {
   }
 
   onAddClicked() {
-    this.mySetsService.addSet(this.set);
+    this.mySetsService.addSet(this.set).subscribe({
+      next: () => this.store.dispatch(addSetSuccess()),
+      error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
+    });
   }
 
   openPreview() {

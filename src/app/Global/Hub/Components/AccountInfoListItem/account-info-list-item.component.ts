@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
-import { logout } from '../../../../Redux/Actions/account.actions';
+import { accountError, loginSuccess, logout } from '../../../../Redux/Actions/account.actions';
 import { AuthService } from '../../../../Services/auth.service';
+import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
 
 @Component({
   selector: 'account-info-list-item',
@@ -38,6 +39,9 @@ export class AccountInfoListItemComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getUserInfo();
+    this.authService.getUserInfo().subscribe({
+      next: userInfo => this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo))),
+      error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+    });
   }
 }

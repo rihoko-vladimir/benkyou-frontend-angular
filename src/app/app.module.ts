@@ -19,6 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { hydrationMetaReducer } from './Redux/Reducers/hydration.reducer';
 import { JwtRefreshInterceptor } from './Interceptors/JwtRefreshInterceptor';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HttpErrorInterceptor } from './Interceptors/HttpErrorInterceptor';
 import { TimeoutInterceptor } from './Interceptors/TimeoutInterceptor';
 import { snackbarReducer } from './Redux/Reducers/snackbar.reducer';
 import { ThemeService } from './Services/theme.service';
@@ -52,6 +53,11 @@ import { ThemeService } from './Services/theme.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtRefreshInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     },
     {

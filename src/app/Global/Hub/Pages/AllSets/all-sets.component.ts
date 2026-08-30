@@ -5,6 +5,7 @@ import AppState from '../../../../Redux/app.state';
 import { AllSetsService } from '../../../../Services/all-sets.service';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
   selector: 'all-sets-page',
@@ -39,7 +40,7 @@ export class AllSetsComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.allSetsService.getAllSets(1, this.setCount);
+    this.loadAllSets(1, this.setCount);
   }
 
   ngOnDestroy(): void {
@@ -48,16 +49,30 @@ export class AllSetsComponent implements OnDestroy, OnInit {
 
   onSearchTyped() {
     this.isLoading = true;
-    this.allSetsService.getAllSets(this.currentPage + 1, this.setCount, this.searchControl.value);
+    this.loadAllSets(this.currentPage + 1, this.setCount, this.searchControl.value);
   }
 
   onRetryClicked() {
     this.isLoading = true;
-    this.allSetsService.getAllSets(this.currentPage + 1, this.setCount, this.searchControl.value);
+    this.loadAllSets(this.currentPage + 1, this.setCount, this.searchControl.value);
   }
 
   onPageChanged(event: PageEvent) {
     this.isLoading = true;
-    this.allSetsService.getAllSets(event.pageIndex + 1, this.setCount, this.searchControl.value);
+    this.loadAllSets(event.pageIndex + 1, this.setCount, this.searchControl.value);
+  }
+
+  private loadAllSets(pageNumber: number, pageSize: number, searchQuery?: string) {
+    this.allSetsService.getAllSets(pageNumber, pageSize, searchQuery).subscribe({
+      next: response =>
+        this.store.dispatch(
+          loadAllSetsSuccess({
+            sets: response.sets,
+            pagesCount: response.pagesCount,
+            pageNumber: response.currentPage
+          })
+        ),
+      error: error => this.store.dispatch(loadAllSetsFailure({ errorMessage: error.error }))
+    });
   }
 }

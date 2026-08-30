@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { AuthService } from '../../../Services/auth.service';
-import { catchError, EMPTY } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -38,23 +37,20 @@ export class PasswordResetComponent {
   onNextClicked() {
     if (this.emailControl.valid) {
       this.isLoading = true;
-      this.authService
-        .resetPassword(this.emailControl.value!)
-        .pipe(
-          catchError(error => {
-            this.isLoading = false;
-            this.snackbar.open(error.error, undefined, {
-              horizontalPosition: 'start',
-              verticalPosition: 'bottom',
-              duration: 3000
-            });
-            return EMPTY;
-          })
-        )
-        .subscribe(() => {
+      this.authService.resetPassword(this.emailControl.value!).subscribe({
+        next: () => {
           this.stepper.next();
           this.isLoading = false;
-        });
+        },
+        error: error => {
+          this.isLoading = false;
+          this.snackbar.open(error.error, undefined, {
+            horizontalPosition: 'start',
+            verticalPosition: 'bottom',
+            duration: 3000
+          });
+        }
+      });
     } else {
       this.emailControl.markAsTouched();
     }

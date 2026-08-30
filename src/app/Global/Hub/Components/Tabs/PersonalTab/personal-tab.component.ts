@@ -5,6 +5,9 @@ import AppState from '../../../../../Redux/app.state';
 import { Account } from '../../../../../Models/Account';
 import { AccountService } from '../../../../../Services/account.service';
 import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
+import { accountError, loginSuccess } from '../../../../../Redux/Actions/account.actions';
+import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
+import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 
 @Component({
   selector: 'personal-tab',
@@ -93,6 +96,22 @@ export class PersonalTabComponent implements OnDestroy {
       birthDay: this.personalFormGroup.controls.birthdayControl.value?.toDateString() ?? null,
       isAccountPublic: this.accountState.isAccountPublic
     };
-    this.accountService.updateUserAccount(accountInfo);
+    const currentAccountInfo: Account = {
+      firstName: this.accountState.firstName,
+      lastName: this.accountState.lastName,
+      about: this.accountState.about,
+      userName: this.accountState.userName,
+      birthDay: this.accountState.birthDay,
+      isAccountPublic: this.accountState.isAccountPublic
+    };
+    this.accountService.updateUserAccount(currentAccountInfo, accountInfo).subscribe({
+      next: userInfo => {
+        if (this.accountState.isAccountPublic !== userInfo.isAccountPublic) {
+          this.store.dispatch(visibilityChangeSuccess());
+        }
+        this.store.dispatch(loginSuccess(mapUserResponseToAccountState(userInfo)));
+      },
+      error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
+    });
   }
 }
