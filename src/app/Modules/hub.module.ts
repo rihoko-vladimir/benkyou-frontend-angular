@@ -22,6 +22,7 @@ import { ResultComponent } from '../Global/Hub/Components/Result/result.componen
 import { ResultReadingComponent } from '../Global/Hub/Components/ResultReading/result-reading.component';
 import { AllSetsService } from '../Services/all-sets.service';
 import { MySetsService } from '../Services/my-sets.service';
+import { SetsApiService } from '../Services/sets-api.service';
 import { AccountOverviewComponent } from '../Global/Hub/Components/AccountOverview/account-overview.component';
 import { RemoveConfirmationDialogComponent } from '../Global/Hub/Components/RemoveConfirmationDialog/remove-confirmation-dialog.component';
 import { AccountInformationComponent } from '../Global/Hub/Components/AccountInformation/account-information.component';
@@ -72,7 +73,7 @@ import { ThemeChangeComponent } from '../Global/Hub/Components/ThemeChange/theme
     ThemeChangeComponent
   ],
   imports: [AppRoutingModule, MaterialModule, CommonModule, ReactiveFormsModule, MatRipple, NgOptimizedImage],
-  providers: [AllSetsService, MySetsService, AccountService],
+  providers: [AllSetsService, MySetsService, AccountService, SetsApiService],
   exports: [ResultReadingComponent]
 })
 export class HubModule {}

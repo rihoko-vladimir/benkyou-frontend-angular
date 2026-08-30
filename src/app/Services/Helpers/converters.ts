@@ -4,6 +4,14 @@ import Kanji from '../../Models/Kanji';
 import { KanjiResponse } from '../../Models/Responses/KanjiResponse';
 import { SetRequest } from '../../Models/Requests/SetRequest';
 import { KanjiRequest } from '../../Models/Requests/KanjiRequest';
+import { PagedSetsResponse } from '../../Models/Responses/PagedSetsResponse';
+import { PagedSets } from '../Interfaces/paged-sets';
+
+export const mapPagedSetsResponseToPagedSets = (pagedResponse: PagedSetsResponse): PagedSets => ({
+  sets: pagedResponse.sets.map(mapSetResponseToSet),
+  pagesCount: pagedResponse.pagesCount,
+  currentPage: pagedResponse.currentPage
+});
 
 export const mapSetResponseToSet = (setResponse: SetResponse) =>
   new Set(
