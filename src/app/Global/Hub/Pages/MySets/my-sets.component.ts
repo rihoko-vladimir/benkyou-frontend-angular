@@ -1,16 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import Set from '../../../../Models/Set';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../../Components/SetDialog/set-dialog.component';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { MySetsService } from '../../../../Services/my-sets.service';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { SetGridComponent } from '../../Components/SetGrid/set-grid.component';
+import { NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'my-sets-page',
   templateUrl: 'my-sets.component.html',
-  styleUrls: ['my-sets.component.scss']
+  styleUrls: ['my-sets.component.scss'],
+  standalone: true,
+  imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
 })
 export class MySetsComponent implements OnInit, OnDestroy {
   sets: Set[] = [];

@@ -1,6 +1,6 @@
-import { ApplicationRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ChildrenOutletContexts } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { ThemePreference } from './Models/Enums/ThemePreference';
@@ -9,13 +9,13 @@ import { ThemeService } from './Services/theme.service';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      // The app shell template only wraps <router-outlet>; the router is not
-      // part of this unit-test module, so the outlet is left as an inert
-      // custom element instead of importing RouterTestingModule.
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [AppComponent],
+      // AppComponent is a standalone component (post-migration), so it goes
+      // into `imports`, not `declarations`. The template renders
+      // <router-outlet name="primary">, whose real directive needs a live
+      // Router - provideRouter([]) supplies one without any routes.
       providers: [
-        { provide: ChildrenOutletContexts, useValue: { getContext: () => null } },
+        provideRouter([]),
         { provide: ApplicationRef, useValue: { tick: () => {} } },
         { provide: ThemeService, useValue: { getTheme: () => of(ThemePreference.Light) } }
       ]

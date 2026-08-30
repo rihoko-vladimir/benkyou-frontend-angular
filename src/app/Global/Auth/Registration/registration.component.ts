@@ -1,12 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatStepper } from '@angular/material/stepper';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatStepper, MatStep, MatStepperIcon } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { PasswordConfirmationEqualityValidator } from '../PasswordReset/validators/password-confirmation-equality';
-import { CodeInputComponent } from 'angular-code-input';
+import { CodeInputComponent, CodeInputModule } from 'angular-code-input';
 import { AuthService } from '../../../Services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 //Password must contain one uppercase char, one digit and be at least 8 chars long
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
@@ -15,7 +21,25 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
   selector: 'registration',
   templateUrl: 'registration.component.html',
   styleUrls: ['registration.component.scss'],
-  animations: []
+  animations: [],
+  standalone: true,
+  imports: [
+    MatStepper,
+    MatStep,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    NgIf,
+    MatError,
+    CodeInputModule,
+    MatStepperIcon,
+    MatIcon,
+    MatButton,
+    MatProgressSpinner,
+    MatSnackBarModule
+  ]
 })
 export class RegistrationComponent {
   areButtonsHidden: boolean;

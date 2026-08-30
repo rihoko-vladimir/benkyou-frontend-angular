@@ -2,11 +2,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { AccountService } from '../../../../Services/account.service';
+import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AccountInformationComponent } from '../../Components/AccountInformation/account-information.component';
+import { AccountOverviewComponent } from '../../Components/AccountOverview/account-overview.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'account-page',
   templateUrl: 'account.component.html',
-  styleUrls: ['account.component.scss']
+  styleUrls: ['account.component.scss'],
+  standalone: true,
+  imports: [NgIf, AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
 })
 export class AccountComponent implements OnInit, OnDestroy {
   currentTab: number = 0;
