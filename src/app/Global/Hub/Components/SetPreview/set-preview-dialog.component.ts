@@ -1,6 +1,14 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose
+} from '@angular/material/dialog';
 import Kanji from '../../../../Models/Kanji';
+import { MatButton } from '@angular/material/button';
+import { KanjiListComponent } from '../KanjiList/kanji-list.component';
 
 export class DialogData {
   kanjiList: Kanji[];
@@ -11,7 +19,9 @@ export class DialogData {
 @Component({
   selector: 'set-preview-dialog',
   templateUrl: 'set-preview-dialog.component.html',
-  styleUrls: ['set-preview-dialog.component.scss']
+  styleUrls: ['set-preview-dialog.component.scss'],
+  standalone: true,
+  imports: [MatDialogTitle, MatDialogContent, KanjiListComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class SetPreviewDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}

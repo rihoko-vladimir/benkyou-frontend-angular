@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import AppState from '../../../../../Redux/app.state';
 import { Store } from '@ngrx/store';
 import { AccountService } from '../../../../../Services/account.service';
@@ -9,7 +9,9 @@ import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
 @Component({
   selector: 'general-tab',
   templateUrl: 'general-tab.component.html',
-  styleUrls: ['general-tab.component.scss']
+  styleUrls: ['general-tab.component.scss'],
+  standalone: true,
+  imports: [MatSlideToggle]
 })
 export class GeneralTabComponent implements OnDestroy {
   accountInfo!: IAccountState;
