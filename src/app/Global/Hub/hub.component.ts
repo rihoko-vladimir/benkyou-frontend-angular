@@ -1,16 +1,45 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ChildrenOutletContexts, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import {
+  ChildrenOutletContexts,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+  RouterLink,
+  RouterLinkActive
+} from '@angular/router';
 import AppState from '../../Redux/app.state';
 import { Store } from '@ngrx/store';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { dismissSnackbar } from '../../Redux/Actions/snackbar.actions';
 import { tabSwitchAnimations } from './hub-route.animations';
+import { ThemeChangeComponent } from './Components/ThemeChange/theme-change.component';
+import { AccountInfoListItemComponent } from './Components/AccountInfoListItem/account-info-list-item.component';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatNavList, MatListItem } from '@angular/material/list';
+import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 
 @Component({
   selector: 'hub-component',
   styleUrls: ['hub.component.scss'],
   templateUrl: 'hub.component.html',
-  animations: [tabSwitchAnimations]
+  animations: [tabSwitchAnimations],
+  standalone: true,
+  imports: [
+    MatDrawerContainer,
+    MatDrawer,
+    MatNavList,
+    MatListItem,
+    RouterLink,
+    RouterLinkActive,
+    MatIcon,
+    MatDivider,
+    AccountInfoListItemComponent,
+    ThemeChangeComponent,
+    MatDrawerContent,
+    RouterOutlet,
+    MatSnackBarModule
+  ]
 })
 export class HubComponent implements OnDestroy {
   isShown: boolean;

@@ -1,15 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatStepper } from '@angular/material/stepper';
+import { MatStepper, MatStep } from '@angular/material/stepper';
 import { AuthService } from '../../../Services/auth.service';
 import { catchError, EMPTY } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButton } from '@angular/material/button';
+import { NgIf, NgClass } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'password-reset',
   templateUrl: 'password-reset.component.html',
-  styleUrls: ['password-reset.component.scss']
+  styleUrls: ['password-reset.component.scss'],
+  standalone: true,
+  imports: [
+    MatStepper,
+    MatStep,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    MatError,
+    MatButton,
+    NgClass,
+    MatSnackBarModule
+  ]
 })
 export class PasswordResetComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);

@@ -1,15 +1,38 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { Store } from '@ngrx/store';
 import AppState from '../../../Redux/app.state';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+  styleUrls: ['login.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    MatIconButton,
+    MatSuffix,
+    RouterLink,
+    MatButton,
+    MatSnackBarModule
+  ]
 })
 export class LoginComponent implements OnDestroy {
   loginControl = new FormControl('', [Validators.required, Validators.email]);

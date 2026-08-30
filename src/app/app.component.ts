@@ -1,12 +1,14 @@
 import { ApplicationRef, Component } from '@angular/core';
-import { ChildrenOutletContexts } from '@angular/router';
+import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { ThemePreference } from './Models/Enums/ThemePreference';
 import { ThemeService } from './Services/theme.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [RouterOutlet]
 })
 export class AppComponent {
   constructor(
