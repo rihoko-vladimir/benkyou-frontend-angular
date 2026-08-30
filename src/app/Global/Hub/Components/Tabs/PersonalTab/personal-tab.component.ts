@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../../Redux/app.state';
@@ -16,26 +16,29 @@ import { MatFormField, MatLabel, MatError, MatHint, MatSuffix } from '@angular/m
 import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
-    selector: 'personal-tab',
-    templateUrl: 'personal-tab.component.html',
-    styleUrls: ['personal-tab.component.scss'],
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatError,
-        MatDatepickerInput,
-        MatHint,
-        MatDatepickerToggle,
-        MatSuffix,
-        MatDatepicker,
-        MatButton,
-        MatNativeDateModule
-    ]
+  selector: 'personal-tab',
+  templateUrl: 'personal-tab.component.html',
+  styleUrls: ['personal-tab.component.scss'],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatDatepickerInput,
+    MatHint,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    MatButton,
+    MatNativeDateModule
+  ]
 })
 export class PersonalTabComponent implements OnDestroy {
+  private store = inject<Store<AppState>>(Store);
+  private accountService = inject(AccountService);
+
   minimalDate = new Date('1900/01/01');
   accountState!: IAccountState;
   isTouched: boolean = false;
@@ -48,10 +51,9 @@ export class PersonalTabComponent implements OnDestroy {
   });
   subscription;
 
-  constructor(
-    private store: Store<AppState>,
-    private accountService: AccountService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectAccount).subscribe(account => {
       this.personalFormGroup.controls.firstNameControl.setValue(account.firstName);
       this.personalFormGroup.controls.lastNameControl.setValue(account.lastName);

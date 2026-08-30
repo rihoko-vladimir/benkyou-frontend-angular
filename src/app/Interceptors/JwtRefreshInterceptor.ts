@@ -1,5 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
 import { catchError, EMPTY, mergeMap, Observable, throwError } from 'rxjs';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import AppState from '../Redux/app.state';
@@ -9,12 +16,11 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtRefreshInterceptor implements HttpInterceptor {
-  constructor(
-    private httpClient: HttpClient,
-    private appConfig: AppConfiguration,
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  private httpClient = inject(HttpClient);
+  private appConfig = inject(AppConfiguration);
+  private store = inject<Store<AppState>>(Store);
+  private router = inject(Router);
+
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(

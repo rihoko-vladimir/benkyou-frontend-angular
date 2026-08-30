@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordConfirmationEqualityValidator } from '../PasswordReset/validators/password-confirmation-equality';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,12 +12,17 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-    selector: 'new-password',
-    templateUrl: 'new-password.component.html',
-    styleUrls: ['new-password.component.scss'],
-    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, MatButton, MatSnackBarModule]
+  selector: 'new-password',
+  templateUrl: 'new-password.component.html',
+  styleUrls: ['new-password.component.scss'],
+  imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, MatButton, MatSnackBarModule]
 })
 export class NewPasswordComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private snackbar = inject(MatSnackBar);
+
   isLoading: boolean = false;
   token: string = '';
   email: string = '';
@@ -28,13 +33,6 @@ export class NewPasswordComponent implements OnInit {
     },
     [PasswordConfirmationEqualityValidator('passwordControl', 'confirmationControl')]
   );
-
-  constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private router: Router,
-    private snackbar: MatSnackBar
-  ) {}
 
   getPasswordErrorMessage() {
     if (this.passwordGroup.controls.passwordControl.hasError(Validators.required.name)) return 'This field is required';

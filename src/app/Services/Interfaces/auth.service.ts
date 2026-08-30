@@ -13,5 +13,4 @@ export interface IAuthService {
   setNewPassword(newPassword: string, email: string, token: string): Observable<void>;
 
   getUserInfo(): Observable<UserResponse>;
-
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IAuthService } from './Interfaces/auth.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -10,10 +10,9 @@ import { UserResponse } from '../Models/Responses/UserResponse';
   deps: [AppConfiguration]
 })
 export class AuthService implements IAuthService {
-  constructor(
-    private httpClient: HttpClient,
-    private appConfig: AppConfiguration
-  ) {}
+  private httpClient = inject(HttpClient);
+  private appConfig = inject(AppConfiguration);
+
 
   confirmEmailAddress(userId: string, confirmationCode: string): Observable<string> {
     const confirmationRequest = {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../SetDialog/set-dialog.component';
@@ -18,34 +18,32 @@ import { NgIf } from '@angular/common';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 
 @Component({
-    selector: 'set',
-    templateUrl: 'set.component.html',
-    styleUrls: ['set.component.scss'],
-    imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardSubtitle,
-        NgIf,
-        MatIconButton,
-        MatTooltip,
-        MatIcon,
-        MatCardActions,
-        MatButton,
-        MatDialogModule
-    ]
+  selector: 'set',
+  templateUrl: 'set.component.html',
+  styleUrls: ['set.component.scss'],
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    NgIf,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatCardActions,
+    MatButton,
+    MatDialogModule
+  ]
 })
 export class SetComponent {
+  private dialog = inject(MatDialog);
+  private router = inject(Router);
+  private store = inject<Store<AppState>>(Store);
+  private mySetsService = inject(MySetsService);
+
   @Input() set!: Set;
   @Input() mode!: string;
   @Output() setChange = new EventEmitter<Set>();
   @Output() remove = new EventEmitter<string>();
-
-  constructor(
-    private dialog: MatDialog,
-    private router: Router,
-    private store: Store<AppState>,
-    private mySetsService: MySetsService
-  ) {}
 
   onRemoveClicked(id: string) {
     this.dialog

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../../Components/SetDialog/set-dialog.component';
@@ -17,12 +17,16 @@ import { createSetSuccess, removeSetSuccess } from '../../../../Redux/Actions/sn
 import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
-    selector: 'my-sets-page',
-    templateUrl: 'my-sets.component.html',
-    styleUrls: ['my-sets.component.scss'],
-    imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
+  selector: 'my-sets-page',
+  templateUrl: 'my-sets.component.html',
+  styleUrls: ['my-sets.component.scss'],
+  imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
 })
 export class MySetsComponent implements OnInit, OnDestroy {
+  private dialog = inject(MatDialog);
+  private store = inject<Store<AppState>>(Store);
+  private mySetsService = inject(MySetsService);
+
   sets: Set[] = [];
   currentPage: number = 0;
   pageSize: number = 9;
@@ -31,11 +35,9 @@ export class MySetsComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isError: boolean = false;
 
-  constructor(
-    private dialog: MatDialog,
-    private store: Store<AppState>,
-    private mySetsService: MySetsService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectMySets).subscribe(value => {
       this.pagesCount = value.pagesCount;
       this.pageSize = value.setsCount;

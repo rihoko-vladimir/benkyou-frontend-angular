@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import Kanji from '../../../../Models/Kanji';
 import AppState from '../../../../Redux/app.state';
@@ -13,12 +13,14 @@ import { NgIf, NgFor } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-    selector: 'study-page',
-    templateUrl: 'study-page.component.html',
-    styleUrls: ['study-page.component.scss'],
-    imports: [MatCard, NgIf, KanjiSvgDrawingPreviewComponent, CdkDropList, NgFor, CdkDrag, MatButton, ResultsComponent]
+  selector: 'study-page',
+  templateUrl: 'study-page.component.html',
+  styleUrls: ['study-page.component.scss'],
+  imports: [MatCard, NgIf, KanjiSvgDrawingPreviewComponent, CdkDropList, NgFor, CdkDrag, MatButton, ResultsComponent]
 })
 export class StudyPageComponent implements OnDestroy {
+  private store = inject<Store<AppState>>(Store);
+
   subscription;
   currentAllReadings: string[] = [];
   currentKanji: Kanji = new Kanji();
@@ -28,7 +30,9 @@ export class StudyPageComponent implements OnDestroy {
   currentIndex: number = 0;
   answers: Answer[] = [];
 
-  constructor(private store: Store<AppState>) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectSetStudy).subscribe(value => {
       this.currentAllReadings = [...value.currentRandomReadings];
       this.currentKanji = value.currentKanji;

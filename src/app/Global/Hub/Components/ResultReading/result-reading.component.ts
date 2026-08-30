@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'result-reading',
-    templateUrl: 'result-reading.component.html',
-    styleUrls: ['result-reading.component.scss'],
-    imports: [NgClass]
+  selector: 'result-reading',
+  templateUrl: 'result-reading.component.html',
+  styleUrls: ['result-reading.component.scss'],
+  imports: [NgClass]
 })
 export class ResultReadingComponent {
   @Input() reading: string = '';

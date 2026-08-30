@@ -4,10 +4,10 @@ import { ResultReadingComponent } from '../ResultReading/result-reading.componen
 import { NgClass, NgFor } from '@angular/common';
 
 @Component({
-    selector: 'result',
-    templateUrl: 'result.component.html',
-    styleUrls: ['result.component.scss'],
-    imports: [NgClass, NgFor, ResultReadingComponent]
+  selector: 'result',
+  templateUrl: 'result.component.html',
+  styleUrls: ['result.component.scss'],
+  imports: [NgClass, NgFor, ResultReadingComponent]
 })
 export class ResultComponent implements OnInit {
   @Input() answer!: Answer;

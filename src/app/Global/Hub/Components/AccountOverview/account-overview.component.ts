@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, ViewChild, inject } from '@angular/core';
 import AppState from '../../../../Redux/app.state';
 import { selectAccount } from '../../../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
@@ -12,32 +12,41 @@ import { NgIf } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-    selector: 'account-overview',
-    templateUrl: 'account-overview.component.html',
-    styleUrls: ['account-overview.component.scss'],
-    animations: [
-        trigger('changeButton', [
-            transition(':enter', [
-                style({
-                    transform: 'scale(0)'
-                }),
-                animate('150ms', style({
-                    transform: 'scale(1)'
-                }))
-            ]),
-            transition(':leave', [
-                style({
-                    transform: 'scale(1)'
-                }),
-                animate('150ms', style({
-                    transform: 'scale(0)'
-                }))
-            ])
-        ])
-    ],
-    imports: [MatCard, NgIf, MatIcon, MatMiniFabButton]
+  selector: 'account-overview',
+  templateUrl: 'account-overview.component.html',
+  styleUrls: ['account-overview.component.scss'],
+  animations: [
+    trigger('changeButton', [
+      transition(':enter', [
+        style({
+          transform: 'scale(0)'
+        }),
+        animate(
+          '150ms',
+          style({
+            transform: 'scale(1)'
+          })
+        )
+      ]),
+      transition(':leave', [
+        style({
+          transform: 'scale(1)'
+        }),
+        animate(
+          '150ms',
+          style({
+            transform: 'scale(0)'
+          })
+        )
+      ])
+    ])
+  ],
+  imports: [MatCard, NgIf, MatIcon, MatMiniFabButton]
 })
 export class AccountOverviewComponent implements OnDestroy, OnChanges {
+  private store = inject<Store<AppState>>(Store);
+  private accountService = inject(AccountService);
+
   @Input() currentTab: number = 0;
   @ViewChild('fileInput') fileInput?: ElementRef;
   subscription;
@@ -47,10 +56,9 @@ export class AccountOverviewComponent implements OnDestroy, OnChanges {
   selectedFile?: File;
   fileImage?: ArrayBuffer;
 
-  constructor(
-    private store: Store<AppState>,
-    private accountService: AccountService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectAccount).subscribe(value => {
       this.firstName = value.firstName;
       this.lastName = value.lastName;

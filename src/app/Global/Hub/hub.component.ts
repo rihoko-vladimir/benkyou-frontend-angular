@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import {
   ChildrenOutletContexts,
   NavigationEnd,
@@ -21,37 +21,39 @@ import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 
 @Component({
-    selector: 'hub-component',
-    styleUrls: ['hub.component.scss'],
-    templateUrl: 'hub.component.html',
-    animations: [tabSwitchAnimations],
-    imports: [
-        MatDrawerContainer,
-        MatDrawer,
-        MatNavList,
-        MatListItem,
-        RouterLink,
-        RouterLinkActive,
-        MatIcon,
-        MatDivider,
-        AccountInfoListItemComponent,
-        ThemeChangeComponent,
-        MatDrawerContent,
-        RouterOutlet,
-        MatSnackBarModule
-    ]
+  selector: 'hub-component',
+  styleUrls: ['hub.component.scss'],
+  templateUrl: 'hub.component.html',
+  animations: [tabSwitchAnimations],
+  imports: [
+    MatDrawerContainer,
+    MatDrawer,
+    MatNavList,
+    MatListItem,
+    RouterLink,
+    RouterLinkActive,
+    MatIcon,
+    MatDivider,
+    AccountInfoListItemComponent,
+    ThemeChangeComponent,
+    MatDrawerContent,
+    RouterOutlet,
+    MatSnackBarModule
+  ]
 })
 export class HubComponent implements OnDestroy {
+  private store = inject<Store<AppState>>(Store);
+  private snackbar = inject(MatSnackBar);
+  private contexts = inject(ChildrenOutletContexts);
+
   isShown: boolean;
   subscription;
   storeSubscription;
 
-  constructor(
-    router: Router,
-    private store: Store<AppState>,
-    private snackbar: MatSnackBar,
-    private contexts: ChildrenOutletContexts
-  ) {
+  constructor() {
+    const router = inject(Router);
+    const store = this.store;
+
     this.isShown = false;
     this.subscription = router.events.subscribe(value => {
       if (value instanceof NavigationEnd) {

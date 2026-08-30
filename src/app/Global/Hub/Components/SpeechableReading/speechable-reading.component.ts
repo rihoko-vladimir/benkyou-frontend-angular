@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 
 @Component({
-    selector: 'speechable-reading',
-    templateUrl: 'speechable-reading.component.html',
-    styleUrls: ['speechable-reading.component.scss'],
-    imports: [MatBadge]
+  selector: 'speechable-reading',
+  templateUrl: 'speechable-reading.component.html',
+  styleUrls: ['speechable-reading.component.scss'],
+  imports: [MatBadge]
 })
 export class SpeechableReadingComponent {
   @Input() reading: string = '話す';

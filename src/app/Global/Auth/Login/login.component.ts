@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
@@ -16,27 +16,33 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'login',
-    templateUrl: 'login.component.html',
-    styleUrls: ['login.component.scss'],
-    imports: [
-        NgIf,
-        MatProgressSpinner,
-        MatIcon,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        FormsModule,
-        ReactiveFormsModule,
-        MatError,
-        MatIconButton,
-        MatSuffix,
-        RouterLink,
-        MatButton,
-        MatSnackBarModule
-    ]
+  selector: 'login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss'],
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    MatIconButton,
+    MatSuffix,
+    RouterLink,
+    MatButton,
+    MatSnackBarModule
+  ]
 })
 export class LoginComponent implements OnDestroy {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private authService = inject(AuthService);
+  private store = inject<Store<AppState>>(Store);
+  private snackbar = inject(MatSnackBar);
+
   loginControl = new FormControl('', [Validators.required, Validators.email]);
   passwordControl = new FormControl('', [Validators.required]);
   subscription;
@@ -44,13 +50,10 @@ export class LoginComponent implements OnDestroy {
   isLoading = false;
   isSuccess = false;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private store: Store<AppState>,
-    private snackbar: MatSnackBar
-  ) {
+  constructor() {
+    const router = this.router;
+    const store = this.store;
+
     this.subscription = store.select(selectAccount).subscribe(value => {
       if (!value?.error?.isError && value.id !== '') {
         this.isSuccess = true;

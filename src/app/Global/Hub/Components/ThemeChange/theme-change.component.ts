@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThemePreference } from '../../../../Models/Enums/ThemePreference';
 import { ThemeService } from '../../../../Services/theme.service';
 import { MatIcon } from '@angular/material/icon';
@@ -6,16 +6,18 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 
 @Component({
-    selector: 'theme-change',
-    templateUrl: 'theme-change.component.html',
-    styleUrl: 'theme-change.component.less',
-    imports: [MatIconButton, MatTooltip, MatIcon]
+  selector: 'theme-change',
+  templateUrl: 'theme-change.component.html',
+  styleUrl: 'theme-change.component.less',
+  imports: [MatIconButton, MatTooltip, MatIcon]
 })
 export class ThemeChangeComponent {
+  private themeService = inject(ThemeService);
+
   themePreference?: ThemePreference;
   protected readonly ThemePreference = ThemePreference;
 
-  constructor(private themeService: ThemeService) {
+  constructor() {
     this.themeService.getTheme().subscribe(theme => {
       this.themePreference = theme;
     });

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -13,32 +13,34 @@ import { MatRipple } from '@angular/material/core';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
 @Component({
-    selector: 'account-info-list-item',
-    styleUrls: ['account-info-list-item.component.scss'],
-    templateUrl: 'account-info-list-item.component.html',
-    imports: [
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatRipple,
-        NgIf,
-        MatIcon,
-        NgOptimizedImage,
-        MatListItem,
-        RouterLink,
-        RouterLinkActive
-    ]
+  selector: 'account-info-list-item',
+  styleUrls: ['account-info-list-item.component.scss'],
+  templateUrl: 'account-info-list-item.component.html',
+  imports: [
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatRipple,
+    NgIf,
+    MatIcon,
+    NgOptimizedImage,
+    MatListItem,
+    RouterLink,
+    RouterLinkActive
+  ]
 })
 export class AccountInfoListItemComponent implements OnDestroy, OnInit {
+  private router = inject(Router);
+  private store = inject<Store<AppState>>(Store);
+  private authService = inject(AuthService);
+
   avatarUrl: string = '';
   firstName: string = '';
   lastName: string = '';
   subscription;
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>,
-    private authService: AuthService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectAccount).subscribe(value => {
       this.avatarUrl = value.avatarUrl;
       this.firstName = value.firstName;

@@ -17,24 +17,24 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-    selector: 'edit-kanji',
-    templateUrl: 'edit-kanji.component.html',
-    styleUrls: ['edit-kanji.component.scss'],
-    imports: [
-        MatFormField,
-        MatLabel,
-        MatInput,
-        FormsModule,
-        ReactiveFormsModule,
-        MatError,
-        MatChipGrid,
-        NgFor,
-        MatChipRow,
-        MatChipRemove,
-        MatIcon,
-        MatChipInput,
-        MatIconButton
-    ]
+  selector: 'edit-kanji',
+  templateUrl: 'edit-kanji.component.html',
+  styleUrls: ['edit-kanji.component.scss'],
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    MatChipGrid,
+    NgFor,
+    MatChipRow,
+    MatChipRemove,
+    MatIcon,
+    MatChipInput,
+    MatIconButton
+  ]
 })
 export class EditKanjiComponent implements OnInit {
   @Input() kanji!: Kanji;

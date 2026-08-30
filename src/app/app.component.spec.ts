@@ -16,10 +16,7 @@ describe('AppComponent', () => {
       // NOTE: do NOT stub ApplicationRef here — Angular 18's
       // ChangeDetectionSchedulerImpl injects the real one and the bare
       // { tick } useValue stub breaks its constructor.
-      providers: [
-        provideRouter([]),
-        { provide: ThemeService, useValue: { getTheme: () => of(ThemePreference.Light) } }
-      ]
+      providers: [provideRouter([]), { provide: ThemeService, useValue: { getTheme: () => of(ThemePreference.Light) } }]
     }).compileComponents();
   });
 

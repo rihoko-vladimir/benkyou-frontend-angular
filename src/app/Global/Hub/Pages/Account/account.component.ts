@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { selectAccount } from '../../../../Redux/Selectors/selectors';
@@ -12,21 +12,23 @@ import { AccountOverviewComponent } from '../../Components/AccountOverview/accou
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'account-page',
-    templateUrl: 'account.component.html',
-    styleUrls: ['account.component.scss'],
-    imports: [NgIf, AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
+  selector: 'account-page',
+  templateUrl: 'account.component.html',
+  styleUrls: ['account.component.scss'],
+  imports: [NgIf, AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
 })
 export class AccountComponent implements OnInit, OnDestroy {
+  private store = inject<Store<AppState>>(Store);
+  private accountService = inject(AccountService);
+
   currentTab: number = 0;
   isLoading: boolean = false;
   isError: boolean = false;
   subscription;
 
-  constructor(
-    private store: Store<AppState>,
-    private accountService: AccountService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectAccount).subscribe(account => {
       this.isLoading = false;
       this.isError = account.error.isError;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -16,25 +16,28 @@ import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field'
 import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
-    selector: 'all-sets-page',
-    templateUrl: 'all-sets.component.html',
-    styleUrls: ['all-sets.component.scss'],
-    imports: [
-        MatFormField,
-        MatLabel,
-        MatIcon,
-        MatPrefix,
-        MatInput,
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        SetGridComponent,
-        MatProgressSpinner,
-        ErrorComponent,
-        MatPaginator
-    ]
+  selector: 'all-sets-page',
+  templateUrl: 'all-sets.component.html',
+  styleUrls: ['all-sets.component.scss'],
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatIcon,
+    MatPrefix,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    SetGridComponent,
+    MatProgressSpinner,
+    ErrorComponent,
+    MatPaginator
+  ]
 })
 export class AllSetsComponent implements OnDestroy, OnInit {
+  private store = inject<Store<AppState>>(Store);
+  private allSetsService = inject(AllSetsService);
+
   currentSets: Set[] = [];
   setCount: number = 9;
   pagesCount: number = 1;
@@ -45,10 +48,9 @@ export class AllSetsComponent implements OnDestroy, OnInit {
   isError: boolean = false;
   searchControl: FormControl = new FormControl('');
 
-  constructor(
-    private store: Store<AppState>,
-    private allSetsService: AllSetsService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectAllSets).subscribe(value => {
       this.currentSets = value.sets;
       this.setCount = value.setsCount;

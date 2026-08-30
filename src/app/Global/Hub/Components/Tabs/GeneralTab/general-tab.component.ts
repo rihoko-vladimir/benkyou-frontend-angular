@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import AppState from '../../../../../Redux/app.state';
 import { selectAccount } from '../../../../../Redux/Selectors/selectors';
@@ -11,20 +11,22 @@ import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.a
 import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 
 @Component({
-    selector: 'general-tab',
-    templateUrl: 'general-tab.component.html',
-    styleUrls: ['general-tab.component.scss'],
-    imports: [MatSlideToggle]
+  selector: 'general-tab',
+  templateUrl: 'general-tab.component.html',
+  styleUrls: ['general-tab.component.scss'],
+  imports: [MatSlideToggle]
 })
 export class GeneralTabComponent implements OnDestroy {
+  private store = inject<Store<AppState>>(Store);
+  private accountService = inject(AccountService);
+
   accountInfo!: IAccountState;
   isPublic: boolean = false;
   subscription;
 
-  constructor(
-    private store: Store<AppState>,
-    private accountService: AccountService
-  ) {
+  constructor() {
+    const store = this.store;
+
     this.subscription = store.select(selectAccount).subscribe(accountInfo => {
       this.accountInfo = accountInfo;
       this.isPublic = accountInfo.isAccountPublic;

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepper, MatStep, MatStepperIcon } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -18,29 +18,33 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-    selector: 'registration',
-    templateUrl: 'registration.component.html',
-    styleUrls: ['registration.component.scss'],
-    animations: [],
-    imports: [
-        MatStepper,
-        MatStep,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        NgIf,
-        MatError,
-        CodeInputModule,
-        MatStepperIcon,
-        MatIcon,
-        MatButton,
-        MatProgressSpinner,
-        MatSnackBarModule
-    ]
+  selector: 'registration',
+  templateUrl: 'registration.component.html',
+  styleUrls: ['registration.component.scss'],
+  animations: [],
+  imports: [
+    MatStepper,
+    MatStep,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    NgIf,
+    MatError,
+    CodeInputModule,
+    MatStepperIcon,
+    MatIcon,
+    MatButton,
+    MatProgressSpinner,
+    MatSnackBarModule
+  ]
 })
 export class RegistrationComponent {
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private snackbar = inject(MatSnackBar);
+
   areButtonsHidden: boolean;
   isLoading: boolean = false;
   userId: string;
@@ -60,11 +64,7 @@ export class RegistrationComponent {
     [PasswordConfirmationEqualityValidator('passwordControl', 'passwordConfirmationControl')]
   );
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private snackbar: MatSnackBar
-  ) {
+  constructor() {
     this.areButtonsHidden = false;
     this.userId = '';
   }

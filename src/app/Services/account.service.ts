@@ -5,14 +5,13 @@ import { AppConfiguration } from '../Constants/AppConfiguration';
 import * as jsonpatch from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { UserResponse } from '../Models/Responses/UserResponse';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable()
 export class AccountService implements IAccountService {
-  constructor(
-    private httpClient: HttpClient,
-    private appConfig: AppConfiguration
-  ) {}
+  private httpClient = inject(HttpClient);
+  private appConfig = inject(AppConfiguration);
+
 
   updateUserAccount(currentUserData: Account, updatedUserData: Account): Observable<UserResponse> {
     const source: Account = { ...currentUserData };
