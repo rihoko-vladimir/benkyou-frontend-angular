@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngrx/store';
 import { AppComponent } from './app.component';
+import { accountReducer } from './Redux/Reducers/account.reducer';
+import { ThemeService } from './Services/theme.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([])]
+      providers: [provideRouter([]), provideStore({ account: accountReducer }), ThemeService]
     }).compileComponents();
   });
 
