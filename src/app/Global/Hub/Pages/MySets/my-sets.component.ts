@@ -48,8 +48,6 @@ export class MySetsComponent implements OnInit, OnDestroy {
   onSetCreated(set: Set | undefined) {
     if (set !== undefined) {
       this.mySetsService.createSet(set!);
-    } else {
-      console.log("Set wasn't created");
     }
   }
 

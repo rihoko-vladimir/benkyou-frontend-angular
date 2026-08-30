@@ -40,7 +40,6 @@ export class AuthService implements IAuthService {
       })
       .pipe(
         catchError(error => {
-          console.log(error);
           this.store.dispatch(accountError({ errorMessage: error.error ?? 'Service unavailable' }));
           return EMPTY;
         })
@@ -106,10 +105,5 @@ export class AuthService implements IAuthService {
       `${this.appConfig.apiEndpoint}/auth/confirm-reset-password?token=${token}&email=${email}`,
       setNewPasswordRequest
     );
-  }
-
-  getAssertionOptions() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.httpClient.get<any>(`${this.appConfig.apiEndpoint}/auth/assertion-options`);
   }
 }

@@ -18,7 +18,6 @@ export class LoginComponent implements OnDestroy {
   isPasswordHidden = false;
   isLoading = false;
   isSuccess = false;
-  isPasskeyAvailable = false;
 
   constructor(
     private router: Router,
@@ -72,7 +71,6 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    console.log("i'm destroyed");
   }
 
   showLoginError(errorMessage: string) {
@@ -80,21 +78,6 @@ export class LoginComponent implements OnDestroy {
       horizontalPosition: 'start',
       verticalPosition: 'bottom',
       duration: 3000
-    });
-  }
-
-  onPasskeyLoginClicked() {
-    this.authService.getAssertionOptions().subscribe(async options => {
-      const challenge = options.challenge.replace(/-/g, '+').replace(/_/g, '/');
-      options.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      options.allowCredentials.forEach((listItem: { id: any }) => {
-        const fixedId = listItem.id.replace(/_/g, '/').replace(/-/g, '+');
-        listItem.id = Uint8Array.from(atob(fixedId), c => c.charCodeAt(0));
-      });
-
-      await navigator.credentials.get({ publicKey: options });
     });
   }
 }

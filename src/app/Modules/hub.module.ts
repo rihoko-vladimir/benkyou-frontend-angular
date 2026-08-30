@@ -29,7 +29,6 @@ import { GeneralTabComponent } from '../Global/Hub/Components/Tabs/GeneralTab/ge
 import { PersonalTabComponent } from '../Global/Hub/Components/Tabs/PersonalTab/personal-tab.component';
 import { AccountService } from '../Services/account.service';
 import { ErrorComponent } from '../Global/Hub/Components/ErrorComponent/error.component';
-import { TestComponent } from '../Global/Hub/Components/TestComponent/test.component';
 import { SpeechableReadingComponent } from '../Global/Hub/Components/SpeechableReading/speechable-reading.component';
 import { ReadingsContainerComponent } from '../Global/Hub/Components/ReadingsContainer/readings-container.component';
 import { KanjiSvgDrawingPreviewComponent } from '../Global/Hub/Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
@@ -68,7 +67,6 @@ import { ThemeChangeComponent } from '../Global/Hub/Components/ThemeChange/theme
     KanjiSvgDrawingPreviewComponent,
     KanjiPreviewComponent,
     SetPreviewDialogComponent,
-    TestComponent,
     ThemeChangeComponent
   ],
   imports: [AppRoutingModule, MaterialModule, CommonModule, ReactiveFormsModule, MatRipple, NgOptimizedImage],
