@@ -1,21 +1,39 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import Set from '../../../../Models/Set';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../SetDialog/set-dialog.component';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { startStudying } from '../../../../Redux/Actions/set-study.actions';
 import AppState from '../../../../Redux/app.state';
 import { MySetsService } from '../../../../Services/my-sets.service';
-import { RemoveConfirmationDialogComponent } from '../RemoveConfirmationDialog/remove-confirmation-dialog.component';
-import { DialogData, SetPreviewDialogComponent } from '../SetPreview/set-preview-dialog.component';
 import { addSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
 import { loadMySetsFailure } from '../../../../Redux/Actions/my-sets.actions';
+import { RemoveConfirmationDialogComponent } from '../RemoveConfirmationDialog/remove-confirmation-dialog.component';
+import { DialogData, SetPreviewDialogComponent } from '../SetPreview/set-preview-dialog.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 
 @Component({
   selector: 'set',
   templateUrl: 'set.component.html',
-  styleUrls: ['set.component.scss']
+  styleUrls: ['set.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    NgIf,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatCardActions,
+    MatButton,
+    MatDialogModule
+  ]
 })
 export class SetComponent {
   @Input() set!: Set;

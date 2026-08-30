@@ -5,6 +5,10 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { AccountService } from '../../../../Services/account.service';
 import { accountError, loginSuccess } from '../../../../Redux/Actions/account.actions';
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
+import { MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf } from '@angular/common';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'account-overview',
@@ -35,7 +39,9 @@ import { mapUserResponseToAccountState } from '../../../../Services/Helpers/conv
         )
       ])
     ])
-  ]
+  ],
+  standalone: true,
+  imports: [MatCard, NgIf, MatIcon, MatMiniFabButton]
 })
 export class AccountOverviewComponent implements OnDestroy, OnChanges {
   @Input() currentTab: number = 0;

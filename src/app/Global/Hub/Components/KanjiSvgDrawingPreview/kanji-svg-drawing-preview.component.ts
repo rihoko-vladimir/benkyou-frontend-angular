@@ -3,7 +3,8 @@ import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@ang
 @Component({
   selector: 'kanji-svg-drawing-preview',
   templateUrl: 'kanji-svg-drawing-preview.component.html',
-  styleUrls: ['kanji-svg-drawing-preview.component.scss']
+  styleUrls: ['kanji-svg-drawing-preview.component.scss'],
+  standalone: true
 })
 export class KanjiSvgDrawingPreviewComponent implements OnInit, OnChanges {
   @ViewChild('svgBox') svgBox!: ElementRef;

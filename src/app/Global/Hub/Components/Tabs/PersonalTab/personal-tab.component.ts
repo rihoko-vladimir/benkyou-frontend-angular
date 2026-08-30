@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../../Redux/app.state';
 import { Account } from '../../../../../Models/Account';
@@ -8,11 +8,32 @@ import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
 import { accountError, loginSuccess } from '../../../../../Redux/Actions/account.actions';
 import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
 import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
+import { MatButton } from '@angular/material/button';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError, MatHint, MatSuffix } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'personal-tab',
   templateUrl: 'personal-tab.component.html',
-  styleUrls: ['personal-tab.component.scss']
+  styleUrls: ['personal-tab.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatDatepickerInput,
+    MatHint,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    MatButton,
+    MatNativeDateModule
+  ]
 })
 export class PersonalTabComponent implements OnDestroy {
   minimalDate = new Date('1900/01/01');

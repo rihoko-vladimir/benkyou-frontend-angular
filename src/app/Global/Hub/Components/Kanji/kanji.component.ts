@@ -4,7 +4,8 @@ import Kanji from '../../../../Models/Kanji';
 @Component({
   selector: 'kanji',
   templateUrl: 'kanji.component.html',
-  styleUrls: ['kanji.component.scss']
+  styleUrls: ['kanji.component.scss'],
+  standalone: true
 })
 export class KanjiComponent {
   @Input() kanji!: Kanji;

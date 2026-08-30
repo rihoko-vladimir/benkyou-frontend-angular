@@ -3,14 +3,36 @@ import Set from '../../../../Models/Set';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { AllSetsService } from '../../../../Services/all-sets.service';
-import { FormControl } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { SetGridComponent } from '../../Components/SetGrid/set-grid.component';
+import { NgIf } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
 import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
   selector: 'all-sets-page',
   templateUrl: 'all-sets.component.html',
-  styleUrls: ['all-sets.component.scss']
+  styleUrls: ['all-sets.component.scss'],
+  standalone: true,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatIcon,
+    MatPrefix,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    SetGridComponent,
+    MatProgressSpinner,
+    ErrorComponent,
+    MatPaginator
+  ]
 })
 export class AllSetsComponent implements OnDestroy, OnInit {
   currentSets: Set[] = [];

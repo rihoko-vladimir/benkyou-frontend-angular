@@ -2,14 +2,21 @@ import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import Kanji from '../../../../Models/Kanji';
 import AppState from '../../../../Redux/app.state';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { nextKanji } from '../../../../Redux/Actions/set-study.actions';
 import Answer from '../../../../Models/Answer';
+import { ResultsComponent } from '../../Components/ResultsComponent/results.component';
+import { MatButton } from '@angular/material/button';
+import { KanjiSvgDrawingPreviewComponent } from '../../Components/KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
+import { NgIf, NgFor } from '@angular/common';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'study-page',
   templateUrl: 'study-page.component.html',
-  styleUrls: ['study-page.component.scss']
+  styleUrls: ['study-page.component.scss'],
+  standalone: true,
+  imports: [MatCard, NgIf, KanjiSvgDrawingPreviewComponent, CdkDropList, NgFor, CdkDrag, MatButton, ResultsComponent]
 })
 export class StudyPageComponent implements OnDestroy {
   subscription;

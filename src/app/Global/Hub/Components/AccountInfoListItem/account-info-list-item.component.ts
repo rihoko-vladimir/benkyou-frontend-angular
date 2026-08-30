@@ -1,15 +1,32 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { accountError, loginSuccess, logout } from '../../../../Redux/Actions/account.actions';
 import { AuthService } from '../../../../Services/auth.service';
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
+import { MatListItem } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf, NgOptimizedImage } from '@angular/common';
+import { MatRipple } from '@angular/material/core';
+import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
 @Component({
   selector: 'account-info-list-item',
   styleUrls: ['account-info-list-item.component.scss'],
-  templateUrl: 'account-info-list-item.component.html'
+  templateUrl: 'account-info-list-item.component.html',
+  standalone: true,
+  imports: [
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatRipple,
+    NgIf,
+    MatIcon,
+    NgOptimizedImage,
+    MatListItem,
+    RouterLink,
+    RouterLinkActive
+  ]
 })
 export class AccountInfoListItemComponent implements OnDestroy, OnInit {
   avatarUrl: string = '';

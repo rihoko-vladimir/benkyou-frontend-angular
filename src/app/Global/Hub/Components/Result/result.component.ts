@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import Answer from '../../../../Models/Answer';
+import { ResultReadingComponent } from '../ResultReading/result-reading.component';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'result',
   templateUrl: 'result.component.html',
-  styleUrls: ['result.component.scss']
+  styleUrls: ['result.component.scss'],
+  standalone: true,
+  imports: [NgClass, NgFor, ResultReadingComponent]
 })
 export class ResultComponent implements OnInit {
   @Input() answer!: Answer;

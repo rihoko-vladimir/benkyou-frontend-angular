@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { SetComponent } from '../Set/set.component';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'set-grid',
@@ -20,7 +22,9 @@ import { animate, style, transition, trigger } from '@angular/animations';
         )
       ])
     ])
-  ]
+  ],
+  standalone: true,
+  imports: [NgFor, SetComponent]
 })
 export class SetGridComponent {
   @Input() sets!: Set[];

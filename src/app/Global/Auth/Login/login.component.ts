@@ -1,17 +1,40 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { Store } from '@ngrx/store';
 import AppState from '../../../Redux/app.state';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { accountError, loginSuccess } from '../../../Redux/Actions/account.actions';
 import { mapUserResponseToAccountState } from '../../../Services/Helpers/converters';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+  styleUrls: ['login.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    MatIconButton,
+    MatSuffix,
+    RouterLink,
+    MatButton,
+    MatSnackBarModule
+  ]
 })
 export class LoginComponent implements OnDestroy {
   loginControl = new FormControl('', [Validators.required, Validators.email]);
@@ -20,7 +43,6 @@ export class LoginComponent implements OnDestroy {
   isPasswordHidden = false;
   isLoading = false;
   isSuccess = false;
-  isPasskeyAvailable = false;
 
   constructor(
     private router: Router,
@@ -91,21 +113,6 @@ export class LoginComponent implements OnDestroy {
       horizontalPosition: 'start',
       verticalPosition: 'bottom',
       duration: 3000
-    });
-  }
-
-  onPasskeyLoginClicked() {
-    this.authService.getAssertionOptions().subscribe(async options => {
-      const challenge = options.challenge.replace(/-/g, '+').replace(/_/g, '/');
-      options.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      options.allowCredentials.forEach((listItem: { id: any }) => {
-        const fixedId = listItem.id.replace(/_/g, '/').replace(/-/g, '+');
-        listItem.id = Uint8Array.from(atob(fixedId), c => c.charCodeAt(0));
-      });
-
-      await navigator.credentials.get({ publicKey: options });
     });
   }
 }

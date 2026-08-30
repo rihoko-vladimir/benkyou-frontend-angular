@@ -14,5 +14,4 @@ export interface IAuthService {
 
   getUserInfo(): Observable<UserResponse>;
 
-  getAssertionOptions(): Observable<unknown>;
 }
