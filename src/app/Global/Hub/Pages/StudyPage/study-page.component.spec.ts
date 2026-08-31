@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import Answer from '../../../../Models/Answer';
@@ -19,12 +20,18 @@ import { StudyPageComponent } from './study-page.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ''
 })
-class KanjiSvgDrawingPreviewStubComponent {}
+class KanjiSvgDrawingPreviewStubComponent {
+  // v22 throws NG0303 on unknown property bindings, so the stub must
+  // mirror the real component's input surface.
+  @Input() kanji = '本';
+  @Input() width = '150px';
+  @Input() height = '150px';
+}
 
 describe('StudyPageComponent', () => {
   let component: StudyPageComponent;
   let fixture: ComponentFixture<StudyPageComponent>;
-  let store: jasmine.SpyObj<Store>;
+  let store: { select: () => BehaviorSubject<IStudyState>; dispatch: ReturnType<typeof vi.fn> };
   let studyState: IStudyState;
   let studyState$: BehaviorSubject<IStudyState>;
 
@@ -43,8 +50,7 @@ describe('StudyPageComponent', () => {
     };
     studyState$ = new BehaviorSubject<IStudyState>(studyState);
 
-    store = jasmine.createSpyObj<Store>('store', ['select', 'dispatch']);
-    store.select.and.returnValue(studyState$);
+    store = { select: () => studyState$, dispatch: vi.fn() };
 
     TestBed.configureTestingModule({
       // StudyPageComponent is standalone (post-migration): it goes in `imports`

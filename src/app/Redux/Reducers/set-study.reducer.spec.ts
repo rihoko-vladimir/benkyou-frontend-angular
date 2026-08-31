@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import Answer from '../../Models/Answer';
 import Kanji from '../../Models/Kanji';
 import Set from '../../Models/Set';
@@ -24,8 +25,12 @@ describe('setStudyReducer', () => {
   describe('startStudying', () => {
     it('shuffles the kanji list and initializes the study state', () => {
       // Deterministic shuffle keys: 0.9, 0.1, 0.4 ascending -> [二, 三, 一].
-      // Enough values are supplied for every Math.random() in the reducer path.
-      spyOn(Math, 'random').and.returnValues(0.9, 0.1, 0.4, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+      // Later calls (distractor picks) get the 0.5 default.
+      vi.spyOn(Math, 'random')
+        .mockReturnValueOnce(0.9)
+        .mockReturnValueOnce(0.1)
+        .mockReturnValueOnce(0.4)
+        .mockReturnValue(0.5);
 
       const state = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
 

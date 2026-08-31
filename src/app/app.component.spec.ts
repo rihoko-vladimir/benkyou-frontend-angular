@@ -32,6 +32,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
 
-    expect(document.body.classList.contains('light-theme')).toBeTrue();
+    expect(document.body.classList.contains('light-theme')).toBe(true);
   });
 });
