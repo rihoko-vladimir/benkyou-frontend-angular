@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepper, MatStep, MatStepperIcon } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { finalize } from 'rxjs';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
@@ -18,11 +18,11 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-  selector: 'registration',
+  selector: 'app-registration',
   templateUrl: 'registration.component.html',
   styleUrls: ['registration.component.scss'],
   animations: [],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatStepper,
     MatStep,
@@ -31,7 +31,6 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
     MatFormField,
     MatLabel,
     MatInput,
-    NgIf,
     MatError,
     CodeInputModule,
     MatStepperIcon,
@@ -42,9 +41,13 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
   ]
 })
 export class RegistrationComponent {
-  areButtonsHidden: boolean;
-  isLoading: boolean = false;
-  userId: string;
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private snackbar = inject(MatSnackBar);
+
+  areButtonsHidden = signal(false);
+  isLoading = signal(false);
+  userId = signal('');
   @ViewChild('stepper') stepper!: MatStepper;
   @ViewChild('confirmationCode') confirmationCodeElement!: CodeInputComponent;
   credentialsFormGroup = new FormGroup({
@@ -61,13 +64,9 @@ export class RegistrationComponent {
     [PasswordConfirmationEqualityValidator('passwordControl', 'passwordConfirmationControl')]
   );
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private snackbar: MatSnackBar
-  ) {
-    this.areButtonsHidden = false;
-    this.userId = '';
+  constructor() {
+    this.areButtonsHidden.set(false);
+    this.userId.set('');
   }
 
   onNextClicked() {
@@ -90,10 +89,10 @@ export class RegistrationComponent {
           this.credentialsFormGroup.controls.lastNameControl.value!,
           this.passwordFormGroup.controls.passwordControl.value!
         );
-        this.isLoading = true;
-        observable.pipe(finalize(() => (this.isLoading = false))).subscribe(
+        this.isLoading.set(true);
+        observable.pipe(finalize(() => this.isLoading.set(false))).subscribe(
           userId => {
-            this.userId = userId;
+            this.userId.set(userId);
             this.hideButtons();
             this.stepper.next();
           },
@@ -171,17 +170,17 @@ export class RegistrationComponent {
   }
 
   hideButtons() {
-    this.areButtonsHidden = true;
+    this.areButtonsHidden.set(true);
   }
 
   onSendConfirmationCode(code: string) {
     this.confirmationCodeElement.disabled = true;
 
-    const observable = this.authService.confirmEmailAddress(this.userId, code);
+    const observable = this.authService.confirmEmailAddress(this.userId(), code);
 
     observable.subscribe(
       userId => {
-        this.userId = userId;
+        this.userId.set(userId);
         this.router.navigate(['auth']);
       },
       error => {

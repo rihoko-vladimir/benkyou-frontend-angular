@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 
 @Component({
-  selector: 'speechable-reading',
+  selector: 'app-speechable-reading',
   templateUrl: 'speechable-reading.component.html',
   styleUrls: ['speechable-reading.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatBadge]
 })
 export class SpeechableReadingComponent {
-  @Input() reading: string = '話す';
+  @Input() reading = '話す';
 
   private tts = new SpeechSynthesisUtterance();
 

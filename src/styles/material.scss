@@ -1,25 +1,32 @@
 @use '@angular/material' as mat;
-@use '@angular/material-experimental' as matx;
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
-$light-theme: matx.define-theme((
-  color: (
-    primary: matx.$m3-violet-palette
-  )
-));
-
-$dark-theme: matx.define-theme((
-  color: (
-    theme-type: dark,
-    primary: matx.$m3-violet-palette
-  )
-));
-
+// Material 3 system-variable themes (mat.theme, v19+ API). The runtime
+// theme service toggles .light-theme / .dark-theme on <body>; each class
+// emits its own token set. Primary/tertiary both violet to preserve the
+// legacy purple-green look as closely as the M3 model allows.
 .light-theme {
-  @include mat.all-component-themes($light-theme);
+  @include mat.theme((
+    color: (
+      primary: mat.$violet-palette,
+      tertiary: mat.$violet-palette,
+      theme-type: light
+    ),
+    typography: Roboto,
+    density: 0
+  ));
 }
 
 .dark-theme {
-  @include mat.all-component-themes($dark-theme);
+  @include mat.theme((
+    color: (
+      primary: mat.$violet-palette,
+      tertiary: mat.$violet-palette,
+      theme-type: dark
+    ),
+    typography: Roboto,
+    density: 0
+  ));
 }

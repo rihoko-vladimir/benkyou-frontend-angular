@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -16,12 +16,10 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtRefreshInterceptor implements HttpInterceptor {
-  constructor(
-    private httpClient: HttpClient,
-    private appConfig: AppConfiguration,
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  private httpClient = inject(HttpClient);
+  private appConfig = inject(AppConfiguration);
+  private store = inject<Store<AppState>>(Store);
+  private router = inject(Router);
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(

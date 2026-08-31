@@ -5,11 +5,11 @@ import { Store } from '@ngrx/store';
 import AppState from '../Redux/app.state';
 import { selectAccount } from '../Redux/Selectors/selectors';
 import { themeChange } from '../Redux/Actions/account.actions';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable()
 export class ThemeService implements IThemeService {
-  constructor(private store: Store<AppState>) {}
+  private store = inject<Store<AppState>>(Store);
 
   getTheme() {
     return this.store

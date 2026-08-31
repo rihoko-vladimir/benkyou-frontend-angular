@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -17,12 +17,12 @@ export class DialogData {
   }
 }
 @Component({
-  selector: 'set-preview-dialog',
+  selector: 'app-set-preview-dialog',
   templateUrl: 'set-preview-dialog.component.html',
   styleUrls: ['set-preview-dialog.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatDialogTitle, MatDialogContent, KanjiListComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class SetPreviewDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  data = inject<DialogData>(MAT_DIALOG_DATA);
 }

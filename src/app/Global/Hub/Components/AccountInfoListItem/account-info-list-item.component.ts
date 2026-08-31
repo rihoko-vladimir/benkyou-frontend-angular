@@ -1,27 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { selectAccount } from '../../../../Redux/Selectors/selectors';
+import { accountInitialState } from '../../../../Redux/Reducers/account.reducer';
 import { accountError, accountInfoSuccess, logout } from '../../../../Redux/Actions/account.actions';
 import { AuthService } from '../../../../Services/auth.service';
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
 import { MatListItem } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
 @Component({
-  selector: 'account-info-list-item',
+  selector: 'app-account-info-list-item',
   styleUrls: ['account-info-list-item.component.scss'],
   templateUrl: 'account-info-list-item.component.html',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatRipple,
-    NgIf,
     MatIcon,
     NgOptimizedImage,
     MatListItem,
@@ -29,31 +30,21 @@ import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/ex
     RouterLinkActive
   ]
 })
-export class AccountInfoListItemComponent implements OnDestroy, OnInit {
-  avatarUrl: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  subscription;
+export class AccountInfoListItemComponent implements OnInit {
+  private router = inject(Router);
+  private store = inject<Store<AppState>>(Store);
+  private authService = inject(AuthService);
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>,
-    private authService: AuthService
-  ) {
-    this.subscription = store.select(selectAccount).subscribe(value => {
-      this.avatarUrl = value.avatarUrl;
-      this.firstName = value.firstName;
-      this.lastName = value.lastName;
-    });
-  }
+  // Zoneless prep (commit A): store slice read via toSignal; the initial
+  // value is the reducer's hydration default.
+  account = toSignal(this.store.select(selectAccount), { initialValue: accountInitialState });
+  avatarUrl = computed(() => this.account().avatarUrl);
+  firstName = computed(() => this.account().firstName);
+  lastName = computed(() => this.account().lastName);
 
   async onLogoutClicked() {
     this.store.dispatch(logout());
     await this.router.navigate(['auth']);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {

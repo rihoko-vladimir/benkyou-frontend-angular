@@ -11,7 +11,7 @@ export interface ISetsState {
   errorMessage?: string;
 }
 
-const initialState: ISetsState = {
+export const allSetsInitialState: ISetsState = {
   currentPage: 1,
   pagesCount: 1,
   sets: [],
@@ -20,7 +20,7 @@ const initialState: ISetsState = {
 };
 
 export const allSetsReducer = createReducer(
-  initialState,
+  allSetsInitialState,
   on(loadAllSetsSuccess, (state, { sets, pagesCount, pageNumber }) => ({
     currentPage: pageNumber,
     sets: sets,
@@ -32,5 +32,5 @@ export const allSetsReducer = createReducer(
     ...state,
     errorMessage: errorMessage
   })),
-  on(logout, () => initialState)
+  on(logout, () => allSetsInitialState)
 );

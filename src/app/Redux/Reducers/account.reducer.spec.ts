@@ -49,8 +49,8 @@ describe('accountReducer', () => {
     expect(state.userRole).toBe('admin');
     expect(state.birthDay).toBe('1990-01-01');
     expect(state.avatarUrl).toBe('http://example.com/avatar.png');
-    expect(state.isTermsAccepted).toBeTrue();
-    expect(state.isAccountPublic).toBeTrue();
+    expect(state.isTermsAccepted).toBe(true);
+    expect(state.isAccountPublic).toBe(true);
     expect(state.about).toBe('About me');
     expect(state.error).toEqual({ isError: false, errorMessage: '' });
   });

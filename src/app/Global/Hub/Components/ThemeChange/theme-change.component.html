@@ -1,6 +1,6 @@
-<button mat-icon-button (click)="changeTheme()" [matTooltip]="getTooltip()">
+<button mat-icon-button (click)="changeTheme()" [matTooltip]="tooltip()">
   <mat-icon fontSet="material-icons-outlined">
-    @switch (themePreference){
+    @switch (themePreference()) {
       @case (ThemePreference.Auto){
         contrast
       }

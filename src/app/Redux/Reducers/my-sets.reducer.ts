@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { loadMySetsFailure, loadMySetsSuccess } from '../Actions/my-sets.actions';
 import { logout } from '../Actions/account.actions';
 
-const initialState: ISetsState = {
+export const mySetsInitialState: ISetsState = {
   currentPage: 1,
   pagesCount: 1,
   sets: [],
@@ -12,7 +12,7 @@ const initialState: ISetsState = {
 };
 
 export const mySetsReducer = createReducer(
-  initialState,
+  mySetsInitialState,
   on(loadMySetsSuccess, (state, { sets, pagesCount, pageNumber }) => ({
     sets: sets,
     pagesCount: pagesCount,
@@ -24,5 +24,5 @@ export const mySetsReducer = createReducer(
     ...state,
     errorMessage: errorMessage
   })),
-  on(logout, () => initialState)
+  on(logout, () => mySetsInitialState)
 );

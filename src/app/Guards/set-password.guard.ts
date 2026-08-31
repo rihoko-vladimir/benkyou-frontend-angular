@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import AppState from '../Redux/app.state';
@@ -6,10 +6,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class SetPasswordGuard {
-  constructor(
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  private store = inject<Store<AppState>>(Store);
+  private router = inject(Router);
+
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

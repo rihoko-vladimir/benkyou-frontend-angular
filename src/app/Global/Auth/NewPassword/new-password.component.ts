@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordConfirmationEqualityValidator } from '../PasswordReset/validators/password-confirmation-equality';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,16 +12,21 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-  selector: 'new-password',
+  selector: 'app-new-password',
   templateUrl: 'new-password.component.html',
   styleUrls: ['new-password.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, MatButton, MatSnackBarModule]
 })
 export class NewPasswordComponent implements OnInit {
-  isLoading: boolean = false;
-  token: string = '';
-  email: string = '';
+  private route = inject(ActivatedRoute);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private snackbar = inject(MatSnackBar);
+
+  isLoading = signal(false);
+  token = signal('');
+  email = signal('');
   passwordGroup = new FormGroup(
     {
       passwordControl: new FormControl('', [Validators.required, Validators.pattern(regExpr)]),
@@ -29,13 +34,6 @@ export class NewPasswordComponent implements OnInit {
     },
     [PasswordConfirmationEqualityValidator('passwordControl', 'confirmationControl')]
   );
-
-  constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private router: Router,
-    private snackbar: MatSnackBar
-  ) {}
 
   getPasswordErrorMessage() {
     if (this.passwordGroup.controls.passwordControl.hasError(Validators.required.name)) return 'This field is required';
@@ -56,15 +54,15 @@ export class NewPasswordComponent implements OnInit {
 
   onSetNewPasswordClicked() {
     if (this.passwordGroup.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
       this.authService
-        .setNewPassword(this.passwordGroup.controls.confirmationControl.value!, this.email, this.token)
+        .setNewPassword(this.passwordGroup.controls.confirmationControl.value!, this.email(), this.token())
         .subscribe({
           next: () => {
             this.router.navigate(['auth']);
           },
           error: error => {
-            this.isLoading = false;
+            this.isLoading.set(false);
             this.snackbar.open(error.error, undefined, {
               horizontalPosition: 'start',
               verticalPosition: 'bottom',
@@ -77,8 +75,8 @@ export class NewPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.token = params['token'];
-      this.email = params['email'];
+      this.token.set(params['token']);
+      this.email.set(params['email']);
     });
   }
 }

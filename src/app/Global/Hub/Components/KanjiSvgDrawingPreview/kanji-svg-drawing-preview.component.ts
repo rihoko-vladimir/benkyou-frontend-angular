@@ -1,16 +1,17 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kanji-svg-drawing-preview',
+  selector: 'app-kanji-svg-drawing-preview',
   templateUrl: 'kanji-svg-drawing-preview.component.html',
   styleUrls: ['kanji-svg-drawing-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
 export class KanjiSvgDrawingPreviewComponent implements OnInit, OnChanges {
   @ViewChild('svgBox') svgBox!: ElementRef;
-  @Input() kanji: string = '本';
-  @Input() width: string = '150px';
-  @Input() height: string = '150px';
+  @Input() kanji = '本';
+  @Input() width = '150px';
+  @Input() height = '150px';
 
   private tts = new SpeechSynthesisUtterance();
 

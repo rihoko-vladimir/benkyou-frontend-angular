@@ -1,50 +1,54 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, computed, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import Set from '../../../../Models/Set';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../../Components/SetDialog/set-dialog.component';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { selectMySets } from '../../../../Redux/Selectors/selectors';
+import { mySetsInitialState } from '../../../../Redux/Reducers/my-sets.reducer';
 import { MySetsService } from '../../../../Services/my-sets.service';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { ErrorComponent } from '../../Components/ErrorComponent/error.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SetGridComponent } from '../../Components/SetGrid/set-grid.component';
-import { NgIf } from '@angular/common';
+
 import { MatButton } from '@angular/material/button';
 import { loadMySetsFailure, loadMySetsSuccess } from '../../../../Redux/Actions/my-sets.actions';
 import { createSetSuccess, removeSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
 import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
-  selector: 'my-sets-page',
+  selector: 'app-my-sets-page',
   templateUrl: 'my-sets.component.html',
   styleUrls: ['my-sets.component.scss'],
-  standalone: true,
-  imports: [MatButton, NgIf, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatButton, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
 })
-export class MySetsComponent implements OnInit, OnDestroy {
-  sets: Set[] = [];
-  currentPage: number = 0;
-  pageSize: number = 9;
-  pagesCount: number = 1;
-  subscription;
-  isLoading: boolean = false;
-  isError: boolean = false;
+export class MySetsComponent implements OnInit {
+  private dialog = inject(MatDialog);
+  private store = inject<Store<AppState>>(Store);
+  private mySetsService = inject(MySetsService);
 
-  constructor(
-    private dialog: MatDialog,
-    private store: Store<AppState>,
-    private mySetsService: MySetsService
-  ) {
-    this.subscription = store.select(selectMySets).subscribe(value => {
-      this.pagesCount = value.pagesCount;
-      this.pageSize = value.setsCount;
-      this.sets = value.sets;
-      this.isLoading = false;
-      this.isError = value.errorMessage !== undefined;
-      this.currentPage = value.currentPage - 1;
-    });
+  // Zoneless prep (commit A): store slice via toSignal; template reads
+  // through signals so zoneless schedules CD.
+  private mySetsState = toSignal(this.store.select(selectMySets), { initialValue: mySetsInitialState });
+  isLoading = signal(false);
+  isError = computed(() => this.mySetsState().errorMessage !== undefined);
+  // Writable signal: the set-grid two-way binding pushes local reorders
+  // back into it; the effect below keeps it in sync with the store slice.
+  sets = signal<Set[]>([]);
+  pagesCount = computed(() => this.mySetsState().pagesCount);
+  // Preserved from pre-migration behavior: pageSize tracks setsCount.
+  pageSize = computed(() => this.mySetsState().setsCount);
+  currentPage = computed(() => this.mySetsState().currentPage - 1);
+
+  constructor() {
+    effect(() => this.sets.set(this.mySetsState().sets));
+  }
+
+  onSetsChanged(changedSets: Set[]) {
+    this.sets.set(changedSets);
   }
 
   onCreateNewSetClicked() {
@@ -69,19 +73,15 @@ export class MySetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.loadMySets(1, this.pageSize);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.isLoading.set(true);
+    this.loadMySets(1, this.pageSize());
   }
 
   onSetRemoved(id: string) {
     this.mySetsService.removeMySet(id).subscribe({
       next: () => {
         this.store.dispatch(removeSetSuccess());
-        this.loadMySets(this.currentPage + 1, this.pageSize);
+        this.loadMySets(this.currentPage() + 1, this.pageSize());
       },
       error: error => this.store.dispatch(loadMySetsFailure({ errorMessage: error.error }))
     });
@@ -95,13 +95,13 @@ export class MySetsComponent implements OnInit, OnDestroy {
   }
 
   onRetryClicked() {
-    this.isLoading = true;
-    this.loadMySets(1, this.pageSize);
+    this.isLoading.set(true);
+    this.loadMySets(1, this.pageSize());
   }
 
   onPageChanged(event: PageEvent) {
-    this.isLoading = true;
-    this.loadMySets(event.pageIndex + 1, this.pageSize);
+    this.isLoading.set(true);
+    this.loadMySets(event.pageIndex + 1, this.pageSize());
   }
 
   private loadMySets(pageNumber: number, pageSize: number) {

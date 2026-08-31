@@ -1,4 +1,4 @@
-import { ApplicationRef, Component } from '@angular/core';
+import { ApplicationRef, Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { ThemePreference } from './Models/Enums/ThemePreference';
 import { ThemeService } from './Services/theme.service';
@@ -7,15 +7,15 @@ import { ThemeService } from './Services/theme.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet]
 })
 export class AppComponent {
-  constructor(
-    private contexts: ChildrenOutletContexts,
-    private ref: ApplicationRef,
-    private themeService: ThemeService
-  ) {
+  private contexts = inject(ChildrenOutletContexts);
+  private ref = inject(ApplicationRef);
+  private themeService = inject(ThemeService);
+
+  constructor() {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
       if (e.matches) {
         this.setTheme(ThemePreference.Dark);
