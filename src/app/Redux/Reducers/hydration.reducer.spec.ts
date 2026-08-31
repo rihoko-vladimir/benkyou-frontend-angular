@@ -5,7 +5,7 @@ import { hydrationMetaReducer } from './hydration.reducer';
 describe('hydrationMetaReducer', () => {
   const storageKey = 'state';
 
-  let storage: { [key: string]: string };
+  let storage: Record<string, string>;
 
   beforeEach(() => {
     storage = {};

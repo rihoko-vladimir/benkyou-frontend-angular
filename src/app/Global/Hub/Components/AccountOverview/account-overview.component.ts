@@ -1,4 +1,15 @@
-import { Component, ElementRef, Input, OnChanges, ViewChild, computed, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  ViewChild,
+  computed,
+  effect,
+  inject,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import AppState from '../../../../Redux/app.state';
 import { selectAccount } from '../../../../Redux/Selectors/selectors';
@@ -43,13 +54,14 @@ import { MatCard } from '@angular/material/card';
       ])
     ])
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatCard, MatIcon, MatMiniFabButton]
 })
 export class AccountOverviewComponent implements OnChanges {
   private store = inject<Store<AppState>>(Store);
   private accountService = inject(AccountService);
 
-  @Input() currentTab: number = 0;
+  @Input() currentTab = 0;
   @ViewChild('fileInput') fileInput?: ElementRef;
 
   // Zoneless prep (commit A): account slice via toSignal; local file

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ThemePreference } from '../../../../Models/Enums/ThemePreference';
 import { ThemeService } from '../../../../Services/theme.service';
@@ -10,6 +10,7 @@ import { MatIconButton } from '@angular/material/button';
   selector: 'app-theme-change',
   templateUrl: 'theme-change.component.html',
   styleUrl: 'theme-change.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIconButton, MatTooltip, MatIcon]
 })
 export class ThemeChangeComponent {

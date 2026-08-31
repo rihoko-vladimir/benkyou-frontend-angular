@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import Answer from '../../../../Models/Answer';
 import { Store } from '@ngrx/store';
 import { finishStudying } from '../../../../Redux/Actions/set-study.actions';
@@ -10,6 +10,7 @@ import { ResultComponent } from '../Result/result.component';
   selector: 'app-results',
   templateUrl: 'results.component.html',
   styleUrls: ['results.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ResultComponent, MatButton]
 })
 export class ResultsComponent {

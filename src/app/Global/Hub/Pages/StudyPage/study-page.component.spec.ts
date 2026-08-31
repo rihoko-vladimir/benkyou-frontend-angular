@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
@@ -13,7 +13,12 @@ import { StudyPageComponent } from './study-page.component';
 // ngOnInit, which would perform a real HTTP request in the test environment.
 // It is stubbed out here: this smoke spec only cares about the StudyPage
 // component's store wiring, not about SVG rendering.
-@Component({ selector: 'app-kanji-svg-drawing-preview', standalone: true, template: '' })
+@Component({
+  selector: 'app-kanji-svg-drawing-preview',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: ''
+})
 class KanjiSvgDrawingPreviewStubComponent {}
 
 describe('StudyPageComponent', () => {

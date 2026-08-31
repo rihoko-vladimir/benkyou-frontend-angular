@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import Kanji from '../../../../../Models/Kanji';
 import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 import { MatIcon } from '@angular/material/icon';
@@ -30,6 +30,7 @@ import { EditKanjiComponent } from '../EditKanji/edit-kanji.component';
       ])
     ])
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EditKanjiComponent, MatIconButton, MatIcon]
 })
 export class EditKanjiListComponent {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogProperties, OpenMode, SetDialogComponent } from '../SetDialog/set-dialog.component';
@@ -21,6 +21,7 @@ import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular
   selector: 'app-set',
   templateUrl: 'set.component.html',
   styleUrls: ['set.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatCard,
     MatCardTitle,

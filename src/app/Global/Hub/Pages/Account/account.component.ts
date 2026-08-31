@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -16,6 +16,7 @@ import { AccountOverviewComponent } from '../../Components/AccountOverview/accou
   selector: 'app-account-page',
   templateUrl: 'account.component.html',
   styleUrls: ['account.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AccountOverviewComponent, AccountInformationComponent, MatProgressSpinner, ErrorComponent]
 })
 export class AccountComponent implements OnInit {
@@ -30,7 +31,7 @@ export class AccountComponent implements OnInit {
   isLoading = signal(false);
   isError = computed(() => this.accountState().error.isError);
 
-  currentTab: number = 0;
+  currentTab = 0;
 
   ngOnInit(): void {
     this.isLoading.set(true);

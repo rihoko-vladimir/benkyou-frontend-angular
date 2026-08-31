@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, inject } from '@angular/core';
+import { ApplicationRef, Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { ThemePreference } from './Models/Enums/ThemePreference';
 import { ThemeService } from './Services/theme.service';
@@ -7,6 +7,7 @@ import { ThemeService } from './Services/theme.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet]
 })
 export class AppComponent {

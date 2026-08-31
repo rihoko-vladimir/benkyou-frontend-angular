@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 
@@ -6,6 +6,7 @@ import { MatButton } from '@angular/material/button';
   selector: 'app-remove-confirmation-dialog',
   templateUrl: 'remove-confirmation-dialog.component.html',
   styleUrls: ['remove-confirmation-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
 })
 export class RemoveConfirmationDialogComponent {

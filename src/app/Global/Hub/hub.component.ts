@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   ChildrenOutletContexts,
   NavigationEnd,
@@ -27,6 +27,7 @@ import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/materi
   styleUrls: ['hub.component.scss'],
   templateUrl: 'hub.component.html',
   animations: [tabSwitchAnimations],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatDrawerContainer,
     MatDrawer,

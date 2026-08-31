@@ -9,11 +9,11 @@ export default class Set {
   kanjiList: Kanji[];
 
   constructor(
-    id: string = '',
-    name: string = '',
-    description: string = '',
-    authorName: string = '',
-    authorId: string = '',
+    id = '',
+    name = '',
+    description = '',
+    authorName = '',
+    authorId = '',
     kanjiList: Kanji[] = [new Kanji('', [], []), new Kanji('', [], []), new Kanji('', [], [])]
   ) {
     this.id = id;

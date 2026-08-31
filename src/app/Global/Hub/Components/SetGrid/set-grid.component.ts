@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SetComponent } from '../Set/set.component';
@@ -22,6 +22,7 @@ import { SetComponent } from '../Set/set.component';
       ])
     ])
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SetComponent]
 })
 export class SetGridComponent {

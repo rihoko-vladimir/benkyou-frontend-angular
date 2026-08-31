@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -17,6 +17,7 @@ import { MatCard } from '@angular/material/card';
   selector: 'app-study-page',
   templateUrl: 'study-page.component.html',
   styleUrls: ['study-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatCard, KanjiSvgDrawingPreviewComponent, CdkDropList, CdkDrag, MatButton, ResultsComponent]
 })
 export class StudyPageComponent {

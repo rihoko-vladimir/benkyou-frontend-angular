@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, effect, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import Set from '../../../../Models/Set';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -22,6 +22,7 @@ import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
   selector: 'app-my-sets-page',
   templateUrl: 'my-sets.component.html',
   styleUrls: ['my-sets.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButton, SetGridComponent, MatProgressSpinner, ErrorComponent, MatPaginator, MatDialogModule]
 })
 export class MySetsComponent implements OnInit {

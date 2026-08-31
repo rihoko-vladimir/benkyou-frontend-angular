@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -20,6 +20,7 @@ import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Action
   selector: 'app-all-sets-page',
   templateUrl: 'all-sets.component.html',
   styleUrls: ['all-sets.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatFormField,
     MatLabel,

@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepper, MatStep, MatStepperIcon } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -22,6 +22,7 @@ const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
   templateUrl: 'registration.component.html',
   styleUrls: ['registration.component.scss'],
   animations: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatStepper,
     MatStep,
@@ -44,9 +45,9 @@ export class RegistrationComponent {
   private authService = inject(AuthService);
   private snackbar = inject(MatSnackBar);
 
-  areButtonsHidden: boolean;
-  isLoading: boolean = false;
-  userId: string;
+  areButtonsHidden = signal(false);
+  isLoading = signal(false);
+  userId = signal('');
   @ViewChild('stepper') stepper!: MatStepper;
   @ViewChild('confirmationCode') confirmationCodeElement!: CodeInputComponent;
   credentialsFormGroup = new FormGroup({
@@ -64,8 +65,8 @@ export class RegistrationComponent {
   );
 
   constructor() {
-    this.areButtonsHidden = false;
-    this.userId = '';
+    this.areButtonsHidden.set(false);
+    this.userId.set('');
   }
 
   onNextClicked() {
@@ -88,10 +89,10 @@ export class RegistrationComponent {
           this.credentialsFormGroup.controls.lastNameControl.value!,
           this.passwordFormGroup.controls.passwordControl.value!
         );
-        this.isLoading = true;
-        observable.pipe(finalize(() => (this.isLoading = false))).subscribe(
+        this.isLoading.set(true);
+        observable.pipe(finalize(() => this.isLoading.set(false))).subscribe(
           userId => {
-            this.userId = userId;
+            this.userId.set(userId);
             this.hideButtons();
             this.stepper.next();
           },
@@ -169,17 +170,17 @@ export class RegistrationComponent {
   }
 
   hideButtons() {
-    this.areButtonsHidden = true;
+    this.areButtonsHidden.set(true);
   }
 
   onSendConfirmationCode(code: string) {
     this.confirmationCodeElement.disabled = true;
 
-    const observable = this.authService.confirmEmailAddress(this.userId, code);
+    const observable = this.authService.confirmEmailAddress(this.userId(), code);
 
     observable.subscribe(
       userId => {
-        this.userId = userId;
+        this.userId.set(userId);
         this.router.navigate(['auth']);
       },
       error => {

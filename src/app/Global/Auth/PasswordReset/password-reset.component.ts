@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatStepper, MatStep } from '@angular/material/stepper';
@@ -13,6 +13,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
   selector: 'app-password-reset',
   templateUrl: 'password-reset.component.html',
   styleUrls: ['password-reset.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatStepper,
     MatStep,
@@ -33,7 +34,7 @@ export class PasswordResetComponent {
   private snackbar = inject(MatSnackBar);
 
   emailControl = new FormControl('', [Validators.required, Validators.email]);
-  isLoading: boolean = false;
+  isLoading = signal(false);
 
   @ViewChild('stepper') stepper!: MatStepper;
 
@@ -51,14 +52,14 @@ export class PasswordResetComponent {
 
   onNextClicked() {
     if (this.emailControl.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
       this.authService.resetPassword(this.emailControl.value!).subscribe({
         next: () => {
           this.stepper.next();
-          this.isLoading = false;
+          this.isLoading.set(false);
         },
         error: error => {
-          this.isLoading = false;
+          this.isLoading.set(false);
           this.snackbar.open(error.error, undefined, {
             horizontalPosition: 'start',
             verticalPosition: 'bottom',

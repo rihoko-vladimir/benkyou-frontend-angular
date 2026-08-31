@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -20,6 +20,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
   selector: 'app-set-dialog',
   templateUrl: 'set-dialog.component.html',
   styleUrl: 'set-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatDialogTitle,
     MatDialogContent,

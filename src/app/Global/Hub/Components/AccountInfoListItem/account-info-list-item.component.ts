@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, inject } from '@angular/core';
+import { Component, computed, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,7 @@ import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/ex
   selector: 'app-account-info-list-item',
   styleUrls: ['account-info-list-item.component.scss'],
   templateUrl: 'account-info-list-item.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatExpansionPanel,
     MatExpansionPanelHeader,

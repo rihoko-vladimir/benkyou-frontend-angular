@@ -1,4 +1,5 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
@@ -18,6 +19,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatProgressSpinner,
     MatIcon,
@@ -34,7 +36,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatSnackBarModule
   ]
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private authService = inject(AuthService);
@@ -43,33 +45,35 @@ export class LoginComponent implements OnDestroy {
 
   loginControl = new FormControl('', [Validators.required, Validators.email]);
   passwordControl = new FormControl('', [Validators.required]);
-  subscription;
-  isPasswordHidden = false;
-  isLoading = false;
-  isSuccess = false;
+  isPasswordHidden = signal(false);
+  // Zoneless-safe state: flags written from async callbacks must be
+  // signals so CD is scheduled when they change (OnPush + zoneless).
+  isLoading = signal(false);
+  isSuccess = signal(false);
+  private accountState = toSignal(this.store.select(selectAccount), { initialValue: null });
 
   constructor() {
-    const router = this.router;
-    const store = this.store;
+    effect(() => {
+      const value = this.accountState();
+      if (!value) return;
 
-    this.subscription = store.select(selectAccount).subscribe(value => {
       if (!value?.error?.isError && value.id !== '') {
-        this.isSuccess = true;
-        this.isLoading = false;
+        this.isSuccess.set(true);
+        this.isLoading.set(false);
         setTimeout(() => {
-          router.navigate(['hub']);
-          this.isSuccess = false;
+          this.router.navigate(['hub']);
+          this.isSuccess.set(false);
         }, 500);
       } else if (value?.error?.isError) {
         this.showLoginError(value.error.errorMessage);
-        this.isLoading = false;
+        this.isLoading.set(false);
       }
     });
   }
 
   onLoginClicked() {
     if (this.loginControl.valid && this.passwordControl.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
       this.authService.login(this.loginControl.value!, this.passwordControl.value!).subscribe({
         next: () => this.loadUserInfo(),
         error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
@@ -103,10 +107,6 @@ export class LoginComponent implements OnDestroy {
     if (this.passwordControl.hasError(Validators.required.name)) return 'This field can not be empty';
 
     return 'An Unknown error have occurred';
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   showLoginError(errorMessage: string) {

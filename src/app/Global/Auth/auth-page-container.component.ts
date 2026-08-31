@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { cardsChangeAnimation } from '../../Animations/auth-page.animations';
 import { MatCard } from '@angular/material/card';
@@ -8,6 +8,7 @@ import { MatCard } from '@angular/material/card';
   templateUrl: 'auth-page-container.component.html',
   styleUrls: ['auth-page-container.component.css'],
   animations: [cardsChangeAnimation],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatCard, RouterOutlet]
 })
 export class AuthPageContainerComponent {

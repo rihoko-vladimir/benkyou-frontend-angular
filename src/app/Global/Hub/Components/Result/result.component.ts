@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import Answer from '../../../../Models/Answer';
 import { ResultReadingComponent } from '../ResultReading/result-reading.component';
 import { NgClass } from '@angular/common';
@@ -7,11 +7,12 @@ import { NgClass } from '@angular/common';
   selector: 'app-result',
   templateUrl: 'result.component.html',
   styleUrls: ['result.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass, ResultReadingComponent]
 })
 export class ResultComponent implements OnInit {
   @Input() answer!: Answer;
-  isCorrect: boolean = false;
+  isCorrect = false;
   correctKunyomi: string[] = [];
   userKunyomi: string[] = [];
   correctOnyomi: string[] = [];

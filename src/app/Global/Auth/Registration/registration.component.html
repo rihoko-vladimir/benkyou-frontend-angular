@@ -83,16 +83,16 @@
       <mat-icon>done</mat-icon>
     </ng-template>
   </mat-stepper>
-  @if (!areButtonsHidden) {
+  @if (!areButtonsHidden()) {
     <div class="buttons">
-      <button (click)="onPreviousClicked()" [disabled]="isLoading" mat-stroked-button>
+      <button (click)="onPreviousClicked()" [disabled]="isLoading()" mat-stroked-button>
         {{ stepper.selectedIndex === 0 ? "Cancel" : "Back" }}
       </button>
       <div class="spinnerAndButton">
-        @if (isLoading) {
+        @if (isLoading()) {
           <mat-progress-spinner color="primary" diameter="36" mode="indeterminate"> </mat-progress-spinner>
         }
-        <button (click)="onNextClicked()" [disabled]="isLoading" color="accent" mat-flat-button>
+        <button (click)="onNextClicked()" [disabled]="isLoading()" color="accent" mat-flat-button>
           {{ stepper.selectedIndex === stepper.steps.length - 1 ? "Finish" : "Next" }}
         </button>
       </div>

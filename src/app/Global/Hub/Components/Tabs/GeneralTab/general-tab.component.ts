@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import AppState from '../../../../../Redux/app.state';
@@ -15,6 +15,7 @@ import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/c
   selector: 'app-general-tab',
   templateUrl: 'general-tab.component.html',
   styleUrls: ['general-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatSlideToggle]
 })
 export class GeneralTabComponent {
