@@ -1,10 +1,10 @@
 <div class="cardsContainer">
   @for (set of sets; track set; let i = $index) {
-    <set
+    <app-set
       [set]="set"
       (setChange)="onSetChange(i, $event)"
       (remove)="onSetRemove($event)"
       [mode]="mode"
-      @enterRemoveAnim></set>
+      @enterRemoveAnim></app-set>
   }
 </div>

@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import Set from '../../../../Models/Set';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { selectAllSets } from '../../../../Redux/Selectors/selectors';
+import { allSetsInitialState } from '../../../../Redux/Reducers/all-sets.reducer';
 import { AllSetsService } from '../../../../Services/all-sets.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
@@ -16,7 +17,7 @@ import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field'
 import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Actions/all-sets.actions';
 
 @Component({
-  selector: 'all-sets-page',
+  selector: 'app-all-sets-page',
   templateUrl: 'all-sets.component.html',
   styleUrls: ['all-sets.component.scss'],
   imports: [
@@ -33,56 +34,44 @@ import { loadAllSetsFailure, loadAllSetsSuccess } from '../../../../Redux/Action
     MatPaginator
   ]
 })
-export class AllSetsComponent implements OnDestroy, OnInit {
+export class AllSetsComponent implements OnInit {
   private store = inject<Store<AppState>>(Store);
   private allSetsService = inject(AllSetsService);
 
-  currentSets: Set[] = [];
-  setCount: number = 9;
-  pagesCount: number = 1;
-  currentPage: number = 0;
-  pageSize: number = 9;
-  subscription;
-  isLoading: boolean = true;
-  isError: boolean = false;
+  // Zoneless prep (commit A): the store slice is the single source of
+  // truth; template reads go through signals so zoneless schedules CD.
+  private allSetsState = toSignal(this.store.select(selectAllSets), {
+    initialValue: allSetsInitialState
+  });
+  isLoading = signal(true);
+  isError = computed(() => this.allSetsState().errorMessage !== undefined);
+  currentSets = computed(() => this.allSetsState().sets);
+  setCount = computed(() => this.allSetsState().setsCount);
+  pagesCount = computed(() => this.allSetsState().pagesCount);
+  currentPage = computed(() => this.allSetsState().currentPage - 1);
+  // Note: preserved verbatim from the pre-migration behavior — the old code
+  // assigned `pageSize = value.setsCount` (matches [length] math below).
+  pageSize = computed(() => this.allSetsState().setsCount);
   searchControl: FormControl = new FormControl('');
 
-  constructor() {
-    const store = this.store;
-
-    this.subscription = store.select(selectAllSets).subscribe(value => {
-      this.currentSets = value.sets;
-      this.setCount = value.setsCount;
-      this.currentPage = value.currentPage - 1;
-      this.pagesCount = value.pagesCount;
-      this.pageSize = value.setsCount;
-      this.isLoading = false;
-      this.isError = value.errorMessage !== undefined;
-    });
-  }
-
   ngOnInit(): void {
-    this.isLoading = true;
-    this.loadAllSets(1, this.setCount);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe;
+    this.isLoading.set(true);
+    this.loadAllSets(1, this.setCount());
   }
 
   onSearchTyped() {
-    this.isLoading = true;
-    this.loadAllSets(this.currentPage + 1, this.setCount, this.searchControl.value);
+    this.isLoading.set(true);
+    this.loadAllSets(this.currentPage() + 1, this.setCount(), this.searchControl.value);
   }
 
   onRetryClicked() {
-    this.isLoading = true;
-    this.loadAllSets(this.currentPage + 1, this.setCount, this.searchControl.value);
+    this.isLoading.set(true);
+    this.loadAllSets(this.currentPage() + 1, this.setCount(), this.searchControl.value);
   }
 
   onPageChanged(event: PageEvent) {
-    this.isLoading = true;
-    this.loadAllSets(event.pageIndex + 1, this.setCount, this.searchControl.value);
+    this.isLoading.set(true);
+    this.loadAllSets(event.pageIndex + 1, this.setCount(), this.searchControl.value);
   }
 
   private loadAllSets(pageNumber: number, pageSize: number, searchQuery?: string) {

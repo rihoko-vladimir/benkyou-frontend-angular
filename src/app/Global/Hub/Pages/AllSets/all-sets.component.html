@@ -5,26 +5,26 @@
     <mat-icon matPrefix>search</mat-icon>
     <input matInput type="text" [formControl]="searchControl" />
   </mat-form-field>
-  @if (!isLoading && !isError) {
-    <set-grid [sets]="currentSets" [mode]="'notOwner'"></set-grid>
+  @if (!isLoading() && !isError()) {
+    <app-set-grid [sets]="currentSets()" [mode]="'notOwner'"></app-set-grid>
   }
-  @if (isLoading && !isError) {
+  @if (isLoading() && !isError()) {
     <div class="loaderContainer">
       <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
     </div>
   }
-  @if (currentSets.length === 0 && !isLoading && !isError) {
+  @if (currentSets().length === 0 && !isLoading() && !isError()) {
     <p>Whooaaa, so empty here...</p>
   }
-  @if (isError) {
-    <error componentName="All Sets" (retry)="onRetryClicked()"></error>
+  @if (isError()) {
+    <app-error componentName="All Sets" (retry)="onRetryClicked()"></app-error>
   }
-  @if (pagesCount !== 1) {
+  @if (pagesCount() !== 1) {
     <mat-paginator
       hidePageSize="true"
-      [pageSize]="pageSize"
-      [pageIndex]="currentPage"
-      [length]="pagesCount * pageSize"
+      [pageSize]="pageSize()"
+      [pageIndex]="currentPage()"
+      [length]="pagesCount() * pageSize()"
       (page)="onPageChanged($event)">
     </mat-paginator>
   }

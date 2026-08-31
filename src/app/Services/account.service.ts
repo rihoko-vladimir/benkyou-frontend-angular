@@ -12,7 +12,6 @@ export class AccountService implements IAccountService {
   private httpClient = inject(HttpClient);
   private appConfig = inject(AppConfiguration);
 
-
   updateUserAccount(currentUserData: Account, updatedUserData: Account): Observable<UserResponse> {
     const source: Account = { ...currentUserData };
     const observer = jsonpatch.observe<Account>(source);

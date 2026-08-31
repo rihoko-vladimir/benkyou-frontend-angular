@@ -17,7 +17,7 @@ export class DialogData {
   }
 }
 @Component({
-  selector: 'set-preview-dialog',
+  selector: 'app-set-preview-dialog',
   templateUrl: 'set-preview-dialog.component.html',
   styleUrls: ['set-preview-dialog.component.scss'],
   imports: [MatDialogTitle, MatDialogContent, KanjiListComponent, MatDialogActions, MatButton, MatDialogClose]

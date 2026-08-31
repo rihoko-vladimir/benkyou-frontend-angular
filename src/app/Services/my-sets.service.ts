@@ -21,7 +21,6 @@ export class MySetsService implements IMySetsService {
   private appConfig = inject(AppConfiguration);
   private setsApi = inject(SetsApiService);
 
-
   createSet(set: Set): Observable<Set> {
     return this.setsApi.createSet(set);
   }

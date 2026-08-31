@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'result-reading',
+  selector: 'app-result-reading',
   templateUrl: 'result-reading.component.html',
   styleUrls: ['result-reading.component.scss'],
   imports: [NgClass]

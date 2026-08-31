@@ -3,24 +3,24 @@
   <div class="readingsContainer">
     <div class="readings">
       @for (correctReading of matchedKunyomi; track correctReading) {
-        <result-reading type="correct" [reading]="correctReading"></result-reading>
+        <app-result-reading type="correct" [reading]="correctReading"></app-result-reading>
       }
       @for (missingReading of unmatchedKunyomi; track missingReading) {
-        <result-reading type="required" [reading]="missingReading"></result-reading>
+        <app-result-reading type="required" [reading]="missingReading"></app-result-reading>
       }
       @for (incorrectReading of incorrectKunyomi; track incorrectReading) {
-        <result-reading type="incorrect" [reading]="incorrectReading"></result-reading>
+        <app-result-reading type="incorrect" [reading]="incorrectReading"></app-result-reading>
       }
     </div>
     <div class="readings">
       @for (correctReading of matchedOnyomi; track correctReading) {
-        <result-reading type="correct" [reading]="correctReading"></result-reading>
+        <app-result-reading type="correct" [reading]="correctReading"></app-result-reading>
       }
       @for (missingReading of unmatchedOnyomi; track missingReading) {
-        <result-reading type="required" [reading]="missingReading"></result-reading>
+        <app-result-reading type="required" [reading]="missingReading"></app-result-reading>
       }
       @for (incorrectReading of incorrectOnyomi; track incorrectReading) {
-        <result-reading type="incorrect" [reading]="incorrectReading"></result-reading>
+        <app-result-reading type="incorrect" [reading]="incorrectReading"></app-result-reading>
       }
     </div>
   </div>

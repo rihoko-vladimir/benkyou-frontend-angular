@@ -3,7 +3,7 @@ import Kanji from '../../../../Models/Kanji';
 import { KanjiPreviewComponent } from '../KanjiPreview/kanji-preview.component';
 
 @Component({
-  selector: 'kanji-list',
+  selector: 'app-kanji-list',
   templateUrl: 'kanji-list.component.html',
   styleUrls: ['kanji-list.component.scss'],
   imports: [KanjiPreviewComponent]

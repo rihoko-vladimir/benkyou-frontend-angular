@@ -21,7 +21,6 @@ export class JwtRefreshInterceptor implements HttpInterceptor {
   private store = inject<Store<AppState>>(Store);
   private router = inject(Router);
 
-
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       catchError(error => {

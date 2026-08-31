@@ -7,7 +7,7 @@ import { MatButton } from '@angular/material/button';
 import { ResultComponent } from '../Result/result.component';
 
 @Component({
-  selector: 'results',
+  selector: 'app-results',
   templateUrl: 'results.component.html',
   styleUrls: ['results.component.scss'],
   imports: [ResultComponent, MatButton]

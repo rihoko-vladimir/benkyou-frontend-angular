@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'error',
+  selector: 'app-error',
   templateUrl: 'error.component.html',
   styleUrls: ['error.component.scss'],
   imports: [MatButton]

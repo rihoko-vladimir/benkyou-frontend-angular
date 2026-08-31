@@ -13,7 +13,6 @@ import { IPagedSets } from './Interfaces/paged-sets';
 export class AllSetsService implements IAllSetsService {
   private setsApi = inject(SetsApiService);
 
-
   getAllSets(pageNumber: number, pageSize: number, searchQuery?: string): Observable<IPagedSets> {
     return this.setsApi.getAllSets(pageNumber, pageSize, searchQuery);
   }

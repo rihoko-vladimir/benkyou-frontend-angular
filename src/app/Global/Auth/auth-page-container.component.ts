@@ -4,7 +4,7 @@ import { cardsChangeAnimation } from '../../Animations/auth-page.animations';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'auth-page-container',
+  selector: 'app-auth-page-container',
   templateUrl: 'auth-page-container.component.html',
   styleUrls: ['auth-page-container.component.css'],
   animations: [cardsChangeAnimation],

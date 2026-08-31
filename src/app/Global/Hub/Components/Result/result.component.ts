@@ -4,7 +4,7 @@ import { ResultReadingComponent } from '../ResultReading/result-reading.componen
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'result',
+  selector: 'app-result',
   templateUrl: 'result.component.html',
   styleUrls: ['result.component.scss'],
   imports: [NgClass, ResultReadingComponent]

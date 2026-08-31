@@ -17,7 +17,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'edit-kanji',
+  selector: 'app-edit-kanji',
   templateUrl: 'edit-kanji.component.html',
   styleUrls: ['edit-kanji.component.scss'],
   imports: [

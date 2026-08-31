@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import {
   ChildrenOutletContexts,
   NavigationEnd,
@@ -7,6 +7,8 @@ import {
   RouterLink,
   RouterLinkActive
 } from '@angular/router';
+import { map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import AppState from '../../Redux/app.state';
 import { selectSnackbar } from '../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
@@ -21,7 +23,7 @@ import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'hub-component',
+  selector: 'app-hub-component',
   styleUrls: ['hub.component.scss'],
   templateUrl: 'hub.component.html',
   animations: [tabSwitchAnimations],
@@ -41,33 +43,27 @@ import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/materi
     MatSnackBarModule
   ]
 })
-export class HubComponent implements OnDestroy {
+export class HubComponent {
   private store = inject<Store<AppState>>(Store);
   private snackbar = inject(MatSnackBar);
   private contexts = inject(ChildrenOutletContexts);
 
-  isShown: boolean;
-  subscription;
-  storeSubscription;
+  // Zoneless prep (commit A): convert subscription→plain-property read
+  // surfaces to signals. toSignal() binds to this component's injector and
+  // tears itself down on destroy; effect() replaces subscribe-side effects.
+  // Reads in the template go through signals so zoneless schedules CD.
+  isShown = toSignal(
+    inject(Router).events.pipe(map((e): boolean => e instanceof NavigationEnd && e.url !== '/hub/study')),
+    { initialValue: false }
+  );
+
+  private snackbarState = toSignal(this.store.select(selectSnackbar), { initialValue: null });
 
   constructor() {
-    const router = inject(Router);
-    const store = this.store;
-
-    this.isShown = false;
-    this.subscription = router.events.subscribe(value => {
-      if (value instanceof NavigationEnd) {
-        this.isShown = value.url !== '/hub/study';
-      }
+    effect(() => {
+      const value = this.snackbarState();
+      if (value?.isShown) this.showSnackbar(value.message);
     });
-    this.storeSubscription = store.select(selectSnackbar).subscribe(value => {
-      if (value.isShown) this.showSnackbar(value.message);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.storeSubscription.unsubscribe();
   }
 
   showSnackbar(message: string) {

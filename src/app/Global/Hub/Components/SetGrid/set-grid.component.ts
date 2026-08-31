@@ -4,7 +4,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { SetComponent } from '../Set/set.component';
 
 @Component({
-  selector: 'set-grid',
+  selector: 'app-set-grid',
   templateUrl: 'set-grid.component.html',
   styleUrls: ['set-grid.component.scss'],
   animations: [

@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, computed, OnInit, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
 import { selectAccount } from '../../../../Redux/Selectors/selectors';
+import { accountInitialState } from '../../../../Redux/Reducers/account.reducer';
 import { accountError, accountInfoSuccess, logout } from '../../../../Redux/Actions/account.actions';
 import { AuthService } from '../../../../Services/auth.service';
 import { mapUserResponseToAccountState } from '../../../../Services/Helpers/converters';
@@ -13,7 +15,7 @@ import { MatRipple } from '@angular/material/core';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
 @Component({
-  selector: 'account-info-list-item',
+  selector: 'app-account-info-list-item',
   styleUrls: ['account-info-list-item.component.scss'],
   templateUrl: 'account-info-list-item.component.html',
   imports: [
@@ -27,33 +29,21 @@ import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/ex
     RouterLinkActive
   ]
 })
-export class AccountInfoListItemComponent implements OnDestroy, OnInit {
+export class AccountInfoListItemComponent implements OnInit {
   private router = inject(Router);
   private store = inject<Store<AppState>>(Store);
   private authService = inject(AuthService);
 
-  avatarUrl: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  subscription;
-
-  constructor() {
-    const store = this.store;
-
-    this.subscription = store.select(selectAccount).subscribe(value => {
-      this.avatarUrl = value.avatarUrl;
-      this.firstName = value.firstName;
-      this.lastName = value.lastName;
-    });
-  }
+  // Zoneless prep (commit A): store slice read via toSignal; the initial
+  // value is the reducer's hydration default.
+  account = toSignal(this.store.select(selectAccount), { initialValue: accountInitialState });
+  avatarUrl = computed(() => this.account().avatarUrl);
+  firstName = computed(() => this.account().firstName);
+  lastName = computed(() => this.account().lastName);
 
   async onLogoutClicked() {
     this.store.dispatch(logout());
     await this.router.navigate(['auth']);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {

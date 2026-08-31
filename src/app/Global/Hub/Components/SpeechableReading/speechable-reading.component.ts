@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 
 @Component({
-  selector: 'speechable-reading',
+  selector: 'app-speechable-reading',
   templateUrl: 'speechable-reading.component.html',
   styleUrls: ['speechable-reading.component.scss'],
   imports: [MatBadge]

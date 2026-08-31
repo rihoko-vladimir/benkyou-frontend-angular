@@ -3,7 +3,7 @@ import Kanji from '../../Models/Kanji';
 import Set from '../../Models/Set';
 import { logout } from '../Actions/account.actions';
 import { finishStudying, nextKanji, startStudying } from '../Actions/set-study.actions';
-import { initialState, setStudyReducer } from './set-study.reducer';
+import { setStudyInitialState, setStudyReducer } from './set-study.reducer';
 
 // Note: getRandomizedReadings is not exported, so it is verified through the
 // observable behavior of startStudying/nextKanji (currentRandomReadings must
@@ -27,7 +27,7 @@ describe('setStudyReducer', () => {
       // Enough values are supplied for every Math.random() in the reducer path.
       spyOn(Math, 'random').and.returnValues(0.9, 0.1, 0.4, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
 
-      const state = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const state = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
 
       expect(state.kanjiList.map(item => item.kanji)).toEqual(['二', '三', '一']);
       expect(state.currentStep).toBe(0);
@@ -37,7 +37,7 @@ describe('setStudyReducer', () => {
     });
 
     it('sets currentRandomReadings to the current kanji readings plus two distractors, shuffled', () => {
-      const state = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const state = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
       const { currentKanji, currentRandomReadings } = state;
       const correctReadings = [...currentKanji.kunyomi, ...currentKanji.onyomi];
 
@@ -55,7 +55,7 @@ describe('setStudyReducer', () => {
         kanji('四', ['d'])
       ]);
 
-      const state = setStudyReducer(initialState, startStudying({ set: fourKanjiSet }));
+      const state = setStudyReducer(setStudyInitialState, startStudying({ set: fourKanjiSet }));
       const { currentKanji, currentRandomReadings } = state;
 
       expect(currentRandomReadings.length).toBe(3); // 1 correct + 2 distractor readings
@@ -68,7 +68,7 @@ describe('setStudyReducer', () => {
 
   describe('nextKanji', () => {
     it('accumulates answers and advances through the kanji list', () => {
-      const started = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const started = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
       const answerOne = new Answer(started.currentKanji, ['いち'], ['イチ']);
 
       const stepOne = setStudyReducer(started, nextKanji({ answer: answerOne }));
@@ -80,7 +80,7 @@ describe('setStudyReducer', () => {
     });
 
     it('regenerates randomized readings containing the new current kanji', () => {
-      const started = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const started = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
 
       const stepOne = setStudyReducer(started, nextKanji({ answer: new Answer(started.currentKanji) }));
 
@@ -92,7 +92,7 @@ describe('setStudyReducer', () => {
     });
 
     it('stops advancing once every kanji has been answered', () => {
-      const started = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const started = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
       let state = started;
 
       state = setStudyReducer(state, nextKanji({ answer: new Answer(state.currentKanji) }));
@@ -109,22 +109,22 @@ describe('setStudyReducer', () => {
 
   describe('finishStudying', () => {
     it('resets the study state to its initial state', () => {
-      const started = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const started = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
 
       const state = setStudyReducer(started, finishStudying());
 
-      expect(state).toEqual(initialState);
+      expect(state).toEqual(setStudyInitialState);
     });
   });
 
   describe('logout', () => {
     it('resets the study state to its initial state', () => {
-      const started = setStudyReducer(initialState, startStudying({ set: studySet }));
+      const started = setStudyReducer(setStudyInitialState, startStudying({ set: studySet }));
       const answered = setStudyReducer(started, nextKanji({ answer: new Answer(started.currentKanji) }));
 
       const state = setStudyReducer(answered, logout());
 
-      expect(state).toEqual(initialState);
+      expect(state).toEqual(setStudyInitialState);
     });
   });
 });

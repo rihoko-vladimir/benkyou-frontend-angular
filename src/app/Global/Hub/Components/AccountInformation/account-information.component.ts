@@ -5,7 +5,7 @@ import { GeneralTabComponent } from '../Tabs/GeneralTab/general-tab.component';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'account-information',
+  selector: 'app-account-information',
   templateUrl: 'account-information.component.html',
   styleUrls: ['account-information.component.scss'],
   imports: [MatCard, MatTabGroup, MatTab, GeneralTabComponent, PersonalTabComponent]

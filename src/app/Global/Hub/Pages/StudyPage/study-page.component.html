@@ -1,15 +1,15 @@
 <div class="learnContainer">
   <mat-card appearance="outlined" class="set">
-    @if (!(this.answers.length === this.length)) {
+    @if (!(this.answers().length === this.length())) {
       <div class="content">
         <div class="topPart">
           <!--<div class="kanjiContainer">
-          <p class="kanji">{{currentKanji.kanji}}</p>
+          <p class="kanji">{{currentKanji().kanji}}</p>
         </div>-->
-          <kanji-svg-drawing-preview
-            [kanji]="currentKanji.kanji"
+          <app-kanji-svg-drawing-preview
+            [kanji]="currentKanji().kanji"
             [width]="'242px'"
-            [height]="'242px'"></kanji-svg-drawing-preview>
+            [height]="'242px'"></app-kanji-svg-drawing-preview>
           <div class="kunyomiOnyomiContainer">
             <div class="titleAndReadingsContainer" style="width: 45%">
               <p class="mat-typography">Kunyomi</p>
@@ -18,11 +18,11 @@
                 cdkDropListOrientation="horizontal"
                 class="readingsContainer"
                 #kunyomiReadings="cdkDropList"
-                [cdkDropListData]="selectedKunyomiReadings"
+                [cdkDropListData]="selectedKunyomiReadings()"
                 style="min-width: 100%"
                 [cdkDropListConnectedTo]="[allReadings, onyomiReadings]"
                 (cdkDropListDropped)="drop($event)">
-                @for (kunyomi of selectedKunyomiReadings; track kunyomi) {
+                @for (kunyomi of selectedKunyomiReadings(); track kunyomi) {
                   <div cdkDrag class="draggableReading">
                     {{ kunyomi }}
                   </div>
@@ -36,11 +36,11 @@
                 cdkDropListOrientation="horizontal"
                 class="readingsContainer"
                 #onyomiReadings="cdkDropList"
-                [cdkDropListData]="selectedOnyomiReadings"
+                [cdkDropListData]="selectedOnyomiReadings()"
                 style="min-width: 100%; justify-content: end"
                 [cdkDropListConnectedTo]="[kunyomiReadings, allReadings]"
                 (cdkDropListDropped)="drop($event)">
-                @for (onyomi of selectedOnyomiReadings; track onyomi) {
+                @for (onyomi of selectedOnyomiReadings(); track onyomi) {
                   <div cdkDrag class="draggableReading">
                     {{ onyomi }}
                   </div>
@@ -55,11 +55,11 @@
             cdkDropListOrientation="horizontal"
             class="readingsContainer"
             #allReadings="cdkDropList"
-            [cdkDropListData]="currentAllReadings"
+            [cdkDropListData]="currentAllReadings()"
             style="min-width: 100%"
             [cdkDropListConnectedTo]="[kunyomiReadings, onyomiReadings]"
             (cdkDropListDropped)="drop($event)">
-            @for (reading of currentAllReadings; track reading) {
+            @for (reading of currentAllReadings(); track reading) {
               <div cdkDrag class="draggableReading">
                 {{ reading }}
               </div>
@@ -71,8 +71,8 @@
         </div>
       </div>
     }
-    @if (this.answers.length === this.length) {
-      <results [results]="answers"></results>
+    @if (this.answers().length === this.length()) {
+      <app-results [results]="answers()"></app-results>
     }
   </mat-card>
 </div>

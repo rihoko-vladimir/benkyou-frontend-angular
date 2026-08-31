@@ -11,7 +11,6 @@ import { Injectable, inject } from '@angular/core';
 export class ThemeService implements IThemeService {
   private store = inject<Store<AppState>>(Store);
 
-
   getTheme() {
     return this.store
       .select(selectAccount)

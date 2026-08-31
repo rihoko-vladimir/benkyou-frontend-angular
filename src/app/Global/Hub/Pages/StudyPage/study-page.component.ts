@@ -1,8 +1,9 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import Kanji from '../../../../Models/Kanji';
 import AppState from '../../../../Redux/app.state';
 import { selectSetStudy } from '../../../../Redux/Selectors/selectors';
+import { setStudyInitialState } from '../../../../Redux/Reducers/set-study.reducer';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { nextKanji } from '../../../../Redux/Actions/set-study.actions';
 import Answer from '../../../../Models/Answer';
@@ -13,37 +14,29 @@ import { KanjiSvgDrawingPreviewComponent } from '../../Components/KanjiSvgDrawin
 import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'study-page',
+  selector: 'app-study-page',
   templateUrl: 'study-page.component.html',
   styleUrls: ['study-page.component.scss'],
   imports: [MatCard, KanjiSvgDrawingPreviewComponent, CdkDropList, CdkDrag, MatButton, ResultsComponent]
 })
-export class StudyPageComponent implements OnDestroy {
+export class StudyPageComponent {
   private store = inject<Store<AppState>>(Store);
 
-  subscription;
-  currentAllReadings: string[] = [];
-  currentKanji: Kanji = new Kanji();
-  selectedKunyomiReadings: string[] = [];
-  selectedOnyomiReadings: string[] = [];
-  length: number = 0;
-  currentIndex: number = 0;
-  answers: Answer[] = [];
+  // Zoneless prep (commit A): the study slice is read-only in this
+  // component — computed signals. The three reading arrays are writable
+  // signals because CDK drag-drop mutates them in place; drop() writes
+  // back fresh references so zoneless change detection gets scheduled.
+  private studyState = toSignal(this.store.select(selectSetStudy), { initialValue: setStudyInitialState });
+  currentAllReadings = signal<string[]>([]);
+  selectedKunyomiReadings = signal<string[]>([]);
+  selectedOnyomiReadings = signal<string[]>([]);
+  currentKanji = computed(() => this.studyState().currentKanji);
+  length = computed(() => this.studyState().length);
+  currentIndex = computed(() => this.studyState().currentStep);
+  answers = computed(() => this.studyState().answerList);
 
   constructor() {
-    const store = this.store;
-
-    this.subscription = store.select(selectSetStudy).subscribe(value => {
-      this.currentAllReadings = [...value.currentRandomReadings];
-      this.currentKanji = value.currentKanji;
-      this.length = value.length;
-      this.currentIndex = value.currentStep;
-      this.answers = value.answerList;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    effect(() => this.currentAllReadings.set([...this.studyState().currentRandomReadings]));
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -52,14 +45,20 @@ export class StudyPageComponent implements OnDestroy {
     }
 
     transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
+    // CDK mutated the arrays in place; copy to new references so the
+    // signals change and zoneless change detection is scheduled.
+    this.currentAllReadings.update(readings => [...readings]);
+    this.selectedKunyomiReadings.update(readings => [...readings]);
+    this.selectedOnyomiReadings.update(readings => [...readings]);
   }
 
   onNextClicked() {
-    const answer = new Answer(this.currentKanji, this.selectedKunyomiReadings, this.selectedOnyomiReadings);
-    if (!(this.answers.length === this.length)) {
+    const answer = new Answer(this.currentKanji(), this.selectedKunyomiReadings(), this.selectedOnyomiReadings());
+    if (!(this.answers().length === this.length())) {
       this.store.dispatch(nextKanji({ answer: answer }));
-      this.selectedKunyomiReadings = [];
-      this.selectedOnyomiReadings = [];
+      this.selectedKunyomiReadings.set([]);
+      this.selectedOnyomiReadings.set([]);
     }
     return;
   }

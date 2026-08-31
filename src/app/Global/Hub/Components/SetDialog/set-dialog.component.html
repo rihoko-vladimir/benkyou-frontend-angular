@@ -13,7 +13,7 @@
     </mat-form-field>
   </form>
   <mat-divider></mat-divider>
-  <edit-kanji-list [kanjiList]="set.kanjiList" (kanjiListChange)="onKanjiListChange($event)"></edit-kanji-list>
+  <app-edit-kanji-list [kanjiList]="set.kanjiList" (kanjiListChange)="onKanjiListChange($event)"></app-edit-kanji-list>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onCloseClicked()">Back</button>

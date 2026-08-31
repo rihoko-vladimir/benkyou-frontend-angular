@@ -6,7 +6,7 @@ import { MatIconButton } from '@angular/material/button';
 import { EditKanjiComponent } from '../EditKanji/edit-kanji.component';
 
 @Component({
-  selector: 'edit-kanji-list',
+  selector: 'app-edit-kanji-list',
   templateUrl: 'edit-kanji-list.component.html',
   styleUrls: ['edit-kanji-list.component.scss'],
   animations: [

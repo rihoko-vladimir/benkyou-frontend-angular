@@ -13,7 +13,6 @@ export class AuthService implements IAuthService {
   private httpClient = inject(HttpClient);
   private appConfig = inject(AppConfiguration);
 
-
   confirmEmailAddress(userId: string, confirmationCode: string): Observable<string> {
     const confirmationRequest = {
       userId,

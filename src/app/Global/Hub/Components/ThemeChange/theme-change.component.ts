@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ThemePreference } from '../../../../Models/Enums/ThemePreference';
 import { ThemeService } from '../../../../Services/theme.service';
 import { MatIcon } from '@angular/material/icon';
@@ -6,7 +7,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'theme-change',
+  selector: 'app-theme-change',
   templateUrl: 'theme-change.component.html',
   styleUrl: 'theme-change.component.less',
   imports: [MatIconButton, MatTooltip, MatIcon]
@@ -14,17 +15,13 @@ import { MatIconButton } from '@angular/material/button';
 export class ThemeChangeComponent {
   private themeService = inject(ThemeService);
 
-  themePreference?: ThemePreference;
+  // Zoneless prep (commit A): the theme stream is now a signal; template
+  // and logic read `themePreference()` so zoneless schedules CD on change.
+  themePreference = toSignal(this.themeService.getTheme());
   protected readonly ThemePreference = ThemePreference;
 
-  constructor() {
-    this.themeService.getTheme().subscribe(theme => {
-      this.themePreference = theme;
-    });
-  }
-
   changeTheme() {
-    switch (this.themePreference) {
+    switch (this.themePreference()) {
       case ThemePreference.Auto: {
         this.themeService.setTheme(ThemePreference.Light);
         break;
@@ -40,8 +37,8 @@ export class ThemeChangeComponent {
     }
   }
 
-  getTooltip() {
-    switch (this.themePreference) {
+  tooltip = computed(() => {
+    switch (this.themePreference()) {
       case ThemePreference.Auto: {
         return 'Switch to Light Theme';
       }
@@ -54,5 +51,5 @@ export class ThemeChangeComponent {
     }
 
     return '';
-  }
+  });
 }

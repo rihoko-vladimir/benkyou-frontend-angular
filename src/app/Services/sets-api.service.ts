@@ -24,7 +24,6 @@ export class SetsApiService {
   private httpClient = inject(HttpClient);
   private appConfig = inject(AppConfiguration);
 
-
   getMySets(pageNumber: number, pageSize: number): Observable<IPagedSets> {
     return this.httpClient
       .get<PagedSetsResponse>(

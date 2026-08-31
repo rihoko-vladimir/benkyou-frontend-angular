@@ -17,7 +17,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'set-dialog',
+  selector: 'app-set-dialog',
   templateUrl: 'set-dialog.component.html',
   styleUrl: 'set-dialog.component.scss',
   imports: [

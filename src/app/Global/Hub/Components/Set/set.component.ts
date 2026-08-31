@@ -18,7 +18,7 @@ import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 
 @Component({
-  selector: 'set',
+  selector: 'app-set',
   templateUrl: 'set.component.html',
   styleUrls: ['set.component.scss'],
   imports: [

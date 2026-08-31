@@ -1,68 +1,55 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import AppState from '../../../../../Redux/app.state';
 import { selectAccount } from '../../../../../Redux/Selectors/selectors';
 import { Store } from '@ngrx/store';
 import { AccountService } from '../../../../../Services/account.service';
 import { Account } from '../../../../../Models/Account';
-import { IAccountState } from '../../../../../Redux/Reducers/account.reducer';
+import { accountInitialState } from '../../../../../Redux/Reducers/account.reducer';
 import { accountError, accountInfoSuccess } from '../../../../../Redux/Actions/account.actions';
 import { visibilityChangeSuccess } from '../../../../../Redux/Actions/snackbar.actions';
 import { mapUserResponseToAccountState } from '../../../../../Services/Helpers/converters';
 
 @Component({
-  selector: 'general-tab',
+  selector: 'app-general-tab',
   templateUrl: 'general-tab.component.html',
   styleUrls: ['general-tab.component.scss'],
   imports: [MatSlideToggle]
 })
-export class GeneralTabComponent implements OnDestroy {
+export class GeneralTabComponent {
   private store = inject<Store<AppState>>(Store);
   private accountService = inject(AccountService);
 
-  accountInfo!: IAccountState;
-  isPublic: boolean = false;
-  subscription;
-
-  constructor() {
-    const store = this.store;
-
-    this.subscription = store.select(selectAccount).subscribe(accountInfo => {
-      this.accountInfo = accountInfo;
-      this.isPublic = accountInfo.isAccountPublic;
-    });
-  }
+  // Zoneless prep (commit A): account slice via toSignal.
+  accountInfo = toSignal(this.store.select(selectAccount), { initialValue: accountInitialState });
 
   onVisibilityChanged(event: MatSlideToggleChange) {
-    this.isPublic = !this.isPublic;
+    const accountInfo = this.accountInfo();
     const accountData: Account = {
-      firstName: this.accountInfo.firstName,
-      lastName: this.accountInfo.lastName,
-      userName: this.accountInfo.userName,
+      firstName: accountInfo.firstName,
+      lastName: accountInfo.lastName,
+      userName: accountInfo.userName,
       isAccountPublic: event.checked,
-      birthDay: this.accountInfo.birthDay,
-      about: this.accountInfo.about
+      birthDay: accountInfo.birthDay,
+      about: accountInfo.about
     };
     const currentAccountData: Account = {
-      firstName: this.accountInfo.firstName,
-      lastName: this.accountInfo.lastName,
-      userName: this.accountInfo.userName,
-      isAccountPublic: this.accountInfo.isAccountPublic,
-      birthDay: this.accountInfo.birthDay,
-      about: this.accountInfo.about
+      firstName: accountInfo.firstName,
+      lastName: accountInfo.lastName,
+      userName: accountInfo.userName,
+      isAccountPublic: accountInfo.isAccountPublic,
+      birthDay: accountInfo.birthDay,
+      about: accountInfo.about
     };
     this.accountService.updateUserAccount(currentAccountData, accountData).subscribe({
       next: userInfo => {
-        if (this.accountInfo.isAccountPublic !== userInfo.isAccountPublic) {
+        if (accountInfo.isAccountPublic !== userInfo.isAccountPublic) {
           this.store.dispatch(visibilityChangeSuccess());
         }
         this.store.dispatch(accountInfoSuccess(mapUserResponseToAccountState(userInfo)));
       },
       error: error => this.store.dispatch(accountError({ errorMessage: error.error }))
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'password-reset',
+  selector: 'app-password-reset',
   templateUrl: 'password-reset.component.html',
   styleUrls: ['password-reset.component.scss'],
   imports: [

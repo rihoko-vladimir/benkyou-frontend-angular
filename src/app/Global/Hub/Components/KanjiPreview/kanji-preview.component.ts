@@ -4,7 +4,7 @@ import { ReadingsContainerComponent } from '../ReadingsContainer/readings-contai
 import { KanjiSvgDrawingPreviewComponent } from '../KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
 
 @Component({
-  selector: 'kanji-preview',
+  selector: 'app-kanji-preview',
   templateUrl: 'kanji-preview.component.html',
   styleUrls: ['kanji-preview.component.scss'],
   imports: [KanjiSvgDrawingPreviewComponent, ReadingsContainerComponent]

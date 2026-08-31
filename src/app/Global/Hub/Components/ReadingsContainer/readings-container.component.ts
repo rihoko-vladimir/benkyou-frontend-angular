@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SpeechableReadingComponent } from '../SpeechableReading/speechable-reading.component';
 
 @Component({
-  selector: 'readings-container',
+  selector: 'app-readings-container',
   templateUrl: 'readings-container.component.html',
   styleUrls: ['readings-container.component.scss'],
   imports: [SpeechableReadingComponent]

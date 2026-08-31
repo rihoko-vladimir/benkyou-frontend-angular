@@ -18,7 +18,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-  selector: 'registration',
+  selector: 'app-registration',
   templateUrl: 'registration.component.html',
   styleUrls: ['registration.component.scss'],
   animations: [],

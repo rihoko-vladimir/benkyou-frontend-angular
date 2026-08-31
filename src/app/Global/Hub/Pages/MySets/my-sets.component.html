@@ -1,34 +1,35 @@
 <div class="top-section">
   <h1 class="mat-headline-4" style="margin: 0">My Sets</h1>
-  <button mat-flat-button color="primary" (click)="onCreateNewSetClicked()" [disabled]="isLoading || isError">
+  <button mat-flat-button color="primary" (click)="onCreateNewSetClicked()" [disabled]="isLoading() || isError()">
     Create new set
   </button>
 </div>
 <div class="page-content">
-  @if (!isLoading && !isError) {
-    <set-grid
-      [(sets)]="sets"
+  @if (!isLoading() && !isError()) {
+    <app-set-grid
+      [sets]="sets()"
+      (setsChange)="onSetsChanged($event)"
       (setChange)="onSetChanged($event)"
       (setsRemove)="onSetRemoved($event)"
-      [mode]="'owner'"></set-grid>
+      [mode]="'owner'"></app-set-grid>
   }
-  @if (isLoading && !isError) {
+  @if (isLoading() && !isError()) {
     <div class="loaderContainer">
       <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
     </div>
   }
-  @if (sets.length === 0 && !isLoading && !isError) {
+  @if (sets().length === 0 && !isLoading() && !isError()) {
     <p>Whooaaa, so empty here...</p>
   }
-  @if (isError) {
-    <error componentName="My Sets" (retry)="onRetryClicked()"></error>
+  @if (isError()) {
+    <app-error componentName="My Sets" (retry)="onRetryClicked()"></app-error>
   }
-  @if (pagesCount !== 1) {
+  @if (pagesCount() !== 1) {
     <mat-paginator
       hidePageSize="true"
-      [pageSize]="pageSize"
-      [pageIndex]="currentPage"
-      [length]="pagesCount * pageSize"
+      [pageSize]="pageSize()"
+      [pageIndex]="currentPage()"
+      [length]="pagesCount() * pageSize()"
       (page)="onPageChanged($event)">
     </mat-paginator>
   }

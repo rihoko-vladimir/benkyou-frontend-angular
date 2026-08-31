@@ -12,7 +12,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 const regExpr = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$`;
 
 @Component({
-  selector: 'new-password',
+  selector: 'app-new-password',
   templateUrl: 'new-password.component.html',
   styleUrls: ['new-password.component.scss'],
   imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, MatButton, MatSnackBarModule]

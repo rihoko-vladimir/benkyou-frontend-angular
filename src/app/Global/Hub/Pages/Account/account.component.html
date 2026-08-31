@@ -1,17 +1,17 @@
 <h1 class="mat-headline-4" style="margin: 0">Account</h1>
 <div class="page-content">
-  @if (!isError && !isLoading) {
-    <account-overview [currentTab]="currentTab"></account-overview>
+  @if (!isError() && !isLoading()) {
+    <app-account-overview [currentTab]="currentTab"></app-account-overview>
   }
-  @if (!isError && !isLoading) {
-    <account-information (tabIndexChange)="onTabChanged($event)"></account-information>
+  @if (!isError() && !isLoading()) {
+    <app-account-information (tabIndexChange)="onTabChanged($event)"></app-account-information>
   }
-  @if (isLoading && !isError) {
+  @if (isLoading() && !isError()) {
     <div class="loaderContainer">
       <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
     </div>
   }
-  @if (isError) {
-    <error componentName="Account" (retry)="onRetryClicked()"></error>
+  @if (isError()) {
+    <app-error componentName="Account" (retry)="onRetryClicked()"></app-error>
   }
 </div>
