@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'result-reading',
+  selector: 'app-result-reading',
   templateUrl: 'result-reading.component.html',
   styleUrls: ['result-reading.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass]
 })
 export class ResultReadingComponent {
-  @Input() reading: string = '';
+  @Input() reading = '';
   @Input() type: string = ReadingType.incorrect;
 }
 

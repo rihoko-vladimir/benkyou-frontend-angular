@@ -1,3 +1,5 @@
 <div class="readingsWrapper">
-  <speechable-reading *ngFor="let reading of readings" [reading]="reading"></speechable-reading>
+  @for (reading of readings; track reading) {
+    <app-speechable-reading [reading]="reading"></app-speechable-reading>
+  }
 </div>

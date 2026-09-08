@@ -1,7 +1,7 @@
 <div class="outerContainer">
-  <kanji-svg-drawing-preview [kanji]="kanji.kanji"></kanji-svg-drawing-preview>
+  <app-kanji-svg-drawing-preview [kanji]="kanji.kanji"></app-kanji-svg-drawing-preview>
   <div class="readingsContainer">
-    <readings-container [readings]="kanji.onyomi"></readings-container>
-    <readings-container [readings]="kanji.kunyomi"></readings-container>
+    <app-readings-container [readings]="kanji.onyomi"></app-readings-container>
+    <app-readings-container [readings]="kanji.kunyomi"></app-readings-container>
   </div>
 </div>

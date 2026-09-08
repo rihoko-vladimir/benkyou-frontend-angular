@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import Answer from '../../../../Models/Answer';
 import Kanji from '../../../../Models/Kanji';
 import { nextKanji } from '../../../../Redux/Actions/set-study.actions';
@@ -13,14 +14,26 @@ import { StudyPageComponent } from './study-page.component';
 // ngOnInit, which would perform a real HTTP request in the test environment.
 // It is stubbed out here: this smoke spec only cares about the StudyPage
 // component's store wiring, not about SVG rendering.
-@Component({ selector: 'kanji-svg-drawing-preview', standalone: true, template: '' })
-class KanjiSvgDrawingPreviewStubComponent {}
+@Component({
+  selector: 'app-kanji-svg-drawing-preview',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: ''
+})
+class KanjiSvgDrawingPreviewStubComponent {
+  // v22 throws NG0303 on unknown property bindings, so the stub must
+  // mirror the real component's input surface.
+  @Input() kanji = '本';
+  @Input() width = '150px';
+  @Input() height = '150px';
+}
 
 describe('StudyPageComponent', () => {
   let component: StudyPageComponent;
   let fixture: ComponentFixture<StudyPageComponent>;
-  let store: jasmine.SpyObj<Store>;
+  let store: { select: () => BehaviorSubject<IStudyState>; dispatch: ReturnType<typeof vi.fn> };
   let studyState: IStudyState;
+  let studyState$: BehaviorSubject<IStudyState>;
 
   beforeEach(() => {
     studyState = {
@@ -35,9 +48,9 @@ describe('StudyPageComponent', () => {
       ],
       answerList: []
     };
+    studyState$ = new BehaviorSubject<IStudyState>(studyState);
 
-    store = jasmine.createSpyObj<Store>('store', ['select', 'dispatch']);
-    store.select.and.returnValue(of(studyState));
+    store = { select: () => studyState$, dispatch: vi.fn() };
 
     TestBed.configureTestingModule({
       // StudyPageComponent is standalone (post-migration): it goes in `imports`
@@ -62,32 +75,35 @@ describe('StudyPageComponent', () => {
     fixture.detectChanges();
 
     expect(component).toBeTruthy();
-    expect(component.currentKanji.kanji).toBe('一');
-    expect(component.currentAllReadings).toEqual(studyState.currentRandomReadings);
-    expect(component.length).toBe(3);
-    expect(component.currentIndex).toBe(0);
-    expect(component.answers).toEqual([]);
+    expect(component.currentKanji().kanji).toBe('一');
+    expect(component.currentAllReadings()).toEqual(studyState.currentRandomReadings);
+    expect(component.length()).toBe(3);
+    expect(component.currentIndex()).toBe(0);
+    expect(component.answers()).toEqual([]);
   });
 
   it('dispatches nextKanji with the current answer when clicking Next', () => {
-    component.selectedKunyomiReadings = ['いち'];
-    component.selectedOnyomiReadings = ['イチ'];
+    component.selectedKunyomiReadings.set(['いち']);
+    component.selectedOnyomiReadings.set(['イチ']);
 
     component.onNextClicked();
 
     expect(store.dispatch).toHaveBeenCalledWith(
       nextKanji({ answer: new Answer(new Kanji('一', ['いち', 'ひと'], ['イチ']), ['いち'], ['イチ']) })
     );
-    expect(component.selectedKunyomiReadings).toEqual([]);
-    expect(component.selectedOnyomiReadings).toEqual([]);
+    expect(component.selectedKunyomiReadings()).toEqual([]);
+    expect(component.selectedOnyomiReadings()).toEqual([]);
   });
 
   it('does not dispatch once every kanji has been answered', () => {
-    component.answers = [
-      new Answer(component.currentKanji),
-      new Answer(component.currentKanji),
-      new Answer(component.currentKanji)
-    ];
+    studyState$.next({
+      ...studyState,
+      answerList: [
+        new Answer(studyState.currentKanji),
+        new Answer(studyState.currentKanji),
+        new Answer(studyState.currentKanji)
+      ]
+    });
 
     component.onNextClicked();
 

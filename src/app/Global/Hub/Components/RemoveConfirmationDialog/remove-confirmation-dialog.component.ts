@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'remove-confirmation-dialog',
+  selector: 'app-remove-confirmation-dialog',
   templateUrl: 'remove-confirmation-dialog.component.html',
   styleUrls: ['remove-confirmation-dialog.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
 })
 export class RemoveConfirmationDialogComponent {
-  constructor(private dialogRef: MatDialogRef<RemoveConfirmationDialogComponent>) {}
+  private dialogRef = inject<MatDialogRef<RemoveConfirmationDialogComponent>>(MatDialogRef);
 
   onCancelClicked() {
     this.dialogRef.close(false);

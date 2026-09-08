@@ -1,6 +1,6 @@
 <div class="container">
   <p>
-    <mat-slide-toggle (change)="onVisibilityChanged($event)" [checked]="isPublic">
+    <mat-slide-toggle (change)="onVisibilityChanged($event)" [checked]="accountInfo().isAccountPublic">
       <span class="color">Make my account public</span>
     </mat-slide-toggle>
   </p>

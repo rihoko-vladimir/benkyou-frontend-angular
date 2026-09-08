@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
 import Set from '../Models/Set';
@@ -21,10 +21,8 @@ import { mapPagedSetsResponseToPagedSets, mapSetResponseToSet, mapSetToSetReques
  * the query string.
  */
 export class SetsApiService {
-  constructor(
-    private httpClient: HttpClient,
-    private appConfig: AppConfiguration
-  ) {}
+  private httpClient = inject(HttpClient);
+  private appConfig = inject(AppConfiguration);
 
   getMySets(pageNumber: number, pageSize: number): Observable<IPagedSets> {
     return this.httpClient

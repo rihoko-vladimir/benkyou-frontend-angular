@@ -27,4 +27,4 @@
     <mat-error>{{getAboutError()}}</mat-error>
   </mat-form-field>
 </form>
-<button mat-flat-button color="accent" class="saveButton" [disabled]="personalFormGroup.invalid || !isTouched" (click)="onAccountSaveClicked()">Save</button>
+<button mat-flat-button color="accent" class="saveButton" [disabled]="personalFormGroup.invalid || !isTouched()" (click)="onAccountSaveClicked()">Save</button>

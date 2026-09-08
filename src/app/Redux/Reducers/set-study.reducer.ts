@@ -13,7 +13,7 @@ export interface IStudyState {
   answerList: Answer[];
 }
 
-export const initialState: IStudyState = {
+export const setStudyInitialState: IStudyState = {
   currentStep: 0,
   length: 0,
   currentKanji: new Kanji(),
@@ -23,7 +23,7 @@ export const initialState: IStudyState = {
 };
 
 export const setStudyReducer = createReducer(
-  initialState,
+  setStudyInitialState,
   on(startStudying, (state, { set }) => {
     const randomizedList = set.kanjiList
       .map(value => ({ value, sort: Math.random() }))
@@ -59,8 +59,8 @@ export const setStudyReducer = createReducer(
       currentStep: nextStep
     };
   }),
-  on(finishStudying, () => initialState),
-  on(logout, () => initialState)
+  on(finishStudying, () => setStudyInitialState),
+  on(logout, () => setStudyInitialState)
 );
 
 const getRandomizedReadings = (kanjiList: Kanji[], currentIndex: number) => {

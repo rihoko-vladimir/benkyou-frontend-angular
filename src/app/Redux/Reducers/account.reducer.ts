@@ -17,7 +17,7 @@ export interface IAccountState {
   themePreference?: ThemePreference;
 }
 
-const initialState: IAccountState = {
+export const accountInitialState: IAccountState = {
   about: '',
   avatarUrl: '',
   birthDay: '',
@@ -50,7 +50,7 @@ const mapAccountInfo = (account: IAccountState) => ({
 });
 
 export const accountReducer = createReducer(
-  initialState,
+  accountInitialState,
   on(accountInfoSuccess, (state, account) => ({
     ...state,
     ...mapAccountInfo(account)
@@ -63,5 +63,5 @@ export const accountReducer = createReducer(
     ...state,
     themePreference: theme
   })),
-  on(logout, () => initialState)
+  on(logout, () => accountInitialState)
 );

@@ -1,16 +1,15 @@
 import { Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import AppState from '../Redux/app.state';
 import { selectAccount } from '../Redux/Selectors/selectors';
 
 @Injectable()
 export class AuthGuard {
-  constructor(
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  private store = inject<Store<AppState>>(Store);
+  private router = inject(Router);
+
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let isLoggedIn = false;
     this.store

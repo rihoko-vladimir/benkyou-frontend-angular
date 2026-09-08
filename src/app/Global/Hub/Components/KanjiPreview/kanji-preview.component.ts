@@ -1,13 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import Kanji from '../../../../Models/Kanji';
 import { ReadingsContainerComponent } from '../ReadingsContainer/readings-container.component';
 import { KanjiSvgDrawingPreviewComponent } from '../KanjiSvgDrawingPreview/kanji-svg-drawing-preview.component';
 
 @Component({
-  selector: 'kanji-preview',
+  selector: 'app-kanji-preview',
   templateUrl: 'kanji-preview.component.html',
   styleUrls: ['kanji-preview.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [KanjiSvgDrawingPreviewComponent, ReadingsContainerComponent]
 })
 export class KanjiPreviewComponent {

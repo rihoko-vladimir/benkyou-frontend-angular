@@ -1,5 +1,5 @@
 <mat-drawer-container autosize>
-  <mat-drawer [opened]="isShown" disableClose="true" mode="side" position="start">
+  <mat-drawer [opened]="isShown()" disableClose="true" mode="side" position="start">
     <div class="container">
       <div>
         <h4 class="mat-subheader subheader-margin">勉強!</h4>
@@ -18,10 +18,10 @@
           </mat-list-item>
           <mat-divider style="margin-top: 32px"></mat-divider>
           <p class="mat-subheader account-subheader-margin">Account</p>
-          <account-info-list-item></account-info-list-item>
+          <app-account-info-list-item></app-account-info-list-item>
         </mat-nav-list>
       </div>
-      <theme-change class="theme-change-icon"></theme-change>
+      <app-theme-change class="theme-change-icon"></app-theme-change>
     </div>
   </mat-drawer>
   <mat-drawer-content>

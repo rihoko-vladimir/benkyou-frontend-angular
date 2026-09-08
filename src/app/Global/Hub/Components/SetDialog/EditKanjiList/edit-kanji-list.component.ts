@@ -1,13 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import Kanji from '../../../../../Models/Kanji';
 import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { EditKanjiComponent } from '../EditKanji/edit-kanji.component';
-import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'edit-kanji-list',
+  selector: 'app-edit-kanji-list',
   templateUrl: 'edit-kanji-list.component.html',
   styleUrls: ['edit-kanji-list.component.scss'],
   animations: [
@@ -31,8 +30,8 @@ import { NgFor } from '@angular/common';
       ])
     ])
   ],
-  standalone: true,
-  imports: [NgFor, EditKanjiComponent, MatIconButton, MatIcon]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [EditKanjiComponent, MatIconButton, MatIcon]
 })
 export class EditKanjiListComponent {
   @Input() kanjiList!: Kanji[];

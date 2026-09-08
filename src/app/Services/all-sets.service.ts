@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IAllSetsService } from './Interfaces/all-sers.service';
 import { Observable } from 'rxjs';
 import { SetsApiService } from './sets-api.service';
@@ -11,7 +11,7 @@ import { IPagedSets } from './Interfaces/paged-sets';
  */
 @Injectable()
 export class AllSetsService implements IAllSetsService {
-  constructor(private setsApi: SetsApiService) {}
+  private setsApi = inject(SetsApiService);
 
   getAllSets(pageNumber: number, pageSize: number, searchQuery?: string): Observable<IPagedSets> {
     return this.setsApi.getAllSets(pageNumber, pageSize, searchQuery);

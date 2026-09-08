@@ -1,19 +1,20 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
+import { vi, describe, beforeEach, it, expect } from 'vitest';
 import AppState from '../app.state';
 import { hydrationMetaReducer } from './hydration.reducer';
 
 describe('hydrationMetaReducer', () => {
   const storageKey = 'state';
 
-  let storage: { [key: string]: string };
+  let storage: Record<string, string>;
 
   beforeEach(() => {
     storage = {};
-    spyOn(Storage.prototype, 'getItem').and.callFake((key: string) => (key in storage ? storage[key] : null));
-    spyOn(Storage.prototype, 'setItem').and.callFake((key: string, value: string) => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key: string) => (key in storage ? storage[key] : null));
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation((key: string, value: string) => {
       storage[key] = String(value);
     });
-    spyOn(Storage.prototype, 'removeItem').and.callFake((key: string) => {
+    vi.spyOn(Storage.prototype, 'removeItem').mockImplementation((key: string) => {
       delete storage[key];
     });
   });
@@ -37,8 +38,8 @@ describe('hydrationMetaReducer', () => {
     }) as unknown as AppState;
 
   const createMetaReducer = (nextState: AppState) => {
-    const reducer = jasmine.createSpy('reducer').and.returnValue(nextState) as unknown as ActionReducer<AppState>;
-    return { meta: hydrationMetaReducer(reducer), reducer };
+    const reducer = vi.fn().mockReturnValue(nextState) as unknown as ActionReducer<AppState>;
+    return { meta: hydrationMetaReducer(reducer), reducer: reducer as ReturnType<typeof vi.fn> };
   };
 
   it(`returns the stored state on ${INIT} without touching the reducer or storage`, () => {

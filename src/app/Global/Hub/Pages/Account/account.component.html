@@ -1,9 +1,17 @@
 <h1 class="mat-headline-4" style="margin: 0">Account</h1>
 <div class="page-content">
-    <account-overview [currentTab]="currentTab" *ngIf="!isError && !isLoading"></account-overview>
-    <account-information (tabIndexChange)="onTabChanged($event)" *ngIf="!isError && !isLoading"></account-information>
-  <div *ngIf="isLoading && !isError" class="loaderContainer">
-    <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
-  </div>
-  <error *ngIf="isError" componentName="Account" (retry)="onRetryClicked()"></error>
+  @if (!isError() && !isLoading()) {
+    <app-account-overview [currentTab]="currentTab"></app-account-overview>
+  }
+  @if (!isError() && !isLoading()) {
+    <app-account-information (tabIndexChange)="onTabChanged($event)"></app-account-information>
+  }
+  @if (isLoading() && !isError()) {
+    <div class="loaderContainer">
+      <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+    </div>
+  }
+  @if (isError()) {
+    <app-error componentName="Account" (retry)="onRetryClicked()"></app-error>
+  }
 </div>

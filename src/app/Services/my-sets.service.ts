@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IMySetsService } from './Interfaces/my-sets.service';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from '../Constants/AppConfiguration';
@@ -17,11 +17,9 @@ import { IPagedSets } from './Interfaces/paged-sets';
  */
 @Injectable()
 export class MySetsService implements IMySetsService {
-  constructor(
-    private httpClient: HttpClient,
-    private appConfig: AppConfiguration,
-    private setsApi: SetsApiService
-  ) {}
+  private httpClient = inject(HttpClient);
+  private appConfig = inject(AppConfiguration);
+  private setsApi = inject(SetsApiService);
 
   createSet(set: Set): Observable<Set> {
     return this.setsApi.createSet(set);

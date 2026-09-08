@@ -4,33 +4,50 @@
       <h1 class="mat-typography">Hey there!</h1>
       <h4 class="mat-typography">We need you to log in before using 勉強！</h4>
     </div>
-    <mat-progress-spinner *ngIf="isLoading" diameter="40" mode="indeterminate"></mat-progress-spinner>
-    <mat-icon *ngIf="isSuccess" style="color:forestgreen; font-size: 40px; width: 40px; height: 40px">done</mat-icon>
+    @if (isLoading()) {
+      <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+    }
+    @if (isSuccess()) {
+      <mat-icon style="color: forestgreen; font-size: 40px; width: 40px; height: 40px">done</mat-icon>
+    }
   </div>
   <div class="fields">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input [disabled]="isLoading || isSuccess" [formControl]="loginControl" matInput placeholder="youremail@mail.com">
-      <mat-error *ngIf="loginControl.invalid">{{ getEmailErrorMessage() }}</mat-error>
+      <input
+        [disabled]="isLoading() || isSuccess()"
+        [formControl]="loginControl"
+        matInput
+        placeholder="youremail@mail.com" />
+      @if (loginControl.invalid) {
+        <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input [disabled]="isLoading || isSuccess" [formControl]="passwordControl"
-             [type]="!isPasswordHidden ? 'password' : 'text'"
-             matInput placeholder="Your very secure password">
-      <button (click)="isPasswordHidden=!isPasswordHidden" mat-icon-button matSuffix>
-        <mat-icon fontSet="material-icons-outlined">{{ isPasswordHidden ? "visibility_off" : "visibility_on" }}
+      <input
+        [disabled]="isLoading() || isSuccess()"
+        [formControl]="passwordControl"
+        [type]="!isPasswordHidden() ? 'password' : 'text'"
+        matInput
+        placeholder="Your very secure password" />
+      <button (click)="isPasswordHidden.set(!isPasswordHidden())" mat-icon-button matSuffix>
+        <mat-icon fontSet="material-icons-outlined"
+          >{{ isPasswordHidden() ? "visibility_off" : "visibility_on" }}
         </mat-icon>
       </button>
-      <mat-error *ngIf="passwordControl.invalid">{{ getPasswordErrorMessage() }}</mat-error>
+      @if (passwordControl.invalid) {
+        <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+      }
     </mat-form-field>
     <a routerLink="/auth/forgot-password">I forgot my password</a>
   </div>
   <div class="buttons">
-    <button (click)="onLoginClicked()" [disabled]="isLoading || isSuccess" color="primary" mat-flat-button>Login
+    <button (click)="onLoginClicked()" [disabled]="isLoading() || isSuccess()" color="primary" mat-flat-button>
+      Login
     </button>
     <p class="suggestion-text">Don't have an account yet?</p>
-    <button (click)="onRegistrationClicked()" [disabled]="isLoading || isSuccess" color="accent" mat-flat-button>
+    <button (click)="onRegistrationClicked()" [disabled]="isLoading() || isSuccess()" color="accent" mat-flat-button>
       Sign up
     </button>
   </div>

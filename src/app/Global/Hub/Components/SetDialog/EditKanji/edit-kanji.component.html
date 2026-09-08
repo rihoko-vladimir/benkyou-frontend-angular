@@ -2,8 +2,8 @@
   <div class="kanji">
     <mat-form-field appearance="outline">
       <mat-label>Kanji</mat-label>
-      <input matInput class="inputSizeFix" [formControl]="kanjiControl" (change)="onKanjiCharChanged()">
-      <mat-error>{{getKanjiError()}}</mat-error>
+      <input matInput class="inputSizeFix" [formControl]="kanjiControl" (change)="onKanjiCharChanged()" />
+      <mat-error>{{ getKanjiError() }}</mat-error>
     </mat-form-field>
   </div>
   <div class="readingsContainer">
@@ -11,40 +11,46 @@
       <mat-form-field appearance="outline">
         <mat-label>Kunyomi</mat-label>
         <mat-chip-grid #kunyomi>
-          <mat-chip-row *ngFor="let kunyomiString of kanji.kunyomi">
-            {{kunyomiString}}
-            <button matChipRemove (click)="removeKunyomi(kunyomiString)">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
+          @for (kunyomiString of kanji.kunyomi; track kunyomiString) {
+            <mat-chip-row>
+              {{ kunyomiString }}
+              <button matChipRemove (click)="removeKunyomi(kunyomiString)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          }
         </mat-chip-grid>
-        <input class="inputSizeFix"
-               (focusin)="removeError('kunyomi')"
-               [formControl]="kunyomiControl"
-               [matChipInputFor]="kunyomi"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               (matChipInputTokenEnd)="addKunyomi($event)">
-        <mat-error>{{getFieldError("kunyomi")}}</mat-error>
+        <input
+          class="inputSizeFix"
+          (focusin)="removeError('kunyomi')"
+          [formControl]="kunyomiControl"
+          [matChipInputFor]="kunyomi"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addKunyomi($event)" />
+        <mat-error>{{ getFieldError("kunyomi") }}</mat-error>
       </mat-form-field>
     </div>
     <div class="readings">
       <mat-form-field appearance="outline">
         <mat-label>Onyomi</mat-label>
         <mat-chip-grid #onyomi>
-          <mat-chip-row *ngFor="let onyomiString of kanji.onyomi">
-            {{onyomiString}}
-            <button matChipRemove (click)="removeOnyomi(onyomiString)">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
+          @for (onyomiString of kanji.onyomi; track onyomiString) {
+            <mat-chip-row>
+              {{ onyomiString }}
+              <button matChipRemove (click)="removeOnyomi(onyomiString)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          }
         </mat-chip-grid>
-        <input class="inputSizeFix"
-               (focusin)="removeError('onyomi')"
-               [formControl]="onyomiControl"
-               [matChipInputFor]="onyomi"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               (matChipInputTokenEnd)="addOnyomi($event)">
-        <mat-error>{{getFieldError("onyomi")}}</mat-error>
+        <input
+          class="inputSizeFix"
+          (focusin)="removeError('onyomi')"
+          [formControl]="onyomiControl"
+          [matChipInputFor]="onyomi"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addOnyomi($event)" />
+        <mat-error>{{ getFieldError("onyomi") }}</mat-error>
       </mat-form-field>
     </div>
   </div>

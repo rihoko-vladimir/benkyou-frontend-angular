@@ -1,14 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import Kanji from '../../../../Models/Kanji';
 import { KanjiPreviewComponent } from '../KanjiPreview/kanji-preview.component';
-import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'kanji-list',
+  selector: 'app-kanji-list',
   templateUrl: 'kanji-list.component.html',
   styleUrls: ['kanji-list.component.scss'],
-  standalone: true,
-  imports: [NgFor, KanjiPreviewComponent]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [KanjiPreviewComponent]
 })
 export class KanjiListComponent {
   @Input() kanjiList!: Kanji[];

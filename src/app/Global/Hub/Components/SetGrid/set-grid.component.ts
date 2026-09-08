@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import Set from '../../../../Models/Set';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SetComponent } from '../Set/set.component';
-import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'set-grid',
+  selector: 'app-set-grid',
   templateUrl: 'set-grid.component.html',
   styleUrls: ['set-grid.component.scss'],
   animations: [
@@ -23,8 +22,8 @@ import { NgFor } from '@angular/common';
       ])
     ])
   ],
-  standalone: true,
-  imports: [NgFor, SetComponent]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SetComponent]
 })
 export class SetGridComponent {
   @Input() sets!: Set[];

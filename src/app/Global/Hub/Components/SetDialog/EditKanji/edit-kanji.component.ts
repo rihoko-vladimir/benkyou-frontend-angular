@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import Kanji from '../../../../../Models/Kanji';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
@@ -12,15 +12,15 @@ import {
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { NgFor } from '@angular/common';
+
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'edit-kanji',
+  selector: 'app-edit-kanji',
   templateUrl: 'edit-kanji.component.html',
   styleUrls: ['edit-kanji.component.scss'],
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatFormField,
     MatLabel,
@@ -29,7 +29,6 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatError,
     MatChipGrid,
-    NgFor,
     MatChipRow,
     MatChipRemove,
     MatIcon,
@@ -40,7 +39,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 export class EditKanjiComponent implements OnInit {
   @Input() kanji!: Kanji;
   @Input() myIndex!: number;
-  @Input() isRemoveAvailable: boolean = false;
+  @Input() isRemoveAvailable = false;
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
   @Output() kanjiChange = new EventEmitter<{ kanji: Kanji; index: number }>();
   @ViewChild('onyomi') onyomi!: MatChipListbox;
