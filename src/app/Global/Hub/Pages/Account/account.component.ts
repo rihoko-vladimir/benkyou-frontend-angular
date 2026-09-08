@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, computed, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -32,6 +32,16 @@ export class AccountComponent implements OnInit {
   isError = computed(() => this.accountState().error.isError);
 
   currentTab = 0;
+
+  constructor() {
+    // Clear the spinner when the account slice updates (accountInfoSuccess
+    // and accountError both dispatch) — mirrors the pre-migration
+    // subscribe callback.
+    effect(() => {
+      this.accountState();
+      this.isLoading.set(false);
+    });
+  }
 
   ngOnInit(): void {
     this.isLoading.set(true);

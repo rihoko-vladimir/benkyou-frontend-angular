@@ -7,7 +7,7 @@ import {
   RouterLink,
   RouterLinkActive
 } from '@angular/router';
-import { map } from 'rxjs';
+import { map, filter } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import AppState from '../../Redux/app.state';
 import { selectSnackbar } from '../../Redux/Selectors/selectors';
@@ -53,8 +53,13 @@ export class HubComponent {
   // surfaces to signals. toSignal() binds to this component's injector and
   // tears itself down on destroy; effect() replaces subscribe-side effects.
   // Reads in the template go through signals so zoneless schedules CD.
+  // Only NavigationEnd updates the value (as the pre-migration subscribe
+  // did) — other router events leave the drawer state untouched.
   isShown = toSignal(
-    inject(Router).events.pipe(map((e): boolean => e instanceof NavigationEnd && e.url !== '/hub/study')),
+    inject(Router).events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+      map(e => e.url !== '/hub/study')
+    ),
     { initialValue: false }
   );
 

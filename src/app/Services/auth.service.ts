@@ -6,8 +6,7 @@ import { AppConfiguration } from '../Constants/AppConfiguration';
 import { UserResponse } from '../Models/Responses/UserResponse';
 
 @Injectable({
-  providedIn: 'root',
-  deps: [AppConfiguration]
+  providedIn: 'root'
 })
 export class AuthService implements IAuthService {
   private httpClient = inject(HttpClient);

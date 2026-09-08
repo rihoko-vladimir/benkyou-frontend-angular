@@ -1,4 +1,5 @@
-import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordConfirmationEqualityValidator } from '../PasswordReset/validators/password-confirmation-equality';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,6 +24,7 @@ export class NewPasswordComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar);
+  private destroyRef = inject(DestroyRef);
 
   isLoading = signal(false);
   token = signal('');
@@ -74,9 +76,9 @@ export class NewPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.token.set(params['token']);
-      this.email.set(params['email']);
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      this.token.set(params['token'] ?? '');
+      this.email.set(params['email'] ?? '');
     });
   }
 }

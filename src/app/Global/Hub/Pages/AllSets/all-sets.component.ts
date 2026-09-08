@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, computed, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import AppState from '../../../../Redux/app.state';
@@ -44,6 +44,9 @@ export class AllSetsComponent implements OnInit {
   private allSetsState = toSignal(this.store.select(selectAllSets), {
     initialValue: allSetsInitialState
   });
+  // The old subscribe callback cleared isLoading when the store slice
+  // updated (success or failure both dispatch an action). Reproduced as
+  // an effect so the spinner clears exactly when new state lands.
   isLoading = signal(true);
   isError = computed(() => this.allSetsState().errorMessage !== undefined);
   currentSets = computed(() => this.allSetsState().sets);
@@ -54,6 +57,16 @@ export class AllSetsComponent implements OnInit {
   // assigned `pageSize = value.setsCount` (matches [length] math below).
   pageSize = computed(() => this.allSetsState().setsCount);
   searchControl: FormControl = new FormControl('');
+
+  constructor() {
+    // Clear the spinner whenever the store slice updates (success and
+    // failure both dispatch an action) — mirrors the pre-migration
+    // subscribe callback.
+    effect(() => {
+      this.allSetsState();
+      this.isLoading.set(false);
+    });
+  }
 
   ngOnInit(): void {
     this.isLoading.set(true);

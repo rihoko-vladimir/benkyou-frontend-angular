@@ -44,7 +44,14 @@ export class MySetsComponent implements OnInit {
   currentPage = computed(() => this.mySetsState().currentPage - 1);
 
   constructor() {
-    effect(() => this.sets.set(this.mySetsState().sets));
+    // Sync the writable sets signal from the store slice AND clear the
+    // spinner when the slice updates (success and failure both dispatch
+    // an action) — mirrors the pre-migration subscribe callback.
+    effect(() => {
+      const state = this.mySetsState();
+      this.sets.set(state.sets);
+      this.isLoading.set(false);
+    });
   }
 
   onSetsChanged(changedSets: Set[]) {

@@ -38,8 +38,6 @@ module.exports = defineConfig(
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/ban-types': 'off',
-      '@typescript-eslint/camelcase': 'off',
       'no-dupe-class-members': 'off',
       '@angular-eslint/directive-selector': [
         'error',
