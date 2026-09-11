@@ -103,6 +103,7 @@ describe('NewPasswordComponent', () => {
       component.passwordGroup.setValue({ passwordControl: '', confirmationControl: '' });
       component.onSetNewPasswordClicked();
       expect(authService.setNewPassword).not.toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
     });
 
     it('sets new password and navigates on success', () => {

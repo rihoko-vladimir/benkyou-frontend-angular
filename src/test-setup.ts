@@ -2,8 +2,8 @@
  * Global test environment setup, loaded before every spec via the
  * "setupFiles" option of the test target in angular.json.
  *
- * The unit tests run in a Node.js environment using jsdom, which does not
- * implement the Web Speech API. Specs that render speech-enabled components
+ * The unit tests run in a happy-dom environment, which does not implement the
+ * Web Speech API. Specs that render speech-enabled components
  * (SpeechableReadingComponent, KanjiSvgDrawingPreviewComponent) need these
  * globals to exist before the components are constructed.
  */

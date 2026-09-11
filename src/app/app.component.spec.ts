@@ -48,6 +48,9 @@ describe('AppComponent', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    // The component writes theme classes onto document.body; clean them up so
+    // the jsdom shared between spec files (non-isolated runner) stays deterministic.
+    document.body.classList.remove('light-theme', 'dark-theme');
   });
 
   it('should create the app', () => {

@@ -1,4 +1,5 @@
 import { routes } from './app.routes';
+import { AuthGuard } from './Guards/auth.guard';
 
 describe('app.routes', () => {
   it('defines the top-level auth, hub, not-found and fallback routes', () => {
@@ -10,19 +11,22 @@ describe('app.routes', () => {
 
   it('lazy-loads the auth routes', async () => {
     const authRoute = routes.find(r => r.path === 'auth')!;
+    const { authRoutes } = await import('./Global/Auth/auth.routes');
+
     const loaded = await (authRoute.loadChildren as () => Promise<unknown>)();
 
-    expect(loaded).toBeDefined();
+    expect(loaded).toBe(authRoutes);
   });
 
   it('lazy-loads the hub routes and guards them with AuthGuard', async () => {
     const hubRoute = routes.find(r => r.path === 'hub')!;
+    const { hubRoutes } = await import('./Global/Hub/hub.routes');
 
-    expect(hubRoute.canActivate?.length).toBe(1);
+    expect(hubRoute.canActivate).toEqual([AuthGuard]);
 
     const loaded = await (hubRoute.loadChildren as () => Promise<unknown>)();
 
-    expect(loaded).toBeDefined();
+    expect(loaded).toBe(hubRoutes);
   });
 
   it('redirects the empty path to hub and unknown paths to not-found', () => {

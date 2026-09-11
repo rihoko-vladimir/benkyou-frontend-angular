@@ -78,7 +78,7 @@ describe('MySetsService', () => {
     const req = httpMock.expectOne(`${apiEndpoint}/sets/modify?setId=set-1`);
     expect(req.request.method).toBe('PATCH');
     expect(req.request.withCredentials).toBe(true);
-    expect(Array.isArray(req.request.body)).toBe(true);
+    expect(req.request.body).toEqual([{ op: 'replace', path: '/name', value: 'Updated' }]);
     req.flush(null);
 
     expect(done).toBe(true);

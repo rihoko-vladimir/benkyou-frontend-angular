@@ -117,9 +117,15 @@ describe('HubComponent', () => {
   });
 
   describe('prepareRoute', () => {
-    it('returns undefined for a falsy outlet', () => {
+    it('returns null for a null outlet', () => {
       fixture.detectChanges();
-      expect(component.prepareRoute(null as unknown as RouterOutlet)).toBeFalsy();
+      expect(component.prepareRoute(null as unknown as RouterOutlet)).toBeNull();
+    });
+
+    it('returns undefined when the outlet carries no animation data', () => {
+      fixture.detectChanges();
+      const outlet = { activatedRouteData: {} } as unknown as RouterOutlet;
+      expect(component.prepareRoute(outlet)).toBeUndefined();
     });
 
     it('returns the animation data from the outlet when present', () => {

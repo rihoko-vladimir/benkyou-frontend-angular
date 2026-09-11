@@ -49,12 +49,15 @@ describe('TimeoutInterceptor', () => {
     await expect(firstValueFrom(interceptor.intercept(req, next as never))).rejects.toEqual({ error: 'Offline' });
   });
 
-  it('errors with a timeout when the request takes too long', async () => {
+  it('fails with a TimeoutError when the request takes too long', async () => {
     vi.useFakeTimers();
     const subject = new Subject<unknown>();
     const next = { handle: vi.fn(() => subject.asObservable()) };
 
-    const failure = expect(firstValueFrom(interceptor.intercept(req, next as never))).rejects.toBeTruthy();
+    const failure = expect(firstValueFrom(interceptor.intercept(req, next as never))).rejects.toMatchObject({
+      name: 'TimeoutError',
+      message: 'Timeout has occurred'
+    });
     await vi.advanceTimersByTimeAsync(10001);
     await failure;
   });

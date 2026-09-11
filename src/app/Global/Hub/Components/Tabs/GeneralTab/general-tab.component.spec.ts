@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { BehaviorSubject, of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 import { Store } from '@ngrx/store';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { AccountService } from '../../../../../Services/account.service';
 import { IAccountState, accountInitialState } from '../../../../../Redux/Reducers/account.reducer';
 import { accountError, accountInfoSuccess } from '../../../../../Redux/Actions/account.actions';
@@ -31,16 +32,19 @@ describe('GeneralTabComponent', () => {
     avatarUrl: ''
   };
 
+  // The account slice, and the exact "current account" payload the component
+  // sends when a visibility update is requested.
+  const accountSlice = {
+    firstName: 'Taro',
+    lastName: 'Yamada',
+    userName: 'taro',
+    isAccountPublic: false,
+    birthDay: '1990-01-01',
+    about: 'hi'
+  };
+
   beforeEach(() => {
-    accountState$ = new BehaviorSubject<IAccountState>({
-      ...accountInitialState,
-      firstName: 'Taro',
-      lastName: 'Yamada',
-      userName: 'taro',
-      isAccountPublic: false,
-      birthDay: '1990-01-01',
-      about: 'hi'
-    });
+    accountState$ = new BehaviorSubject<IAccountState>({ ...accountInitialState, ...accountSlice });
     store = { select: () => accountState$, dispatch: vi.fn() };
     accountServiceMock = { updateUserAccount: vi.fn() };
 
@@ -55,9 +59,16 @@ describe('GeneralTabComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('reflects the account visibility slice in the toggle', () => {
+  it('reflects the account visibility slice in the toggle checked state', () => {
     fixture.detectChanges();
-    expect(component.accountInfo().isAccountPublic).toBe(false);
+    const toggle = fixture.debugElement.query(By.directive(MatSlideToggle)).componentInstance as MatSlideToggle;
+
+    expect(toggle.checked).toBe(false);
+
+    accountState$.next({ ...accountInitialState, ...accountSlice, isAccountPublic: true });
+    fixture.detectChanges();
+
+    expect(toggle.checked).toBe(true);
   });
 
   it('dispatches visibilityChangeSuccess and accountInfoSuccess when visibility actually changes', () => {
@@ -66,7 +77,10 @@ describe('GeneralTabComponent', () => {
 
     component.onVisibilityChanged({ checked: true } as MatSlideToggleChange);
 
-    expect(accountServiceMock.updateUserAccount).toHaveBeenCalled();
+    expect(accountServiceMock.updateUserAccount).toHaveBeenCalledWith(accountSlice, {
+      ...accountSlice,
+      isAccountPublic: true
+    });
     expect(store.dispatch).toHaveBeenCalledWith(visibilityChangeSuccess());
     expect(store.dispatch).toHaveBeenCalledWith(
       accountInfoSuccess(mapUserResponseToAccountState({ ...userResponse, isAccountPublic: true }))
@@ -79,6 +93,7 @@ describe('GeneralTabComponent', () => {
 
     component.onVisibilityChanged({ checked: false } as MatSlideToggleChange);
 
+    expect(accountServiceMock.updateUserAccount).toHaveBeenCalledWith(accountSlice, accountSlice);
     expect(store.dispatch).not.toHaveBeenCalledWith(visibilityChangeSuccess());
     expect(store.dispatch).toHaveBeenCalledWith(
       accountInfoSuccess(mapUserResponseToAccountState({ ...userResponse, isAccountPublic: false }))
@@ -94,15 +109,17 @@ describe('GeneralTabComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(accountError({ errorMessage: 'boom' }));
   });
 
-  it('invokes onVisibilityChanged when the slide toggle changes', () => {
-    accountServiceMock.updateUserAccount.mockReturnValue(of(userResponse));
+  it('invokes the account update when the slide toggle emits a change', () => {
+    accountServiceMock.updateUserAccount.mockReturnValue(of({ ...userResponse, isAccountPublic: true }));
     fixture.detectChanges();
+    const toggle = fixture.debugElement.query(By.directive(MatSlideToggle)).componentInstance as MatSlideToggle;
 
-    const toggle = fixture.nativeElement.querySelector('mat-slide-toggle');
-    toggle.dispatchEvent(new Event('change'));
+    toggle.change.emit(new MatSlideToggleChange(toggle, true));
 
-    // Component-level call is what matters; the DOM event alone won't trigger
-    // MatSlideToggleChange without user interaction, so assert wiring instead.
-    expect(component).toBeTruthy();
+    expect(accountServiceMock.updateUserAccount).toHaveBeenCalledWith(accountSlice, {
+      ...accountSlice,
+      isAccountPublic: true
+    });
+    expect(store.dispatch).toHaveBeenCalledWith(visibilityChangeSuccess());
   });
 });

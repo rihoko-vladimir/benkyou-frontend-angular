@@ -74,6 +74,7 @@ describe('SetDialogComponent', () => {
 
     expect(dialogRef.close).not.toHaveBeenCalled();
     expect(component.setFormGroup.controls.nameControl.touched).toBe(true);
+    expect(component.setFormGroup.controls.descriptionControl.touched).toBe(true);
   });
 
   it('updates isFinishAvailable on field change based on form validity and kanji list', () => {

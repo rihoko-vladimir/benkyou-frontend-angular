@@ -37,7 +37,7 @@ describe('SpeechableReadingComponent', () => {
     span.click();
 
     expect(cancelSpy).toHaveBeenCalled();
-    expect(speakSpy).toHaveBeenCalled();
+    expect(speakSpy).toHaveBeenCalledWith(expect.objectContaining({ text: 'よむ' }));
   });
 
   it('calls badgeClicked directly and sets the utterance text', () => {

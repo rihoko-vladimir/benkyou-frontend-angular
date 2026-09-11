@@ -40,6 +40,18 @@ describe('PersonalTabComponent', () => {
     avatarUrl: ''
   };
 
+  // First argument of every updateUserAccount call: the current account slice.
+  // The edited payload's birthDay is Date#toDateString() output in the local
+  // timezone, so its null branch is covered by the dedicated test below.
+  const currentAccount = {
+    firstName: 'Taro',
+    lastName: 'Yamada',
+    about: 'hi',
+    userName: 'taro',
+    birthDay: '1990-01-01',
+    isAccountPublic: true
+  };
+
   beforeEach(() => {
     accountState$ = new BehaviorSubject<IAccountState>(baseAccount);
     store = { select: () => accountState$, dispatch: vi.fn() };
@@ -136,7 +148,16 @@ describe('PersonalTabComponent', () => {
 
     component.onAccountSaveClicked();
 
-    expect(accountServiceMock.updateUserAccount).toHaveBeenCalled();
+    expect(accountServiceMock.updateUserAccount).toHaveBeenCalledWith(
+      currentAccount,
+      expect.objectContaining({
+        firstName: 'Taro',
+        lastName: 'Yamada',
+        userName: 'taro',
+        about: 'hi',
+        isAccountPublic: true
+      })
+    );
     expect(store.dispatch).toHaveBeenCalledWith(visibilityChangeSuccess());
     expect(store.dispatch).toHaveBeenCalledWith(
       accountInfoSuccess(mapUserResponseToAccountState({ ...userResponse, isAccountPublic: false }))
@@ -170,20 +191,23 @@ describe('PersonalTabComponent', () => {
     component.onAccountSaveClicked();
 
     expect(accountServiceMock.updateUserAccount).toHaveBeenCalledWith(
-      expect.anything(),
+      currentAccount,
       expect.objectContaining({ birthDay: null })
     );
   });
 
-  it('invokes onAccountSaveClicked when the Save button is clicked', () => {
+  it('saves the edited form values when the Save button is clicked', () => {
     accountServiceMock.updateUserAccount.mockReturnValue(of(userResponse));
     fixture.detectChanges();
     component.personalFormGroup.controls.firstNameControl.setValue('Changed');
     fixture.detectChanges();
 
-    const button = fixture.nativeElement.querySelector('button.saveButton');
+    const button = fixture.nativeElement.querySelector('button.saveButton') as HTMLButtonElement;
     button.click();
 
-    expect(accountServiceMock.updateUserAccount).toHaveBeenCalled();
+    expect(accountServiceMock.updateUserAccount).toHaveBeenCalledWith(
+      currentAccount,
+      expect.objectContaining({ firstName: 'Changed' })
+    );
   });
 });

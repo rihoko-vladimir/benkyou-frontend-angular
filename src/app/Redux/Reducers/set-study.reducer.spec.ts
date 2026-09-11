@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi, describe, afterEach, it, expect } from 'vitest';
 import Answer from '../../Models/Answer';
 import Kanji from '../../Models/Kanji';
 import Set from '../../Models/Set';
@@ -22,6 +22,12 @@ const studySet = new Set('set-1', 'Study set', '', '', 'user-1', [
 const allReadings = ['いち', 'ひと', 'イチ', 'イツ', 'に', 'ふた', 'ニ', 'さん', 'み', 'サン'];
 
 describe('setStudyReducer', () => {
+  // Math.random is a shared global; without this the spy would leak into the
+  // rest of the (non-isolated) run.
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   describe('startStudying', () => {
     it('shuffles the kanji list and initializes the study state', () => {
       // Deterministic shuffle keys: 0.9, 0.1, 0.4 ascending -> [二, 三, 一].

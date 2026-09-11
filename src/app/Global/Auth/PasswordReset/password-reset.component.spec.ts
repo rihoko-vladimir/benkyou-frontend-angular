@@ -5,7 +5,6 @@ import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 import { PasswordResetComponent } from './password-reset.component';
 import { AuthService } from '../../../Services/auth.service';
-import { MatStepper } from '@angular/material/stepper';
 
 describe('PasswordResetComponent', () => {
   let component: PasswordResetComponent;
@@ -75,23 +74,24 @@ describe('PasswordResetComponent', () => {
     it('advances the stepper on success', () => {
       component.emailControl.setValue('user@mail.com');
       authService.resetPassword.mockReturnValue(of(undefined));
-      component.stepper = { next: vi.fn() } as unknown as MatStepper;
 
       component.onNextClicked();
+      fixture.detectChanges();
 
       expect(authService.resetPassword).toHaveBeenCalledWith('user@mail.com');
-      expect(component.stepper.next).toHaveBeenCalled();
+      expect(component.stepper.selectedIndex).toBe(1);
       expect(component.isLoading()).toBe(false);
     });
 
     it('shows an error snackbar and stops loading on failure', () => {
       component.emailControl.setValue('user@mail.com');
       authService.resetPassword.mockReturnValue(throwError(() => ({ error: 'reset failed' })));
-      component.stepper = { next: vi.fn() } as unknown as MatStepper;
 
       component.onNextClicked();
+      fixture.detectChanges();
 
       expect(component.isLoading()).toBe(false);
+      expect(component.stepper.selectedIndex).toBe(0);
       expect(snackbar.open).toHaveBeenCalledWith('reset failed', undefined, {
         horizontalPosition: 'start',
         verticalPosition: 'bottom',

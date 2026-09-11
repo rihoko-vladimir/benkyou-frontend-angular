@@ -70,6 +70,9 @@ describe('RegistrationComponent', () => {
       component.stepper.selectedIndex = 0;
       component.onNextClicked();
       expect(component.credentialsFormGroup.controls.userNameControl.touched).toBe(true);
+      expect(component.credentialsFormGroup.controls.emailControl.touched).toBe(true);
+      expect(component.credentialsFormGroup.controls.firstNameControl.touched).toBe(true);
+      expect(component.credentialsFormGroup.controls.lastNameControl.touched).toBe(true);
     });
 
     it('advances stepper when valid', () => {
@@ -86,6 +89,7 @@ describe('RegistrationComponent', () => {
       component.stepper.selectedIndex = 1;
       component.onNextClicked();
       expect(component.passwordFormGroup.controls.passwordControl.touched).toBe(true);
+      expect(component.passwordFormGroup.controls.passwordConfirmationControl.touched).toBe(true);
     });
 
     it('advances stepper when valid', () => {
@@ -249,6 +253,8 @@ describe('RegistrationComponent', () => {
 
   describe('onSendConfirmationCode', () => {
     beforeEach(() => {
+      // Swap the third-party ViewChild for a stub so the disabled flag can be
+      // asserted without depending on CodeInputComponent internals.
       component.confirmationCodeElement = { disabled: false } as unknown as CodeInputComponent;
       component.userId.set('user-id-123');
     });

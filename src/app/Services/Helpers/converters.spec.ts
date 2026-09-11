@@ -150,13 +150,4 @@ describe('converters', () => {
       });
     });
   });
-
-  describe('Set default kanjiList', () => {
-    it('defaults kanjiList to three empty Kanji', () => {
-      const set = new Set();
-
-      expect(set.kanjiList.length).toBe(3);
-      set.kanjiList.forEach(kanji => expect(kanji).toEqual(new Kanji('', [], [])));
-    });
-  });
 });

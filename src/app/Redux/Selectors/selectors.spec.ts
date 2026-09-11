@@ -1,14 +1,18 @@
 import { selectAccount, selectAllSets, selectMySets, selectSetStudy, selectSnackbar } from './selectors';
 import AppState from '../app.state';
+import { accountInitialState } from '../Reducers/account.reducer';
+import { allSetsInitialState } from '../Reducers/all-sets.reducer';
+import { mySetsInitialState } from '../Reducers/my-sets.reducer';
+import { setStudyInitialState } from '../Reducers/set-study.reducer';
 
 describe('selectors', () => {
-  const state = {
-    setStudy: { currentStep: 1 },
-    allSets: { sets: [1] },
-    mySets: { sets: [2] },
-    account: { id: 'user-1' },
-    snackbar: { isShown: true, message: 'hi' }
-  } as unknown as AppState;
+  const state: AppState = {
+    account: accountInitialState,
+    allSets: allSetsInitialState,
+    mySets: mySetsInitialState,
+    setStudy: setStudyInitialState,
+    snackbar: { isShown: true, message: 'Set was created successfully' }
+  };
 
   it('selectAccount reads the account slice', () => {
     expect(selectAccount(state)).toBe(state.account);

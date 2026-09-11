@@ -1,5 +1,5 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
-import { vi, describe, beforeEach, it, expect } from 'vitest';
+import { vi, describe, beforeEach, afterEach, it, expect } from 'vitest';
 import AppState from '../app.state';
 import { hydrationMetaReducer } from './hydration.reducer';
 
@@ -17,6 +17,12 @@ describe('hydrationMetaReducer', () => {
     vi.spyOn(Storage.prototype, 'removeItem').mockImplementation((key: string) => {
       delete storage[key];
     });
+  });
+
+  // Storage.prototype is a shared global; without this the spies leak into the
+  // rest of the (non-isolated) run.
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   // setStudy and snackbar get dropped on serialization, so their contents are

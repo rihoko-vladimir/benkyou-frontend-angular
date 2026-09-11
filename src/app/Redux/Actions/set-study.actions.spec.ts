@@ -1,5 +1,6 @@
 import { finishStudying, nextKanji, startStudying } from './set-study.actions';
 import Set from '../../Models/Set';
+import Kanji from '../../Models/Kanji';
 import Answer from '../../Models/Answer';
 
 describe('set-study.actions', () => {
@@ -13,7 +14,7 @@ describe('set-study.actions', () => {
   });
 
   it('nextKanji carries the given answer', () => {
-    const answer = {} as Answer;
+    const answer = new Answer(new Kanji('一', ['いち'], ['イチ']), ['いち']);
 
     const action = nextKanji({ answer });
 

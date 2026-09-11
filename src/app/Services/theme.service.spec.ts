@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { vi } from 'vitest';
 import { ThemeService } from './theme.service';
 import { ThemePreference } from '../Models/Enums/ThemePreference';
@@ -25,12 +25,7 @@ describe('ThemeService', () => {
   });
 
   it('getTheme selects the account slice and resolves the themePreference', async () => {
-    let result: ThemePreference | undefined;
-    service.getTheme().subscribe(theme => (result = theme));
-
-    // switchMap(async ...) resolves on a microtask tick.
-    await Promise.resolve();
-    await Promise.resolve();
+    const result = await firstValueFrom(service.getTheme());
 
     expect(storeStub.select).toHaveBeenCalledWith(selectAccount);
     expect(result).toBe(ThemePreference.Dark);

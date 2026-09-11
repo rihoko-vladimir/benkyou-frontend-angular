@@ -46,7 +46,7 @@ describe('AccountService', () => {
     const req = httpMock.expectOne(`${apiEndpoint}/user/update-info`);
     expect(req.request.method).toBe('PATCH');
     expect(req.request.withCredentials).toBe(true);
-    expect(Array.isArray(req.request.body)).toBe(true);
+    expect(req.request.body).toEqual([{ op: 'replace', path: '/firstName', value: 'Jiro' }]);
     req.flush({ id: '1' } as UserResponse);
 
     expect(response).toEqual({ id: '1' });
@@ -61,7 +61,10 @@ describe('AccountService', () => {
     const req = httpMock.expectOne(`${apiEndpoint}/user/upload-avatar`);
     expect(req.request.method).toBe('PUT');
     expect(req.request.withCredentials).toBe(true);
-    expect(req.request.body instanceof FormData).toBe(true);
+    const formData = req.request.body as FormData;
+    expect(formData instanceof FormData).toBe(true);
+    const uploaded = formData.get('formFile') as File;
+    expect(uploaded.name).toBe('avatar.png');
     req.flush({ id: '1' } as UserResponse);
 
     expect(response).toEqual({ id: '1' });

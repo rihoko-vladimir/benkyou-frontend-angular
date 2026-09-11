@@ -52,15 +52,11 @@ describe('JwtRefreshInterceptor', () => {
 
   it('refreshes tokens and retries the request on a 401', async () => {
     const error = new HttpErrorResponse({ status: 401 });
-    let firstCall = true;
     const next = {
-      handle: vi.fn(() => {
-        if (firstCall) {
-          firstCall = false;
-          return throwError(() => error);
-        }
-        return of('retried' as unknown);
-      })
+      handle: vi
+        .fn()
+        .mockReturnValueOnce(throwError(() => error))
+        .mockReturnValue(of('retried' as unknown))
     };
     httpClient.post.mockReturnValue(of({}));
 
@@ -76,8 +72,24 @@ describe('JwtRefreshInterceptor', () => {
     const next = { handle: vi.fn(() => throwError(() => error)) };
     httpClient.post.mockReturnValue(throwError(() => new Error('refresh failed')));
 
-    await firstValueFrom(interceptor.intercept(req, next as never), { defaultValue: null });
+    // The interceptor swallows the failure (EMPTY): the stream must complete without emitting.
+    const result = await firstValueFrom(interceptor.intercept(req, next as never), { defaultValue: null });
 
+    expect(result).toBeNull();
+    expect(next.handle).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(logout());
+    expect(router.navigate).toHaveBeenCalledWith(['auth']);
+  });
+
+  it('logs out and navigates to auth when the retried request fails after a successful refresh', async () => {
+    const error = new HttpErrorResponse({ status: 401 });
+    const next = { handle: vi.fn(() => throwError(() => error)) };
+    httpClient.post.mockReturnValue(of({}));
+
+    const result = await firstValueFrom(interceptor.intercept(req, next as never), { defaultValue: null });
+
+    expect(result).toBeNull();
+    expect(next.handle).toHaveBeenCalledTimes(2);
     expect(store.dispatch).toHaveBeenCalledWith(logout());
     expect(router.navigate).toHaveBeenCalledWith(['auth']);
   });

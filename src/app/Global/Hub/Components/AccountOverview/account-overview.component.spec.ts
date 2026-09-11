@@ -62,9 +62,10 @@ describe('AccountOverviewComponent', () => {
     expect(fixture.nativeElement.querySelector('img.avatarClass')).toBeTruthy();
   });
 
-  it('resets file selection when fileInput is undefined', () => {
+  it('resets file selection when the file input is not yet resolved', () => {
+    component.fileInput = undefined;
     component.selectedFile.set(new File([''], 'a.png'));
-    component.fileImage.set(new ArrayBuffer(1));
+    component.fileImage.set('data:image/png;base64,Y29udGVudA==');
 
     component.resetFileSelection();
 
@@ -73,29 +74,31 @@ describe('AccountOverviewComponent', () => {
   });
 
   it('resets file selection and clears the file input when present', () => {
-    const nativeElement = { value: 'something' };
-    component.fileInput = { nativeElement } as unknown as ElementRef;
+    const input = document.createElement('input');
+    input.value = 'something';
+    component.fileInput = new ElementRef(input);
     component.selectedFile.set(new File([''], 'a.png'));
 
     component.resetFileSelection();
 
-    expect(nativeElement.value).toBe('');
+    expect(input.value).toBe('');
     expect(component.selectedFile()).toBeUndefined();
   });
 
-  it('sets the selected file and reads it as a data URL on onFileSelected', () => {
+  it('sets the selected file when a file is chosen in the file input', () => {
     const file = new File(['content'], 'avatar.png', { type: 'image/png' });
-    const event = { target: { files: [file] } } as unknown as Event;
+    const fileInput = fixture.nativeElement.querySelector('#file') as HTMLInputElement;
+    Object.defineProperty(fileInput, 'files', { value: [file], configurable: true });
 
-    component.onFileSelected(event);
+    fileInput.dispatchEvent(new Event('change'));
 
     expect(component.selectedFile()).toBe(file);
   });
 
   it('leaves selectedFile undefined when no file is chosen', () => {
-    const event = { target: { files: [] } } as unknown as Event;
+    const fileInput = fixture.nativeElement.querySelector('#file') as HTMLInputElement;
 
-    component.onFileSelected(event);
+    fileInput.dispatchEvent(new Event('change'));
 
     expect(component.selectedFile()).toBeUndefined();
   });
@@ -150,7 +153,7 @@ describe('AccountOverviewComponent', () => {
   it('resets the selection when the discard button is clicked', () => {
     component.currentTab = 1;
     component.selectedFile.set(new File([''], 'a.png'));
-    component.fileImage.set(new ArrayBuffer(1));
+    component.fileImage.set('data:image/png;base64,Y29udGVudA==');
     fixture.detectChanges();
 
     (fixture.nativeElement.querySelectorAll('.discardConfirm button')[0] as HTMLElement).click();
@@ -161,14 +164,15 @@ describe('AccountOverviewComponent', () => {
 
   it('uploads the selection when the confirm button is clicked', () => {
     accountService.uploadNewAvatar.mockReturnValue(of(userInfo));
+    const file = new File(['content'], 'avatar.png', { type: 'image/png' });
     component.currentTab = 1;
-    component.selectedFile.set(new File([''], 'a.png'));
-    component.fileImage.set(new ArrayBuffer(1));
+    component.selectedFile.set(file);
+    component.fileImage.set('data:image/png;base64,Y29udGVudA==');
     fixture.detectChanges();
 
     (fixture.nativeElement.querySelectorAll('.discardConfirm button')[1] as HTMLElement).click();
 
-    expect(accountService.uploadNewAvatar).toHaveBeenCalled();
+    expect(accountService.uploadNewAvatar).toHaveBeenCalledWith(file);
     expect(store.dispatch).toHaveBeenCalledWith(accountInfoSuccess(mapUserResponseToAccountState(userInfo)));
   });
 
@@ -179,6 +183,6 @@ describe('AccountOverviewComponent', () => {
 
     fileInput.dispatchEvent(new Event('change'));
 
-    await vi.waitFor(() => expect(component.fileImage()).toBeDefined());
+    await vi.waitFor(() => expect(component.fileImage()).toBe('data:image/png;base64,Y29udGVudA=='));
   });
 });

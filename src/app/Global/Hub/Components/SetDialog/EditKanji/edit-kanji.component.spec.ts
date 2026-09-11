@@ -6,7 +6,12 @@ import Kanji from '../../../../../Models/Kanji';
 import { EditKanjiComponent } from './edit-kanji.component';
 
 function chipEvent(value: string) {
-  return { value, chipInput: { clear: () => {} } } as unknown as Parameters<EditKanjiComponent['addKunyomi']>[0];
+  // MatChipInputEvent is an interface whose chipInput must be a MatChipInput
+  // instance; these tests only need value + clear(), so the double cast lives
+  // in this one helper instead of at every call site.
+  const clear = vi.fn();
+  const event = { value, chipInput: { clear } } as unknown as MatChipInputEvent;
+  return { event, clear };
 }
 
 describe('EditKanjiComponent', () => {
@@ -54,8 +59,7 @@ describe('EditKanjiComponent', () => {
   });
 
   it('adds a valid new kunyomi and clears the input', () => {
-    const clear = vi.fn();
-    const event = { value: 'に', chipInput: { clear } } as unknown as Parameters<EditKanjiComponent['addKunyomi']>[0];
+    const { event, clear } = chipEvent('に');
 
     component.addKunyomi(event);
 
@@ -65,10 +69,7 @@ describe('EditKanjiComponent', () => {
 
   it('does not add kunyomi when the control is invalid', () => {
     component.kunyomiControl.setErrors({ pattern: true });
-    const clear = vi.fn();
-    const event = { value: 'カタカナ', chipInput: { clear } } as unknown as Parameters<
-      EditKanjiComponent['addKunyomi']
-    >[0];
+    const { event, clear } = chipEvent('カタカナ');
 
     component.addKunyomi(event);
 
@@ -77,7 +78,7 @@ describe('EditKanjiComponent', () => {
   });
 
   it('does not add a duplicate kunyomi', () => {
-    const event = chipEvent('いち');
+    const { event } = chipEvent('いち');
 
     component.addKunyomi(event);
 
@@ -85,8 +86,7 @@ describe('EditKanjiComponent', () => {
   });
 
   it('does not add an empty kunyomi value', () => {
-    const clear = vi.fn();
-    const event = { value: '', chipInput: { clear } } as unknown as Parameters<EditKanjiComponent['addKunyomi']>[0];
+    const { event, clear } = chipEvent('');
 
     component.addKunyomi(event);
 
@@ -105,13 +105,17 @@ describe('EditKanjiComponent', () => {
   });
 
   it('does nothing when removing an onyomi that does not exist', () => {
+    const emitSpy = vi.fn();
+    component.kanjiChange.subscribe(emitSpy);
+
     component.removeOnyomi('missing');
+
     expect(kanji.onyomi).toEqual(['イチ']);
+    expect(emitSpy).not.toHaveBeenCalled();
   });
 
   it('adds a valid new onyomi and clears the input', () => {
-    const clear = vi.fn();
-    const event = { value: 'ニ', chipInput: { clear } } as unknown as Parameters<EditKanjiComponent['addOnyomi']>[0];
+    const { event, clear } = chipEvent('ニ');
 
     component.addOnyomi(event);
 
@@ -121,8 +125,7 @@ describe('EditKanjiComponent', () => {
 
   it('does not add onyomi when the control is invalid', () => {
     component.onyomiControl.setErrors({ pattern: true });
-    const clear = vi.fn();
-    const event = { value: 'ニ', chipInput: { clear } } as unknown as Parameters<EditKanjiComponent['addOnyomi']>[0];
+    const { event, clear } = chipEvent('ニ');
 
     component.addOnyomi(event);
 
@@ -131,8 +134,7 @@ describe('EditKanjiComponent', () => {
   });
 
   it('does not add an onyomi already present in kunyomi', () => {
-    const clear = vi.fn();
-    const event = { value: 'いち', chipInput: { clear } } as unknown as Parameters<EditKanjiComponent['addOnyomi']>[0];
+    const { event } = chipEvent('いち');
 
     component.addOnyomi(event);
 
@@ -140,8 +142,7 @@ describe('EditKanjiComponent', () => {
   });
 
   it('does not add an empty onyomi value', () => {
-    const clear = vi.fn();
-    const event = { value: '', chipInput: { clear } } as unknown as Parameters<EditKanjiComponent['addOnyomi']>[0];
+    const { event, clear } = chipEvent('');
 
     component.addOnyomi(event);
 

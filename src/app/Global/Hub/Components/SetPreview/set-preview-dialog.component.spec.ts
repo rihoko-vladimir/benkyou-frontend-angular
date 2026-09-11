@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { vi } from 'vitest';
 import Kanji from '../../../../Models/Kanji';
+import { KanjiListComponent } from '../KanjiList/kanji-list.component';
 import { DialogData, SetPreviewDialogComponent } from './set-preview-dialog.component';
 
 describe('SetPreviewDialogComponent', () => {
-  let component: SetPreviewDialogComponent;
   let fixture: ComponentFixture<SetPreviewDialogComponent>;
   const kanjiList = [new Kanji('一', ['いち'], ['イチ'])];
 
@@ -23,7 +24,6 @@ describe('SetPreviewDialogComponent', () => {
     });
 
     fixture = TestBed.createComponent(SetPreviewDialogComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -31,9 +31,12 @@ describe('SetPreviewDialogComponent', () => {
     vi.unstubAllGlobals();
   });
 
-  it('creates and exposes injected dialog data', () => {
-    expect(component).toBeTruthy();
-    expect(component.data.kanjiList).toEqual(kanjiList);
+  it('renders the injected kanji list in the preview dialog', () => {
+    const kanjiListComponent = fixture.debugElement.query(By.directive(KanjiListComponent))
+      .componentInstance as KanjiListComponent;
+
+    expect(fixture.nativeElement.querySelector('h1').textContent).toContain('Set preview');
+    expect(kanjiListComponent.kanjiList).toEqual(kanjiList);
   });
 });
 

@@ -14,6 +14,7 @@ import { MySetsService } from '../../../../Services/my-sets.service';
 import { loadMySetsFailure, loadMySetsSuccess } from '../../../../Redux/Actions/my-sets.actions';
 import { createSetSuccess, removeSetSuccess } from '../../../../Redux/Actions/snackbar.actions';
 import { loadAllSetsFailure } from '../../../../Redux/Actions/all-sets.actions';
+import { OpenMode, SetDialogComponent } from '../../Components/SetDialog/set-dialog.component';
 import { SetGridComponent } from '../../Components/SetGrid/set-grid.component';
 import { MySetsComponent } from './my-sets.component';
 
@@ -170,7 +171,9 @@ describe('MySetsComponent', () => {
     fixture.nativeElement.querySelector('.top-section button').click();
     closeCallback(buildSet('new'));
 
-    expect(dialog.open).toHaveBeenCalled();
+    expect(dialog.open).toHaveBeenCalledWith(SetDialogComponent, {
+      data: expect.objectContaining({ mode: OpenMode.create, set: expect.any(Set) })
+    });
     expect(mySetsService.createSet).toHaveBeenCalledWith(buildSet('new'));
     expect(store.dispatch).toHaveBeenCalledWith(createSetSuccess());
   });
@@ -200,11 +203,16 @@ describe('MySetsComponent', () => {
   it('removes a set and reloads on success', () => {
     fixture.detectChanges();
     mySetsService.removeMySet.mockReturnValue(of(undefined));
+    // Distinct reload payload so the post-remove load is distinguishable from the init load.
+    mySetsService.getMySets.mockReturnValueOnce(of({ sets: [buildSet('2')], pagesCount: 5, currentPage: 2 }));
 
     getGrid().setsRemove.emit('1');
 
     expect(mySetsService.removeMySet).toHaveBeenCalledWith('1');
     expect(store.dispatch).toHaveBeenCalledWith(removeSetSuccess());
+    expect(store.dispatch).toHaveBeenCalledWith(
+      loadMySetsSuccess({ sets: [buildSet('2')], pagesCount: 5, pageNumber: 2 })
+    );
   });
 
   it('dispatches loadMySetsFailure when removing a set fails', () => {
@@ -219,6 +227,8 @@ describe('MySetsComponent', () => {
   it('patches a set and reloads on success', () => {
     fixture.detectChanges();
     mySetsService.patchMySet.mockReturnValue(of(undefined));
+    // Distinct reload payload so the post-patch load is distinguishable from the init load.
+    mySetsService.getMySets.mockReturnValueOnce(of({ sets: [buildSet('2')], pagesCount: 5, currentPage: 2 }));
     const original = buildSet('1');
     const updated = buildSet('1');
     updated.name = 'Updated';
@@ -226,6 +236,9 @@ describe('MySetsComponent', () => {
     getGrid().setChange.emit({ set: updated, originalSet: original });
 
     expect(mySetsService.patchMySet).toHaveBeenCalledWith('1', updated, original);
+    expect(store.dispatch).toHaveBeenCalledWith(
+      loadMySetsSuccess({ sets: [buildSet('2')], pagesCount: 5, pageNumber: 2 })
+    );
   });
 
   it('dispatches loadAllSetsFailure when patching a set fails', () => {

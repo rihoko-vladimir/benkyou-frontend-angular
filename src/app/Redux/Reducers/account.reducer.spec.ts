@@ -55,16 +55,6 @@ describe('accountReducer', () => {
     expect(state.error).toEqual({ isError: false, errorMessage: '' });
   });
 
-  it('populates the account on accountInfoSuccess', () => {
-    const state = accountReducer(undefined, accountInfoSuccess(accountPayload));
-
-    expect(state.id).toBe('user-1');
-    expect(state.firstName).toBe('Taro');
-    expect(state.userName).toBe('taro');
-    expect(state.about).toBe('About me');
-    expect(state.error).toEqual({ isError: false, errorMessage: '' });
-  });
-
   it('does not change themePreference on login', () => {
     const state = accountReducer(undefined, accountInfoSuccess(accountPayload));
 

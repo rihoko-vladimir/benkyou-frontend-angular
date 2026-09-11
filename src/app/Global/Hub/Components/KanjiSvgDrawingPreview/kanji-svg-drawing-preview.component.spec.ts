@@ -56,17 +56,21 @@ describe('KanjiSvgDrawingPreviewComponent', () => {
     expect(speakSpy).toHaveBeenCalledWith(expect.objectContaining({ text: '本' }));
   });
 
-  it('restarts the animation by re-appending the innerHTML', async () => {
+  it('restarts the animation by re-assigning the svgBox innerHTML', async () => {
     fixture.detectChanges();
 
     await vi.waitFor(() => {
       expect(component.svgBox.nativeElement.innerHTML).toContain('data-mock="stroke-order"');
     });
 
-    const before = component.svgBox.nativeElement.innerHTML;
+    const svgBefore = component.svgBox.nativeElement.querySelector('svg');
     (fixture.nativeElement.querySelector('.reset') as HTMLElement).click();
 
-    expect(component.svgBox.nativeElement.innerHTML).toBe(before + '');
+    // Re-assigning innerHTML re-parses the markup, so the SVG node is replaced
+    // with an identical fresh one — which is what restarts the animation.
+    const svgAfter = component.svgBox.nativeElement.querySelector('svg');
+    expect(svgAfter).not.toBeNull();
+    expect(svgAfter).not.toBe(svgBefore);
   });
 
   it('re-fetches the SVG on ngOnChanges once the box is already rendered', async () => {
@@ -87,5 +91,6 @@ describe('KanjiSvgDrawingPreviewComponent', () => {
   it('ngOnChanges is a no-op on the DOM when svgBox is not yet set', async () => {
     // Before detectChanges, the @ViewChild is undefined; ngOnChanges guards on it.
     await expect(component.ngOnChanges()).resolves.toBeUndefined();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

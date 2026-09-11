@@ -154,6 +154,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
       component.isLoading.set(true);
 
+      // The store can emit before its slice is populated; simulate that transient state.
       accountState$.next(undefined as unknown as IAccountState);
       fixture.detectChanges();
 
@@ -172,8 +173,12 @@ describe('LoginComponent', () => {
 
       expect(component.isSuccess()).toBe(true);
       expect(component.isLoading()).toBe(false);
+      expect(router.navigate).not.toHaveBeenCalled();
 
-      await vi.advanceTimersByTimeAsync(500);
+      await vi.advanceTimersByTimeAsync(499);
+      expect(router.navigate).not.toHaveBeenCalled();
+
+      await vi.advanceTimersByTimeAsync(1);
 
       expect(router.navigate).toHaveBeenCalledWith(['hub']);
       expect(component.isSuccess()).toBe(false);

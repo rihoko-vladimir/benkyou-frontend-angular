@@ -11,11 +11,11 @@ describe('ReadingsContainerComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('creates with default readings', () => {
+  it('creates with an empty default readings list', () => {
     fixture.detectChanges();
 
     expect(component).toBeTruthy();
-    expect(component.readings.length).toBeGreaterThan(0);
+    expect(component.readings).toEqual([]);
   });
 
   it('renders one speechable-reading per reading', () => {

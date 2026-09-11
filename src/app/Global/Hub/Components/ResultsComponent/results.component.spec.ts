@@ -52,5 +52,6 @@ describe('ResultsComponent', () => {
 
     expect(router.navigate).toHaveBeenCalledWith(['hub', 'my-sets']);
     expect(store.dispatch).toHaveBeenCalledWith(finishStudying());
+    expect(router.navigate.mock.invocationCallOrder[0]).toBeLessThan(store.dispatch.mock.invocationCallOrder[0]);
   });
 });

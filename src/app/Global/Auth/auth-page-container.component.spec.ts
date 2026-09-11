@@ -1,7 +1,11 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { AuthPageContainerComponent } from './auth-page-container.component';
+
+@Component({ template: '' })
+class TestRouteComponent {}
 
 describe('AuthPageContainerComponent', () => {
   let component: AuthPageContainerComponent;
@@ -10,7 +14,10 @@ describe('AuthPageContainerComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AuthPageContainerComponent],
-      providers: [provideRouter([]), provideNoopAnimations()]
+      providers: [
+        provideRouter([{ path: '', component: TestRouteComponent, data: { animation: 'authPage' } }]),
+        provideNoopAnimations()
+      ]
     });
 
     fixture = TestBed.createComponent(AuthPageContainerComponent);
@@ -25,5 +32,14 @@ describe('AuthPageContainerComponent', () => {
   it('returns undefined animation data when there is no active route context', () => {
     fixture.detectChanges();
     expect(component.getAuthRoutingAnimations()).toBeUndefined();
+  });
+
+  it('returns the animation data of the active child route', async () => {
+    fixture.detectChanges();
+
+    await TestBed.inject(Router).navigateByUrl('/');
+    fixture.detectChanges();
+
+    expect(component.getAuthRoutingAnimations()).toBe('authPage');
   });
 });

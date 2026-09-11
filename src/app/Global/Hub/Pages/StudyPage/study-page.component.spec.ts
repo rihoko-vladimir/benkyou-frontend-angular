@@ -117,7 +117,7 @@ describe('StudyPageComponent', () => {
       currentIndex: 2
     } as unknown as CdkDragDrop<string[]>);
 
-    expect(component.currentAllReadings()).toEqual(['さん', 'いち', 'に']);
+    expect(component.currentAllReadings()).toEqual(['に', 'さん', 'いち']);
   });
 
   it('transfers a reading into the target list when dropped across lists', () => {

@@ -89,7 +89,7 @@ describe('SetsApiService', () => {
       name: 'New set',
       description: 'desc',
       kanjiList: [{ kanjiChar: '一', kunyomiReadings: [{ reading: 'いち' }], onyomiReadings: [] }]
-    } as SetResponse;
+    };
 
     let result: Set | undefined;
     service.createSet(set).subscribe(r => (result = r));

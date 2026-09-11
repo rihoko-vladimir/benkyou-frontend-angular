@@ -18,6 +18,7 @@ describe('SetPasswordGuard', () => {
     guard = TestBed.inject(SetPasswordGuard);
   });
 
+  // The guard only reads queryParams, so a partial route snapshot is enough.
   const makeRoute = (queryParams: Record<string, string | null>) =>
     ({ queryParams }) as unknown as ActivatedRouteSnapshot;
 
@@ -49,6 +50,12 @@ describe('SetPasswordGuard', () => {
 
   it('redirects to auth when email is null', () => {
     guard.canActivate(makeRoute({ token: 'tok-1', email: null }));
+
+    expect(router.createUrlTree).toHaveBeenCalledWith(['auth']);
+  });
+
+  it('redirects to auth when the query params are absent entirely', () => {
+    guard.canActivate(makeRoute({}));
 
     expect(router.createUrlTree).toHaveBeenCalledWith(['auth']);
   });

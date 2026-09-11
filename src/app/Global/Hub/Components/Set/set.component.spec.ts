@@ -35,9 +35,6 @@ describe('SetComponent', () => {
     store = { dispatch: vi.fn() };
     mySetsService = { addSet: vi.fn() };
 
-    // MatDialogModule is imported by SetComponent itself, so its component-level
-    // MatDialog provider shadows any TestBed-level mock; the open method is
-    // replaced on the component's own instance instead.
     TestBed.configureTestingModule({
       imports: [SetComponent],
       providers: [
@@ -49,8 +46,12 @@ describe('SetComponent', () => {
 
     fixture = TestBed.createComponent(SetComponent);
     component = fixture.componentInstance;
-    dialog = { open: vi.fn() };
-    fixture.debugElement.injector.get(MatDialog).open = dialog.open as unknown as MatDialog['open'];
+
+    // MatDialogModule is imported by SetComponent itself, so its component-level
+    // MatDialog provider shadows any TestBed-level mock; the open method of the
+    // instance the component injects is spied on instead.
+    const injectedDialog = fixture.debugElement.injector.get(MatDialog);
+    dialog = { open: vi.spyOn(injectedDialog, 'open') };
     component.set = set;
     component.mode = 'owner';
     fixture.detectChanges();
