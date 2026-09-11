@@ -36,7 +36,7 @@ Build for production:
   ng build
 ```
 
-Run tests (Karma, requires Chrome):
+Run tests (Vitest):
 
 ```bash
   ng test

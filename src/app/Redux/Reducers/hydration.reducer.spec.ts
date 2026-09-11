@@ -1,5 +1,5 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
-import { vi, describe, beforeEach, it, expect } from 'vitest';
+import { vi, describe, beforeEach, afterEach, it, expect } from 'vitest';
 import AppState from '../app.state';
 import { hydrationMetaReducer } from './hydration.reducer';
 
@@ -17,6 +17,12 @@ describe('hydrationMetaReducer', () => {
     vi.spyOn(Storage.prototype, 'removeItem').mockImplementation((key: string) => {
       delete storage[key];
     });
+  });
+
+  // Storage.prototype is a shared global; without this the spies leak into the
+  // rest of the (non-isolated) run.
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   // setStudy and snackbar get dropped on serialization, so their contents are
@@ -66,6 +72,20 @@ describe('hydrationMetaReducer', () => {
 
   it('discards corrupt stored state and re-serializes the fresh state', () => {
     storage[storageKey] = '{not valid json';
+    const nextState = makeMockState();
+    const { meta, reducer } = createMetaReducer(nextState);
+
+    const result = meta(undefined, { type: INIT });
+
+    expect(result).toBe(nextState);
+    expect(reducer).toHaveBeenCalledTimes(1);
+    const persisted = JSON.parse(storage[storageKey] as string);
+    expect(persisted.setStudy).toBeUndefined();
+    expect(persisted.snackbar).toBeUndefined();
+    expect(persisted.account).toBeDefined();
+  });
+
+  it(`falls back to the reducer and persists the fresh state on ${INIT} when nothing is stored`, () => {
     const nextState = makeMockState();
     const { meta, reducer } = createMetaReducer(nextState);
 

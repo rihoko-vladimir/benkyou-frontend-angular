@@ -17,7 +17,7 @@ export class KanjiSvgDrawingPreviewComponent implements OnInit, OnChanges {
 
   constructor() {
     this.tts.rate = 0.9;
-    this.tts.lang = 'ja-JA';
+    this.tts.lang = 'ja-JP';
   }
 
   async ngOnInit() {
@@ -36,10 +36,8 @@ export class KanjiSvgDrawingPreviewComponent implements OnInit, OnChanges {
   }
 
   async ngOnChanges() {
+    if (!this.svgBox) return;
     const response = await fetch(`assets/kanji/${this.kanji.codePointAt(0)}.svg`);
-    const text = await response.text();
-    if (this.svgBox) {
-      this.svgBox.nativeElement.innerHTML = text;
-    }
+    this.svgBox.nativeElement.innerHTML = await response.text();
   }
 }

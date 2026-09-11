@@ -3,8 +3,17 @@ import Set from '../../Models/Set';
 import { KanjiRequest } from '../../Models/Requests/KanjiRequest';
 import { SetRequest } from '../../Models/Requests/SetRequest';
 import { KanjiResponse } from '../../Models/Responses/KanjiResponse';
+import { PagedSetsResponse } from '../../Models/Responses/PagedSetsResponse';
 import { SetResponse } from '../../Models/Responses/SetResponse';
-import { mapKanjiResponseToKanji, mapKanjiToKanjiRequest, mapSetResponseToSet, mapSetToSetRequest } from './converters';
+import { UserResponse } from '../../Models/Responses/UserResponse';
+import {
+  mapKanjiResponseToKanji,
+  mapKanjiToKanjiRequest,
+  mapPagedSetsResponseToPagedSets,
+  mapSetResponseToSet,
+  mapSetToSetRequest,
+  mapUserResponseToAccountState
+} from './converters';
 
 describe('converters', () => {
   describe('mapKanjiResponseToKanji', () => {
@@ -86,12 +95,59 @@ describe('converters', () => {
     });
   });
 
-  describe('Set default kanjiList', () => {
-    it('defaults kanjiList to three empty Kanji', () => {
-      const set = new Set();
+  describe('mapPagedSetsResponseToPagedSets', () => {
+    it('maps a paged response to sets and keeps the pagination metadata', () => {
+      const response: PagedSetsResponse = {
+        currentPage: 2,
+        pagesCount: 3,
+        setsCount: 4,
+        sets: [
+          {
+            id: 'set-1',
+            authorId: 'user-1',
+            name: 'Kanji set',
+            description: 'A description',
+            kanjiList: [{ kanjiChar: '一', kunyomiReadings: [{ reading: 'いち' }], onyomiReadings: [] }]
+          }
+        ]
+      };
 
-      expect(set.kanjiList.length).toBe(3);
-      set.kanjiList.forEach(kanji => expect(kanji).toEqual(new Kanji('', [], [])));
+      expect(mapPagedSetsResponseToPagedSets(response)).toEqual({
+        sets: [new Set('set-1', 'Kanji set', 'A description', '', 'user-1', [new Kanji('一', ['いち'], [])])],
+        pagesCount: 3,
+        currentPage: 2
+      });
+    });
+  });
+
+  describe('mapUserResponseToAccountState', () => {
+    it('maps a UserResponse to account state and clears the error flag', () => {
+      const userInfo: UserResponse = {
+        id: 'user-1',
+        firstName: 'Hana',
+        lastName: 'Kato',
+        userName: 'hana',
+        userRole: 'admin',
+        birthDay: '1990-01-01',
+        avatarUrl: 'https://avatar.test/hana.png',
+        isTermsAccepted: true,
+        isAccountPublic: false,
+        about: 'Learning kanji'
+      };
+
+      expect(mapUserResponseToAccountState(userInfo)).toEqual({
+        id: 'user-1',
+        firstName: 'Hana',
+        lastName: 'Kato',
+        userName: 'hana',
+        userRole: 'admin',
+        birthDay: '1990-01-01',
+        avatarUrl: 'https://avatar.test/hana.png',
+        isTermsAccepted: true,
+        isAccountPublic: false,
+        about: 'Learning kanji',
+        error: { isError: false, errorMessage: '' }
+      });
     });
   });
 });

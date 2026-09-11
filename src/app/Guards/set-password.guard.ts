@@ -14,7 +14,7 @@ export class SetPasswordGuard {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const token = route.queryParams['token'];
     const email = route.queryParams['email'];
-    if (token !== '' && email !== '' && token !== null && email !== null) return true;
+    if (token && email) return true;
     return this.router.createUrlTree(['auth']);
   }
 }
