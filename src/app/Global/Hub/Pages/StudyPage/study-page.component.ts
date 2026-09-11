@@ -43,9 +43,9 @@ export class StudyPageComponent {
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-
-    transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
     // CDK mutated the arrays in place; copy to new references so the
     // signals change and zoneless change detection is scheduled.

@@ -71,7 +71,7 @@ export class AccountOverviewComponent implements OnChanges {
   lastName = computed(() => this.accountState().lastName);
   avatarUrl = computed(() => this.accountState().avatarUrl);
   selectedFile = signal<File | undefined>(undefined);
-  fileImage = signal<ArrayBuffer | undefined>(undefined);
+  fileImage = signal<string | undefined>(undefined);
 
   constructor() {
     // The old subscribe callback cleared the pending file selection every
@@ -97,7 +97,7 @@ export class AccountOverviewComponent implements OnChanges {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = event => {
-        this.fileImage.set(event!.target!.result as ArrayBuffer);
+        this.fileImage.set(event!.target!.result as string);
       };
     }
   }

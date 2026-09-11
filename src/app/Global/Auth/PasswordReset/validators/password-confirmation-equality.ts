@@ -14,6 +14,11 @@ export function PasswordConfirmationEqualityValidator(
       passwordConfirmationControl.setErrors(error);
       return error;
     } else {
+      if (passwordConfirmationControl.hasError(PasswordConfirmationEqualityValidator.name)) {
+        const remainingErrors = { ...passwordConfirmationControl.errors };
+        delete remainingErrors[PasswordConfirmationEqualityValidator.name];
+        passwordConfirmationControl.setErrors(Object.keys(remainingErrors).length > 0 ? remainingErrors : null);
+      }
       return null;
     }
   };
