@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:ci": "ng test --watch=false",
+    "test:coverage": "ng test --watch=false --coverage --coverage-reporters=text-summary --coverage-reporters=html --coverage-include='src/**/*.ts'",
     "lint": "ng lint --format=html --output-file=report.html --max-warnings=0",
     "lint:dev": "ng lint --format=stylish"
   },
@@ -42,6 +43,7 @@
     "@angular/cli": "~22.1.6",
     "@angular/compiler-cli": "^22.1.4",
     "@eslint/js": "^9.39.5",
+    "@vitest/coverage-v8": "4.1.11",
     "angular-eslint": "^22.2.0",
     "eslint": "^10.9.1",
     "eslint-config-prettier": "^9.1.0",

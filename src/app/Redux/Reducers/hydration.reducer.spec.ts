@@ -79,6 +79,20 @@ describe('hydrationMetaReducer', () => {
     expect(persisted.account).toBeDefined();
   });
 
+  it(`falls back to the reducer and persists the fresh state on ${INIT} when nothing is stored`, () => {
+    const nextState = makeMockState();
+    const { meta, reducer } = createMetaReducer(nextState);
+
+    const result = meta(undefined, { type: INIT });
+
+    expect(result).toBe(nextState);
+    expect(reducer).toHaveBeenCalledTimes(1);
+    const persisted = JSON.parse(storage[storageKey] as string);
+    expect(persisted.setStudy).toBeUndefined();
+    expect(persisted.snackbar).toBeUndefined();
+    expect(persisted.account).toBeDefined();
+  });
+
   it('persists the next state for regular actions, dropping setStudy and snackbar', () => {
     const nextState = makeMockState();
     const { meta, reducer } = createMetaReducer(nextState);
