@@ -6,7 +6,7 @@
       </div>
     }
     @if (avatarUrl() !== "" && avatarUrl() !== null) {
-      <img [ngSrc]="avatarUrl()" alt="avatar" class="avatar" />
+      <img [ngSrc]="avatarUrl()" alt="avatar" class="avatar" width="32" height="32" />
     }
     <span class="mat-typography text-padding">{{ firstName() + " " + lastName() }}</span>
   </mat-expansion-panel-header>

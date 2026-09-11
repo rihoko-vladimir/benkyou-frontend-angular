@@ -34,7 +34,7 @@ export class ResultComponent implements OnInit {
     this.incorrectOnyomi = this.userOnyomi.filter(x => !this.correctOnyomi.includes(x));
     this.matchedKunyomi = this.correctKunyomi.filter(x => this.userKunyomi.includes(x));
     this.unmatchedKunyomi = this.correctKunyomi.filter(x => !this.userKunyomi.includes(x));
-    this.incorrectKunyomi = this.userOnyomi.filter(x => !this.correctOnyomi.includes(x));
+    this.incorrectKunyomi = this.userKunyomi.filter(x => !this.correctKunyomi.includes(x));
     this.isCorrect =
       this.unmatchedKunyomi.length === 0 &&
       this.incorrectKunyomi.length === 0 &&
